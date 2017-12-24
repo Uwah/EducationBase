@@ -1,0 +1,136 @@
+@charset "UTF-8";
+.container {
+    width: 100%;
+    position: relative;
+    min-height: 100%;
+    margin-bottom: 1.3rem;
+}
+.science-top {
+    position: relative;
+    height: 1.33rem;
+    background-color: #fff;
+    font-size: 0;
+    text-align: center;
+}
+.search-back {
+    border-top: 2px solid #595757;
+    border-left: 2px solid #595757;
+    transform: rotate(-45deg);
+    width: .34rem;
+    height: .34rem;
+    position: absolute;
+    top: calc(50% - 0.17rem);
+    left: .52rem;
+}
+.title-tip {
+    color: #030000;
+    font-size: .46rem;
+    line-height: 1.04rem;
+    width: 2.33rem;
+    height: 1.04rem;
+    text-align: center;
+    background-size: 100% 100%;
+    display: inline-block;
+    margin-top: .18rem;
+    background-image: url(../images/title-bg.png);
+}
+.science-list-type {
+    z-index: 9;
+    position: absolute;
+    display: inline-block;
+    width: .52rem;
+    height: .42rem;
+    background-size: 100% 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    right: .4rem;;
+}
+.list {
+    background-image: url(../images/list-type.png);
+}
+.cell {
+    background-image: url(../images/cell-type.png);
+}
+.science-list {
+    background-size: 100% 100%;
+    background-image: url(../images/kepuhuodong-bg.png);
+    height: 14.84rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+/*******cell******/
+.cell-type-list,.list-type-list {
+    display: flex;
+    justify-content: space-between;
+    padding: .34rem .3rem 0;
+    flex-wrap: wrap;
+    font-size: 0;
+}
+.cell-type {
+    margin-top: .14rem;
+    width: 3.26rem;
+    height: 4.2rem;
+    background-color: #fff;
+    font-size: 0;
+}
+.cell-img {
+    width: 100%;
+    height: 3.19rem;
+}
+.cell-detail {
+    padding: .12rem .12rem 0;
+    background-color: #fff;
+}
+.cell-detail span{
+    display: inline-block;
+    width: 100%;
+    line-height: 1;
+    position: relative;
+}
+.cell-position {
+    text-align: right;
+    color: #595757;
+    font-size: .18rem;
+}
+.cell-position-name {
+    font-size: .24rem;
+    text-align: left;
+    padding-top: .16rem;
+    font-weight: bold;
+    color: #3e3a39;
+}
+/**********list*********/
+.list-type-list {
+    padding: 0;
+}
+.list-type {
+    font-size: 0;
+    margin: 0 .5rem;
+    height: 2.3rem;
+    border-bottom: 1px solid #ada6a2;
+    display: flex;
+}
+.list-type-img {
+    width: 1.82rem;
+    height: 1.72rem;
+    align-self: center;
+}
+.list-type-content {
+    flex: 1;
+    padding-left:.3rem;
+}
+.list-type-title {
+    display: inline-block;
+    padding-top: .4rem;
+    color: #181818;
+    font-size: .36rem;
+    line-height: 1;
+    padding-bottom: .1rem;
+    font-weight: bold;
+}
+.list-type-content p{
+    color: #181818;
+    font-size: .28rem;
+    font-weight: bold;
+    line-height: 1.5;
+}

@@ -1,0 +1,401 @@
+@charset "UTF-8";
+.container {
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+}
+.knowledge-top {
+    position: relative;
+    height: 1.33rem;
+    background-color: #fff;
+    font-size: 0;
+    text-align: center;
+}
+.title-tip {
+    color: #030000;
+    font-size: .46rem;
+    line-height: 1.04rem;
+    width: 2.33rem;
+    height: 1.04rem;
+    text-align: center;
+    background-size: 100% 100%;
+    display: inline-block;
+    margin-top: .18rem;
+    background-image: url(../images/title-bg.png);
+}
+
+.search-back {
+    border-top: 2px solid #595757;
+    border-left: 2px solid #595757;
+    transform: rotate(-45deg);
+    width: .34rem;
+    height: .34rem;
+    position: absolute;
+    top: calc(50% - 0.17rem);
+    left: .52rem;
+}
+.knowledge-search {
+    display: inline-block;
+    width: 4.96rem;
+    height: .56rem;
+    margin-top: .47rem;
+}
+.search-form {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 9;
+}
+#nvg-search {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    color: #9d9d9e;
+    background-color: #f6f6f7;
+    padding-left: .32rem;
+    border-top-right-radius: .26rem;
+    border-bottom-right-radius: .26rem;
+    border-top-left-radius: .26rem;
+    border-bottom-left-radius: .26rem;
+}
+.search-icon {
+    display: inline-block;
+    width: .44rem;
+    height: .42rem;
+    background-image: url(../images/search.png);
+    background-size: 100% 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: .6rem;
+}
+.knowledge-content {
+    font-size: 0;
+    position: relative;
+}
+.konwledge-bg {
+    height: 4.13rem;
+    background-image: url(../images/konwledge-bg.png);
+    background-size: 100% 100%;
+}
+.konwledge-bg span {
+    color: #fff;
+    font-size: .26rem;
+    line-height: 1;
+    padding-top: .3rem;
+    padding-left: .3rem;
+}
+.konwledge-detail,.seasion-content,.answer-content,.history-out {
+    height: 12.14rem;
+    background-image: url(../images/know-bg.png);
+    background-size: 100% 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+    color: #3e3a39;
+    font-size: 0;
+}
+.info-detail {
+    padding: 1.3rem .8rem 0;
+}
+.konwledge-detail p {
+    font-size: .24rem;
+    line-height: 1.2;
+    text-indent: .4rem;
+    padding-bottom: 2px;
+}
+.knowledge-unit {
+    color: #3e3a39;
+    font-size: 0;
+    padding-left: .64rem;
+    padding-bottom: .74rem;
+}
+.unit-list, .show-info, .sign-up-method,.prizes {
+    padding-top: .4rem;
+}
+.unit-list li, .unit-name, .show-info, .show-time, .sign-up-method, 
+ .prizes span, .prizes-list li{
+    font-size: .24rem;
+    line-height: 1;
+}
+.unit-name,.show-time {
+    padding-left: .1rem;
+}
+.unit-list li,.prizes-list li {
+    padding-bottom: .1rem;
+}
+.unit-list li:last-child,.prizes-list li:last-child {
+    padding-bottom: 0;
+}
+.show-info,.sign-up-method,.prizes-list li {
+    display: inline-block;
+    width: 100%;
+}
+.prizes {
+    font-size: 0;
+}
+.prizes span,.prizes-list {
+    display: inline-block;
+    vertical-align: top;
+}
+.prizes-list {
+    padding-left: .1rem;
+}
+.partake {
+    width: 5.3rem;
+    height: 1.06rem;
+    border: 0;
+    color: #fff;
+    margin: 0 auto;
+    display: block;
+}
+/********seasion css**********/
+.seasion-count {
+    font-size: .4rem;
+}
+.seasion-content-top {
+    position: relative;
+    font-size: 0;
+    height: 4.5rem;
+}
+.seasion-img {
+    display: inline-block;
+    width: 2.28rem;
+    height: 3.4rem;
+    transform: rotate(-2deg);
+    margin-left: 1.1rem;
+    z-index: 9;
+    position: absolute;
+    margin-top: 1rem;
+}
+.seasion-info {
+    background-color: #fff;
+    font-size: 0;
+    text-align: right;
+    position: absolute;
+    height: 2.6rem;
+    left: 50%;
+    top: 1.4rem;
+    transform: translateX(-50%);
+    width: 5.8rem;
+    box-shadow: 6px 6px 2px #9d9d9d;
+}
+.seasion-info span {
+    font-size: .26rem;
+    color: #231815;
+    padding-right: .9rem;
+    line-height: 1;
+    display: block;
+}
+.seasion-info span:nth-child(1) {
+    padding-top: .9rem;
+}
+.seasion-info span:last-child{
+    padding-top: .3rem;
+}
+.prize-group {
+    font-size: 0;
+    position: relative;
+}
+.prize-name {
+    font-size: .38rem;
+    color: #231815;
+    line-height: 1;
+    padding-left: 1rem;
+    margin-top: 1.05rem;
+    position: relative;
+    font-weight: 500;
+}
+.prize-name:after {
+    content: "";
+    border-top: 2px solid #231815;
+    border-right: 2px solid #231815;
+    transform: rotate(45deg);
+    position: absolute;
+    margin-left: .4rem;
+    height: .2rem;
+    width: .2rem;
+    top: calc(50% - .11rem);
+}
+.student-group, .adult-group {
+    padding: 0 1rem;
+    font-size: 0;
+}
+.group-title {
+    font-size: .22rem;
+    line-height: 1;
+    color: #231815;
+    padding: .9rem 0 .3rem 0;
+}
+.name-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 0;
+}
+.name-list li{
+    font-size: .22rem;
+    line-height: 1;
+    color: #231815;
+    padding: .3rem .1rem 0 0;
+}
+/**************报名***************/
+.sginup-bg {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, .6);
+    position: fixed;
+}
+.sginup-frame {
+    width: 5.96rem;
+    height: 5rem;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    font-size: 0;
+    box-shadow: 6px 6px 2px #ccc;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.sginup-title {
+    color: #3e3a39;
+    font-size: .3rem;
+    line-height: 1;
+    padding: .27rem 0 .27rem .5rem;
+    position: relative;
+    border-bottom: 1px solid #5f64b1;
+}
+.sginup-title:before {
+    content: "";
+    width: 1.4rem;
+    height: .66rem;
+    position: absolute;
+    top: 50%;
+    margin-left: -0.13rem;
+    transform: translateY(-50%);
+    background-image: url(../images/title-bg.png);
+    background-size: 100% 100%;
+}
+.ipt-content {
+    padding: .35rem .5rem 0;
+}
+.sginup-form .ipt-content:nth-child(2) {
+    padding: .2rem .5rem 0;
+}
+.ipt-content label {
+    color: #3e3a39;
+    font-size: .26rem;
+    padding-bottom: .22rem;
+    display: inline-block;
+    width: 100%;
+}
+.sginup-ipt {
+    padding: .2rem .3rem;
+    width: calc(100% - .6rem);
+    border: 2px solid #bbbbbc;
+}
+.sgin-commit {
+    background-color: #6167b6;
+    color: #fff;
+    font-size: .26rem;
+    text-align: center;
+    padding: .2rem 1rem;
+    border: 0;
+    margin: .1rem auto 0;
+    display: block;
+    border-radius: 5px; 
+}
+/*****答题列表*******/
+.answer-content,.history-out {
+    position: relative;
+    background-color: #ebebeb;
+}
+.answer-item {
+    padding: .4rem 1.1rem 0;
+    font-size: 0;
+}
+.answer-title {
+    color: #231815;
+    font-size: .28rem;
+    line-height: 1;
+    font-weight: 500;
+    padding-bottom: .3rem;
+}
+.answer-head {
+    height: 1.86rem;
+    color: #fff;
+    line-height: 1.86rem;
+    background-color: #a2aac4;
+    padding-left: .5rem;
+    font-size: .32rem;
+    font-weight: bold;
+}
+.right-answer {
+    font-size: .46rem;
+    line-height: 1;
+}
+.answer-count {
+    font-size: .3rem;
+    line-height: 1;
+}
+.error-answer {
+    color: #e60012;
+}
+.answer-list li {
+    font-size: .28rem;
+    line-height: 1;
+    color: #231815;
+    padding: .32rem 0 .32rem .36rem; 
+    background-color: rgba(182, 216, 244, .4);
+    border-bottom: 1px solid #9c9ac7;
+}
+.answer-list li:last-child {
+    border-bottom: 0;
+}
+.answer-list li.active {
+    color: #fff;
+    background-color: #8ba8d4;
+}
+/*********往期竞赛*********/
+.history-knowledge {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.2rem;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.history-knowledge-type {
+    padding-top: .4rem;
+    font-size: 0;
+    padding: 0 .6rem 0 .4rem;
+    height: 2.1rem;
+    border-bottom: 1px solid #b3adaa;
+    display: flex;
+}
+.history-knowledge-type-img {
+    width: 1.84rem;
+    height: 1.78rem;
+    align-self: center;
+}
+.history-knowledge-type-content {
+    flex: 1;
+    padding-left:.5rem;
+    font-size: 0;
+}
+.history-knowledge-type-title,.sub-title,.history-knowledge-count {
+    display: inline-block;
+    padding-top: .16rem;
+    color: #070606;
+    font-size: .26rem;
+    line-height: 1;
+    width: 100%;
+}
+.history-knowledge-type-title {
+    padding-top: .4rem;
+}
+.history-knowledge-count {
+    padding-top: .24rem;
+}

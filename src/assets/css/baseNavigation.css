@@ -1,0 +1,286 @@
+@charset "UTF-8";
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.navigation-top {
+    position: relative;
+    height: 1.33rem;
+    background-color: #fff;
+    font-size: 0;
+    text-align: center;
+}
+.title-tip {
+    color: #030000;
+    font-size: .46rem;
+    line-height: 1.04rem;
+    width: 2.33rem;
+    height: 1.04rem;
+    text-align: center;
+    background-size: 100% 100%;
+    display: inline-block;
+    margin-top: .18rem;
+    background-image: url(../images/title-bg.png);
+}
+.search-back {
+    border-top: 2px solid #595757;
+    border-left: 2px solid #595757;
+    transform: rotate(-45deg);
+    width: .34rem;
+    height: .34rem;
+    position: absolute;
+    top: calc(50% - 0.17rem);
+    left: .52rem;
+}
+.navigation-search {
+    display: inline-block;
+    width: 4.96rem;
+    height: .56rem;
+    margin-top: .47rem;
+}
+.search-form {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 9;
+}
+#nvg-search {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    color: #9d9d9e;
+    background-color: #f6f6f7;
+    padding-left: .32rem;
+    border-top-right-radius: .26rem;
+    border-bottom-right-radius: .26rem;
+    border-top-left-radius: .26rem;
+    border-bottom-left-radius: .26rem;
+}
+.search-icon {
+    display: inline-block;
+    width: .44rem;
+    height: .42rem;
+    background-image: url(../images/search.png);
+    background-size: 100% 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: .6rem;
+}
+.search-base-banner {
+    height: 1.66rem;
+    background-color: #edf3f2;
+}
+#search-result {
+    /* width: 100%; */
+    padding: 0 .26rem;
+    height: 100%;
+}
+.swiper-wrapper {
+    align-items: center;
+    /* padding-left: .26rem; */
+}
+
+.swiper-slide {
+    width: 2.04rem;
+    height: .64rem;
+    color: #1d2088;
+    font-size: .3rem;
+    line-height: .64rem;
+    border-top-right-radius: .32rem;
+    border-bottom-right-radius: .32rem;
+    border-top-left-radius: .32rem;
+    border-bottom-left-radius: .32rem;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    box-sizing:border-box;
+	border:1px solid transparent;
+	background-clip:padding-box,border-box;
+	background-origin:padding-box,border-box;
+	background-image:linear-gradient(#fff,#fff),linear-gradient(#254288,#b5c2e0); 
+}
+.swiper-wrapper .active {
+    background: #1d2088;
+    background-image: linear-gradient(to top, #484599, #5284c4);
+    color: #fff;
+}
+.type-count {
+    width: .5rem;
+    height: .5rem;
+    border-radius: 50%;
+    background-color: #3d4e90;
+    color: #fff;
+    font-size: .2rem;
+    line-height: .5rem;
+    display: inline-block;
+    position: absolute;
+    top: -44%;
+    right: -10%;
+}
+.base-list li {
+    display: flex;
+    font-size: 0;
+    padding-bottom: .2rem;
+    border-bottom: 1px solid #f1f4f7;
+}
+.base-list li:last-child {
+    border-bottom: 0;
+}
+.base-icon {
+    display: inline-block;
+    width: .2rem;
+    height: .3rem;
+    background-size: 100% 100%;
+    margin: 0 .3rem;
+    align-self: flex-end;
+    background-image: url(../images/list-location-icon-active.png);
+}
+.base-info {
+    flex: 1;
+}
+.base-info h4 {
+    font-size: .4rem;
+    color: #615f5f;
+    line-height: 1;
+    padding-top: .32rem;
+    font-weight: 500;
+}
+.base-info span {
+    color: #9d9e9f;
+    font-size: .22rem;
+    line-height: 1;
+    padding-top: .1rem;
+    display: inline-block;
+}
+.direction {
+    padding-right: .36rem;
+    align-self: flex-end;
+    font-size: 0;
+}
+.dir-count {
+    color: #9d9e9f;
+    font-size: .22rem;
+    line-height: 1;
+    padding-top: .46rem;
+    padding-right: .28rem;
+    display: inline-block;
+}
+.direction-icon,.content-arrow {
+    display: inline-block;
+    width: .47rem;
+    height: .55rem;
+    background-size: 100% 100%;
+    background-image: url(../images/direction.png);
+    vertical-align: middle;
+}
+.no-search {
+    font-size: 0;
+}
+.search-tip {
+    font-size: .24rem;
+    line-height: 1;
+    text-align: center;
+    color: #767776;
+    padding-top: .2rem;
+    padding-bottom: .5rem;
+}
+.demo-search {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0;
+    padding: 0 1.5rem;
+}
+.demo-text {
+    color: #4585c6;
+    font-size: .24rem;
+    line-height: 1;
+    flex: 1;
+    text-align: center;
+    display: inline-block;
+}
+.demo-search-bottom {
+    padding-top: .7rem;
+}
+.search-info {
+    border-top: 1px solid #eeeded;
+}
+.search-info-list li {
+    display: flex;
+    padding-bottom: .1rem;
+    font-size: 0;
+}
+.info-icon {
+    width: .21rem;
+    height: .3rem;
+    background-size: 100% 100%;
+    background-image: url(../images/list-location-icon.png);
+    margin: 0 .2rem 0 .26rem;
+    align-self: flex-end;
+}
+.info-content {
+    flex: 1;
+    border-bottom: 1px solid #eeeded;
+    height: 100%;
+    display: flex;
+    padding-bottom: .1rem;
+    margin-bottom: -0.1rem;
+    margin-right: .54rem;
+    position: relative;
+}
+.contents {
+    flex: 1;
+}
+.contents h4 {
+    font-weight: 500;
+    color: #615f5f;
+    font-size: .3rem;
+    line-height: 1;
+    padding-top: .2rem;
+}
+.contents span {
+    display: inline-block;
+    font-size: .24rem;
+    color: #9f9fa0;
+    line-height: 1;
+    padding-top: .12rem;
+}
+.content-arrow {
+    position: absolute;
+    right: -.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.search-history {
+    padding-top: .1rem;
+}
+.search-history li{
+    font-size: 0;
+    padding-bottom: .16rem;
+    margin: 0 .54rem 0 .67rem;
+    border-bottom: 1px solid #eeeded;
+}
+.history-search-icon {
+    display: inline-block;
+    width: .31rem;
+    height: .29rem;
+    background-image: url(../images/list-search-icon.png);
+    background-size: 100% 100%;
+    margin-top: .37rem;
+}
+.history-search-name {
+    padding-left: .2rem;
+    padding-top: .37rem;
+    font-size: .24rem;
+    color: #9f9fa0;
+    line-height: 1;
+}

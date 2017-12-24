@@ -1,0 +1,389 @@
+@charset "UTF-8";
+.container {
+    width: 100%;
+    margin-bottom: 1.3rem;
+    position: relative;
+}
+.top-bar {
+    width: 100%;
+    height: 1.14rem;
+    background-color: rgba(18, 57, 169, .5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0;
+    text-align: center;
+    z-index: 99;
+}
+.return-back {
+    display: inline-block;
+    height: .2rem;
+    width: .2rem;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    transform: rotate(-45deg);
+    top: calc(50% - 0.1rem);
+    position: absolute;
+    left: 0.58rem;
+   
+}
+.base-title {
+    color: #fff;
+    font-size: .34rem;
+    line-height: 1.14rem;
+    font-family: "Microsoft YaHei";
+    width: 100%;
+    text-align: center;
+}
+.top-banner {
+    height: 4.74rem;
+}
+.swiper-container,.swiper-wrapper, .swiper-slide, .banner-img {
+    width: 100%;
+    height: 100%;
+}
+.swiper-pagination {
+    text-align: right;
+}
+.swiper-pagination-bullet {
+    background: #efeef3;
+}
+.swiper-pagination-bullet-active {
+    background: #8d8bad;
+}
+.swiper-pagination .swiper-pagination-bullet:last-child {
+    margin-right: .44rem;
+}
+.search-info {
+    width: 3rem;
+    height: .63rem;
+    border: 1px solid #c9c9ca;
+    z-index: 9;
+    margin: -0.32rem 0 0 .8rem;
+}
+.search-ipt {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    top: 0;
+    position: absolute;
+}
+.search-home-icon {
+    width: .32rem;
+    height: .34rem;
+    background-size: 100% 100%;
+    background-image: url('../images/home-search-icon.png');
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: .22rem;
+    display: inline-block;
+}
+.index-search {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 9;
+}
+input[type="search"]::-webkit-search-cancel-button{
+    display: none;
+    -webkit-appearance: none;
+}
+.base-info-list {
+    display: flex;
+    height: .9rem;
+    margin: 0 .22rem;
+    padding: .43rem 0;
+    border-bottom: 1px solid #454241;
+}
+.base-item {
+    flex: 1;
+    text-align: center;
+    color: #454241;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.base-item>p {
+    color: #454241;
+    font-size: .24rem;
+    line-height: 1;
+    padding-top: .24rem;
+    flex: 1;
+}
+.base-item:nth-child(2) {
+    border-left: 1px solid #454241;
+    border-right: 1px solid #454241;
+}
+.base-small-icon {
+    display: inline-flex;
+    width: .4rem;
+    height: .4rem;
+    background-size: 100% 100%;
+}
+.base-item:nth-child(1) .base-small-icon {
+    background-image: url(../images/location-small.png);
+}
+.base-item:nth-child(2) .base-small-icon {
+    background-image: url(../images/gift.png);
+}
+.base-item:nth-child(3) .base-small-icon {
+    background-image: url(../images/book.png);
+}
+.small-icon-text {
+    font-size: .26rem;
+}
+.base-survey,.base-navigation,.science-active,.knowledge-show {
+    padding-top: .4rem;
+}
+.survey-top, .navigation-top,.science-top,.home-knowledge-show-top {
+    text-align: center;
+    font-size: 0;
+    position: relative;
+}
+.survey-title, .navigation-title,.science-title,.knowledge-title {
+    color: #231815;
+    font-size: .46rem;
+    background-size: 100% 100%;
+    display: inline-block;
+    width: 2.45rem;
+    height: 1.13rem;
+    line-height: 1.13rem;
+}
+.survey-title {
+    background-image: url(../images/home-top-bg1.png);
+}
+.navigation-title {
+    position: relative;
+    background-image: url(../images/home-top-bg2.png);
+}
+.jump-href {
+    display: inline-block;
+    border-top: 2px solid #231815;
+    border-right: 2px solid #231815;
+    transform: rotate(45deg);
+    top: calc(50% - 0.15rem);
+    width: .32rem;
+    height: .32rem;
+    position: absolute;
+    right: .62rem;
+}
+.survey-content {
+    padding: .5rem .72rem .3rem;
+    font-size: 0;
+}
+.survey-content>p {
+    color: #231815;
+    font-size: .18rem;
+    line-height: 1.8;
+    text-indent: .4rem;
+}
+.under-line {
+    border-bottom: 2px solid #1a1517;
+    width: .81rem;
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: .08rem;
+}
+.base-locations {
+    display: flex;
+    align-items: center;
+    height: 1.4rem;
+    font-size: .26rem;
+    line-height: 1;
+    padding: .2rem .42rem 0;
+    justify-content: space-between;
+}
+.location-item {
+    border: 1px solid #b1b1b1;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 1.36rem;
+    height: 1.36rem;
+    box-sizing:border-box;
+}
+.base-count {
+    width: .34rem;
+    height: .34rem;
+    background-color: #254288;
+    border-radius: 50%;
+    color: #fff;
+    font-size: .16rem;
+    line-height: .34rem;
+    position: absolute;
+    top: .08rem;
+    right: .04rem;
+    text-align: center;
+}
+.location-item-active {
+    /* border-image: linear-gradient(#254288, #2c66a9) 30 30;
+    border-radius: 50%;  */
+    box-sizing:border-box;
+	border:1px solid transparent;
+	background-clip:padding-box,border-box;
+	background-origin:padding-box,border-box;
+	background-image:linear-gradient(#fff,#fff),linear-gradient(#254288,#b5c2e0);
+}
+.home-location-small {
+    width: .27rem;
+    height: .39rem;
+    background-size: 100% 100%;
+    display: inline-block;
+    margin-top: .27rem;
+}
+.home-location-small {
+    background-image: url(../images/home-location-small.png);
+}
+.home-location-small-active {
+    background-image: url(../images/home-loaction-small-active.png);
+}
+.location-item>p {
+    font-size: .26rem;
+    line-height: 1;
+    padding-top: .14rem;
+    text-align: center;
+    flex: 1;
+    font-weight: bold;
+}
+.base-map {
+    height: 4.7rem;
+    margin-top: .6rem;
+    margin-bottom: .7rem;
+}
+.science-active {
+    width: 100%;
+    height: 6.7rem;
+    background-size: 100% 100%;
+    background-image: url(../images/science-active.png);
+}
+.science-swiper {
+    margin-top: .6rem;
+    height: 3.5rem;
+}
+#science-swiper .science-info {
+    width: 5.26rem;
+    margin-left: .18rem;
+    position: relative;
+    font-size: 0;
+}
+.swiper-content-info {
+    position: absolute;
+    width: 100%;
+    height: 1.25rem;
+    font-size: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, .5);
+}
+.info-title,.info-content {
+    line-height: 1;
+    color: #231815;
+    display: inline-block;
+    width: 100%;
+    padding-left: .3rem;
+}
+.info-title {
+    padding-top: .34rem;
+    font-size: .26rem;
+}
+.info-content {
+    font-size: .2rem;
+    padding-top: .18rem;
+}
+.knowledge-show {
+    width: 100%;
+    height: 8.84rem;
+    background-size: 100% 100%;
+    background-image: url(../images/knowledge-show.png);
+    background-repeat: repeat-y;
+    font-size: 0;
+}
+.final-show  {
+    margin-top: .4rem;
+    margin-left: .74rem;
+    width: 5.6rem;
+    height: 3.6rem;
+    background-image: url(../images/home-zhishijingsai.png);
+    background-size: 100% 100%;
+    font-size: 0;
+}
+.show-year {
+    display: inline-block;
+    font-size: .16rem;
+    line-height: 1;
+    padding-left: 1.76rem;
+    padding-top: .3rem;
+    color: #fff;
+}
+.QRcode-visit {
+    background-color: #fff;
+    border: 1px solid #d1d1d1;
+    width: 5.6rem;
+    height: 1.8rem;
+    color: #231815;
+    font-size: 0;
+    margin-top: -0.42rem;
+    margin-left: 1.12rem;
+    display: flex;
+}
+.visit-info {
+    display: inline-block;
+    font-size: 0;
+    padding: .36rem 0 0 .3rem;
+    flex: 1;
+}
+.info-text {
+    font-size: .2rem;
+    line-height: 1;
+    padding-bottom: .2rem;
+    display: inline-block;
+}
+.info-text:last-child {
+    padding-bottom: 0;
+}
+.type-list {
+    display: inline-block;
+    font-size: 0;
+    position: absolute;
+}
+.types {
+    font-size: .2rem;
+    line-height: 1;
+    display: inline-block;
+    width: 100%;
+}
+.types:last-child {
+    padding-top: .06rem;
+}
+.visi-code {
+    display: inline-block;
+    width: 1.43rem;
+    height: 1.34rem;
+    margin: .28rem .14rem 0 0;
+}
+.season-list {
+    display: flex;
+    padding: .4rem .5rem 0;
+    justify-content: space-between;
+}
+.season {
+    width: 1.96rem;
+    height: 1.58rem;
+    font-size: .36rem;
+    line-height: 1.58rem;
+    text-align: center;
+    color: #fff;
+    background-size: 100% 100%;
+    -webkit-filter: grayscale(1);
+}
+.season:nth-child(1),.season:nth-child(3) {
+    background-image: url(../images/home-bottom-banner-filter.png);
+}
+.season:nth-child(2) {
+    background-image: url(../images/home-bottom-banner-filter2.png);
+}
