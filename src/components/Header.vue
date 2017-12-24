@@ -3,6 +3,7 @@
 		<div class="knowledge-top">
             <h3 class="title-tip seasion-count" v-show="titleStatus">{{title}}</h3>
             <go-back></go-back>
+            <!-- slot -->
 			<search :actionUrl="searchUrl" :isShowSearch="searchStatus" @search-data="getSearchData"></search>
 		</div>
 	</header>
@@ -15,7 +16,7 @@ export default {
   name: "titleTop",
   data(){
 	  return {
-		  searchUrl: "",
+		  searchUrl: "/topSearch",
 		  placeHolder: "请输入基地名称"
 	  }
   },

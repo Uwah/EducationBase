@@ -4,6 +4,7 @@
         <top-head></top-head>
         <div class="history-out">
             <div class="history-knowledge">
+                <!-- 往期列表 -->
                 <div class="history-knowledge-type">
                     <img src="../assets/images/cell-list-img.png" class="history-knowledge-type-img" alt="">
                     <div class="history-knowledge-type-content">
@@ -19,6 +20,8 @@
 </template>
 <script>
 import topHead from 'Header.vue';
+import goBack from 'goBack';
+import search from  'search';
 export default {
     data() {
         return {
@@ -26,7 +29,9 @@ export default {
         }
     },
     components:{
-       topHead
+        topHead,
+        goBack,
+        search
     }
 }
 </script>
