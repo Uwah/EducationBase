@@ -19,7 +19,7 @@
                 <div class="profile-title-list">
                     <div class="swiper-container" id="profile-list-swiper">
                         <div class="swiper-wrapper">
-                            <div :class="['swiper-slide',index==0?'active':'']" v-for="(item, index) in banners.types" :data-id="item.id">{{item.typeName}}</div>
+                            <div :class="['swiper-slide',index==0?'active':'']" v-for="(item, index) in banners.types" :key="index" :data-id="item.id">{{item.typeName}}</div>
                         </div>
                     </div>
                     <i :class="['content-type',contentType]" @click="profileChange"></i>

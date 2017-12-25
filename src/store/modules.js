@@ -4,6 +4,6 @@ export default {
     navStatus: false,
     scienceStatus: false,
     knowStatus: false,
-    isShowHead:true
-
+    isShowHead:true,
+    userToken: ""
 }

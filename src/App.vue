@@ -71,6 +71,7 @@ export default {
       this.pathname = this.$route.name;
       this.showhead(this.pathname);
       this.bottomActive(this.pathname);
+    //   this.$store.dispatch("userTokenAction");
   },
   computed:mapGetters(['count', 'isShowHead']),
   components : {

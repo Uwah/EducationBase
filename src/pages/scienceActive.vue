@@ -7,20 +7,21 @@
         </div>
         <div class="science-list">
             <div class="cell-type-list" v-if="showType == 'list'">
-                <div class="cell-type">
-                    <img src="../assets/images/base-list-img.png" class="cell-img" alt="">
+                <!--  @click="$router.push({name: 'articleDetail', params: {id: item.id, title: "科普活动"}})" -->
+                <div class="cell-type" :data-id="item.id" v-for="(item, index) in scienceList" :key="index">
+                    <img :src="item.fileName" class="cell-img" alt="">
                     <div class="cell-detail">
-                        <span class="cell-position">南湖区科技馆</span>
-                        <span class="cell-position-name">关于举办嘉兴市2017青少年</span>
+                        <span class="cell-position">{{item.title}}</span>
+                        <span class="cell-position-name">{{item.content}}</span>
                     </div>
                 </div>
             </div>
             <div class="list-type-list" v-if="showType == 'cell'">
-                <div class="list-type">
-                    <img src="../assets/images/cell-list-img.png" class="list-type-img" alt="">
+                <div class="list-type" :data-id="item.id" v-for="(item, index) in scienceList" :key="index">
+                    <img :src="item.fileName" class="list-type-img" alt="">
                     <div class="list-type-content">
-                        <span class="list-type-title">科普竞赛 </span>
-                        <p>关于举办嘉兴市2017青少年科技竞赛 本次活动集结嘉兴市各中小学杰出</p>
+                        <span class="list-type-title">{{item.title}}</span>
+                        <p>{{item.content}}</p>
                     </div>
                 </div>
             </div>
@@ -44,17 +45,14 @@ export default {
         },
         getScienceList() {
             this.$http.get('/notice').then( res => {
-                console.log(res);
+                this.scienceList = res.data.msg;
             }).catch(err => {
                 console.log(err, '科普活动')
             });
         }
     },
-    beforeRouteEntry(to, from, next) {
-        //判断登录状态 Vuex
-        
-    },
     mounted() {
+        console.log('enter mounted')
         this.getScienceList();
     },
     components: {

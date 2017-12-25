@@ -1,6 +1,6 @@
 <template>
     <div class="out" v-show="isShowSearch">
-        <div class="knowledge-search" v-show="isShowSearchForm">
+        <div class="knowledge-search" v-show="formStatus">
             <form :action="actionUrl" class="search-form">
                 <input type="search" v-model="keyword" name="knowledge-search" id="nvg-search" placeholder="请输入基地名称">
             </form>
@@ -14,7 +14,8 @@ export default {
     name: "search",
     data() {
         return {
-            keyword: ""
+            keyword: "",
+            formStatus: false
         }
     },
     props: {
@@ -45,12 +46,15 @@ export default {
         }
     },
     mounted(){
+        this.formStatus = this.isShowSearchForm;
     },
     methods: {
         
         getSearchInfo(e) {
             let _this = this;
-            
+            if(_this.isShowSearchForm === false) {
+                _this.$emit("search-data", '');
+            }
             console.log(_this.keyword);
             if(_this.keyword) {
                 _this.$http.post('/topSearch', {

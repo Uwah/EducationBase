@@ -179,8 +179,27 @@
     </div>
 </template>
 <script>
+import {mapGetters} from 'vuex';
 export default {
-  
+    name: "konwledgeShow",
+    data() {
+        return {
+            token: ''
+        }
+    },
+    // beforeRouteEnter(to, from, next) {
+    //     //判断登录状态 Vuex
+        
+    //     console.log('enter route');
+    //     next(vm => {
+    //         console.log(vm.$store.state.userToken)
+    //     })
+    // }
+    mounted() {
+        //this.$store.getters.getUserToken
+        console.log(this.$store.state.userToken)
+    },
+    computed:mapGetters(['getUserToken'])
 }
 </script>
 <style scoped>

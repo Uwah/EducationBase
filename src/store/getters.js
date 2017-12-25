@@ -1,8 +1,5 @@
 export default {
-    count:state => { //state里面包含数据
-        return state.count;
-    },
-    homeActive:state =>{
+    homeActive:state =>{//state里面包含数据
     	return state.homeStatus;
     },
     baseActive: state => {
@@ -19,6 +16,9 @@ export default {
     },
     isShowHead:state => {
     	return state.isShowHead;
+    },
+    getUserToken: state => {
+        return state.userToken
     }
 
 

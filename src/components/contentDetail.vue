@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="content-top">
-            <h3 class="content-title-tip seasion-count"><!--  第25期-->知识竞赛</h3>
+            <h3 class="content-title-tip seasion-count"><!--  第25期-->基地概况</h3>
             <go-back></go-back>
         </div>
         <div class="profile-detail">

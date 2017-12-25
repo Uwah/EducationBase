@@ -54,6 +54,9 @@ const mutations = {
         state.homeStatus = false;
         state.foundActive = false;
         state.mineActive = false;
+    },
+    userToken(state, tokenInfo) {
+        state.userToken = tokenInfo;
     }
 };
 

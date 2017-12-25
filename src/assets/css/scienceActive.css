@@ -109,6 +109,7 @@
     height: 2.3rem;
     border-bottom: 1px solid #ada6a2;
     display: flex;
+    width: 100%;
 }
 .list-type-img {
     width: 1.82rem;
