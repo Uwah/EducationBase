@@ -1,13 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../components/Home';
-import Detail from '../components/Detail.vue';
-import Found from '../components/Found.vue';
-import UserCenter from '../components/UserCenter.vue';
-import BottomNav from '../components/BottomNav.vue';
-import Login from '../components/Login.vue';
-import Register from '../components/Register.vue';
-import indexHome from '../pages/indexHome';
 
 
 Vue.use(VueRouter);
@@ -19,13 +11,11 @@ const routes = [
     {path: '/knowledgeShow', component: resolve => require(["../pages/scienceActive"],  resolve),name:"knowledgeShow"},
     {path: '/scienceActive', component: resolve => require(["../pages/knowledgeShow"],  resolve),name:"scienceActive"},
 
-    
-    {path:'/home', component:Home, name:"home"},
-    {path:'/detail/:id', component:Detail, name:"detail"},
-    {path:'/found', component:Found, name:"found"},
-    {path:'/userCenter', component:UserCenter, name:"userCenter"},
-    {path:'/user-login', component:Login},
-    {path:'/user-reg', component:Register},
+    {path:'/articleDetail/:id', component: resolve => require(['../components/contentDetail'], resolve), name:"articleDetail"},
+    {path:'/competitionList', component: resolve => require(['../components/competitionList'], resolve), name:"competitionList"},
+    {path:'/competitionDetail', component: resolve => require(['../components/competitionDetail'], resolve), name:"competitionDetail"},
+    {path:'/winnerList', component: resolve => require(['../components/winnerList'], resolve), name:"winnerList"},
+    {path:'/answerList', component: resolve => require(['../components/answerList'], resolve), name:"answerList"}
     
 ];
 

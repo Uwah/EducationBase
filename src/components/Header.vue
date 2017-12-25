@@ -4,7 +4,7 @@
             <h3 class="title-tip seasion-count" v-show="titleStatus">{{title}}</h3>
             <go-back></go-back>
             <!-- slot -->
-			<search :actionUrl="searchUrl" :isShowSearch="searchStatus" @search-data="getSearchData"></search>
+			<search :actionUrl="searchUrl" :topType="topType" :isShowSearch="searchStatus" @search-data="getSearchData"></search>
 		</div>
 	</header>
 </template>
@@ -17,7 +17,8 @@ export default {
   data(){
 	  return {
 		  searchUrl: "/topSearch",
-		  placeHolder: "请输入基地名称"
+		  placeHolder: "请输入基地名称",
+		  topType: 2
 	  }
   },
   props: {

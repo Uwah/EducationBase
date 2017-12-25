@@ -57,7 +57,7 @@
 </template>
 <script>
 export default {
-
+//判断登录状态 Vuex
 }
 </script>
 <style scoped>

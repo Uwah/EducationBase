@@ -29,28 +29,39 @@ export default {
     }
   },
   methods:{
-      showhead(pathname) {
-          console.log(pathname)
-          if(pathname === "home" || pathname === "found") {
-              this.$store.dispatch('isshead');
-          } else {
-              this.$store.dispatch('hidehead');
-          }
-      },
-      bottomActive(pathname) {
-        if(pathname === "indexHome") {
-              this.$store.dispatch('homestate');
-          } else if(pathname === "earthBaseProfile") {
-              this.$store.dispatch("basestate");
-          } else if(pathname === "baseNavigation") {
-              this.$store.dispatch("navstate");
-          } else if(pathname === "knowledgeShow") {
-              this.$store.dispatch("knowstate");
-          } else if(pathname === "scienceActive") {
-              this.$store.dispatch("sciencestate");
-          } else {
-            this.$store.dispatch("detail");
-          }
+        showhead(pathname) {
+            console.log(pathname)
+            if(pathname === "home" || pathname === "found") {
+                this.$store.dispatch('isshead');
+            } else {
+                this.$store.dispatch('hidehead');
+            }
+        },
+        bottomActive(pathname) {
+            switch(pathname) {
+                case "indexHome":
+                    this.$store.dispatch('homestate');
+                break;
+                case "earthBaseProfile":
+                case "articleDetail":
+                    this.$store.dispatch("basestate");
+                break;
+                case "baseNavigation":
+                    this.$store.dispatch("navstate");
+                break;
+                case "knowledgeShow":
+                    this.$store.dispatch("knowstate");
+                break;
+                case "scienceActive":
+                case "competitionList":
+                case "competitionDetail":
+                case "winnerList":
+                case "answerList":
+                    this.$store.dispatch("sciencestate");
+                break;
+                default:
+                break;
+            }
       },
       getHomeSearch(e) {
           console.log(e);

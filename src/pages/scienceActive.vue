@@ -50,6 +50,10 @@ export default {
             });
         }
     },
+    beforeRouteEntry(to, from, next) {
+        //判断登录状态 Vuex
+        
+    },
     mounted() {
         this.getScienceList();
     },

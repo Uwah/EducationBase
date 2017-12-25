@@ -1,7 +1,7 @@
 <template>
     <!-- 知识竞赛列表 -->
     <div class="competition">
-        <top-head></top-head>
+        <!-- <top-head></top-head> -->
         <div class="history-out">
             <div class="history-knowledge">
                 <!-- 往期列表 -->
@@ -19,9 +19,9 @@
     
 </template>
 <script>
-import topHead from 'Header.vue';
-import goBack from 'goBack';
-import search from  'search';
+// import topHead from 'Header.vue';
+import goBack from './goBack';
+import search from  './search';
 export default {
     data() {
         return {
@@ -29,7 +29,6 @@ export default {
         }
     },
     components:{
-        topHead,
         goBack,
         search
     }

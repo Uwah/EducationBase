@@ -23,7 +23,7 @@
     </div>
 </template>
 <script>
-import goBack from 'goBack';
+import goBack from './goBack';
 export default {
     data() {
         return {

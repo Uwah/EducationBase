@@ -33,6 +33,11 @@ export default {
             require: false,
             default: true
         },
+        topType: {
+            type: Number,
+            require: false,
+            default: 0
+        },
         isShowSeachIcon:{
             type: Boolean,
             require: false,
@@ -47,7 +52,21 @@ export default {
             let _this = this;
             
             console.log(_this.keyword);
-            _this.$emit("search-data", _this.keyword);
+            if(_this.keyword) {
+                _this.$http.post('/topSearch', {
+                    topType: _this.topType,
+                    title: _this.keyword
+                }).then( res => {
+                    console.log(res)
+                    _this.$emit("search-data", res);
+                }).catch( err => {
+                    _this.$emit("search-data", err);
+                    console.log(err);
+
+                })
+                
+            }
+            
             // this.$http.get('').then(res => {
             //     _this.$emit("search-data", res);
             // }).catch( err => {

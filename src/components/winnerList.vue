@@ -55,7 +55,7 @@ export default {
 <style scoped>
     .seasion-content {
         height: 12.14rem;
-        background-image: url(../images/know-bg.png);
+        background-image: url(../assets/images/know-bg.png);
         background-size: 100% 100%;
         overflow-x: hidden;
         overflow-y: auto;
