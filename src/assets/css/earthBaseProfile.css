@@ -72,7 +72,7 @@
 }
 .swiper-slide img {
     width: 100%;
-    height: 100%;
+    height: 3.28rem;
 }
 .swiper-pagination-bullet {
     background: #e1e1e1;
@@ -185,30 +185,30 @@
     color: #3e3a39;
 }
 /*********list*******/
-.list-type {
+.earth-list-type {
     margin-top: .12rem;
     height: 2.2rem;
     border-bottom: 1px solid #b5afab;
     display: flex;
 }
-.list-type-img {
+.earth-list-type .list-type-img {
     width: 1.97rem;
     height: 1.9rem;
     align-self: center;
 }
-.list-type-content {
+.earth-list-type .list-type-content {
     flex: 1;
     padding: 0 .1rem 0 .3rem;
 }
-.list-type-title {
+.earth-list-type .list-type-title {
     display: inline-block;
-    padding-top: .4rem;
+    padding-top: .3rem;
     color: #59514d;
     font-size: .28rem;
     line-height: 1;
     padding-bottom: .1rem;
 }
-.list-type-content p{
+.earth-list-type .list-type-content p{
     color: #727172;
     font-size: .18rem;
     line-height: 1.8;

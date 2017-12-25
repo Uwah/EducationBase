@@ -64,7 +64,7 @@ const webpackConfig = {
     noInfo: true,
     proxy: [
         {
-            context: ['/index', '/psActivities', '/searchType','/searchJd','/topSearch','/winners' ,'/notice'],
+            context: ['/index', '/psActivities', '/searchType','/searchJd','/topSearch','/winners' ,'/notice', '/getBaseSummary'],
             target: 'http://47.96.147.227',
             changeOrigin: true,
             secure: false

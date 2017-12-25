@@ -61,5 +61,84 @@ export default {
 }
 </script>
 <style scoped>
-
+    .knowledge-content {
+        font-size: 0;
+        position: relative;
+    }
+    .konwledge-bg {
+        height: 4.13rem;
+        background-image: url(../assets/images/konwledge-bg.png);
+        background-size: 100% 100%;
+    }
+    .konwledge-bg span {
+        color: #fff;
+        font-size: .26rem;
+        line-height: 1;
+        padding-top: .3rem;
+        padding-left: .3rem;
+    }
+    .konwledge-detail {
+        height: 12.14rem;
+        background-image: url(../assets/images/know-bg.png);
+        background-size: 100% 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        margin-bottom: 1.5rem;
+        color: #3e3a39;
+        font-size: 0;
+    }
+    .info-detail {
+        padding: 1.3rem .8rem 0;
+    }
+    .konwledge-detail p {
+        font-size: .24rem;
+        line-height: 1.2;
+        text-indent: .4rem;
+        padding-bottom: 2px;
+    }
+    .knowledge-unit {
+        color: #3e3a39;
+        font-size: 0;
+        padding-left: .64rem;
+        padding-bottom: .74rem;
+    }
+    .unit-list, .show-info, .sign-up-method,.prizes {
+        padding-top: .4rem;
+    }
+    .unit-list li, .unit-name, .show-info, .show-time, .sign-up-method, 
+    .prizes span, .prizes-list li{
+        font-size: .24rem;
+        line-height: 1;
+    }
+    .unit-name,.show-time {
+        padding-left: .1rem;
+    }
+    .unit-list li,.prizes-list li {
+        padding-bottom: .1rem;
+    }
+    .unit-list li:last-child,.prizes-list li:last-child {
+        padding-bottom: 0;
+    }
+    .show-info,.sign-up-method,.prizes-list li {
+        display: inline-block;
+        width: 100%;
+    }
+    .prizes {
+        font-size: 0;
+    }
+    .prizes span,.prizes-list {
+        display: inline-block;
+        vertical-align: top;
+    }
+    .prizes-list {
+        padding-left: .1rem;
+    }
+    .partake {
+        width: 5.3rem;
+        height: 1.06rem;
+        border: 0;
+        color: #fff;
+        margin: 0 auto;
+        display: block;
+    }
 </style>

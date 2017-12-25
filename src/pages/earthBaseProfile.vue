@@ -9,10 +9,8 @@
             <div class="profile-banner">
                 <div class="swiper-container" id="profile-banner">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide"><a href=""><img src="../assets/images/base-top-banner.png" /></a></div>
-                        <div class="swiper-slide"><a href=""><img src="../assets/images/base-top-banner.png" /></a></div>
-                        <div class="swiper-slide"><a href=""><img src="../assets/images/base-top-banner.png" /></a></div>
-                        <div class="swiper-slide"><a href=""><img src="../assets/images/base-top-banner.png" /></a></div>
+                        <div class="swiper-slide" v-for="(item, index) in banners.banners" :key="index"
+                        ><a href=""><img :src="item.fileName" /></a></div>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -21,13 +19,7 @@
                 <div class="profile-title-list">
                     <div class="swiper-container" id="profile-list-swiper">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide active">科技馆</div>
-                            <div class="swiper-slide">博物馆</div>
-                            <div class="swiper-slide">农业基地</div>
-                            <div class="swiper-slide">动物园</div>
-                            <div class="swiper-slide">企业</div>
-                            <div class="swiper-slide">体育馆</div>
-                            <div class="swiper-slide">科研基地</div>
+                            <div :class="['swiper-slide',index==0?'active':'']" v-for="(item, index) in banners.types" :data-id="item.id">{{item.typeName}}</div>
                         </div>
                     </div>
                     <i :class="['content-type',contentType]" @click="profileChange"></i>
@@ -44,11 +36,11 @@
                     </div>
                 </div>
                 <div class="list-list-content" v-if="contentType == 'list'">
-                    <div class="list-type">
+                    <div class="earth-list-type">
                         <img src="../assets/images/cell-list-img.png" class="list-type-img" alt="">
                         <div class="list-type-content">
                             <span class="list-type-title">嘉兴市五四文化博物馆</span>
-                            <p>南京理工大学是2006年4月国家教育部批准增科技大学等104所学校61个国家大学生文化素质教育基地之一。为加强我校大学生素质文化教育工作...</p>
+                            <p>南京理工大学是2006年4月国家教育部批准增科技大学等104所学校61个国家大学生文化素质教育基地之一...</p>
                         </div>
                     </div>
                 </div>
@@ -85,28 +77,22 @@ export default {
             isShowSearchIcon: true,
             contentType: "cell",
             profileList: [],
+            banners: {},
             type: 1
         }
     },
     mounted() {
-        this.$http.get(`/searchType?type=${this.type}`).then(res => {
-            console.log(res)
-        }).catch(err => {
-            console.log(err, "基地导航");
-        });
-        this.$http.get(`/searchJd?id=${this.type}`).then(res => {
-            console.log(res)
-        }).catch(err => {
-            console.log(err, "基地导航");
-        });
+        this.getBannerinfoList();
+        this.getAllEarthBase(1);
         new Swiper("#profile-banner", {
             autoplay: true,
-            loop: true,
+            observer:true,
             pagination: {
                 el: '.swiper-pagination',
             }
         });
         new Swiper("#profile-list-swiper", {
+            observer:true,
             slidesPerView: 4,
             spaceBetween: 20
         });
@@ -123,6 +109,31 @@ export default {
         },
         profileChange(e) {
             this.contentType = this.contentType ==='cell' ? 'list': 'cell';
+        },
+        getAllEarthBase(type) {
+            this.$http.get(`/searchType?searchType=${type}`).then(res => {
+                console.log(1111);
+                console.log(res)
+            }).catch(err => {
+                console.log(err, "基地导航");
+            });
+        },
+        searchEarthBase(type) {
+            this.$http.get(`/searchJd?searchJd=${type}`).then(res => {
+                console.log(222222);
+                console.log(res);
+            }).catch(err => {
+                console.log(err, "基地导航");
+            });
+        },
+        getBannerinfoList() {
+            let _this = this;
+            this.$http.get('/getBaseSummary').then( res => {
+                console.log('0000000000000000000');
+                _this.banners = res.data.msg;
+            }).catch( err => {
+                console.log(err, "获取基地概况banner失败")
+            })
         }
     },
     components: {

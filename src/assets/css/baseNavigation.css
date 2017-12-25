@@ -82,7 +82,7 @@
     /* padding-left: .26rem; */
 }
 
-.swiper-slide {
+.search-base-banner .swiper-slide {
     width: 2.04rem;
     height: .64rem;
     color: #1d2088;
@@ -109,7 +109,7 @@
 	background-origin:padding-box,border-box;
 	background-image:linear-gradient(#fff,#fff),linear-gradient(#254288,#b5c2e0); 
 }
-.swiper-wrapper .active {
+.search-base-banner .swiper-wrapper .active {
     background: #1d2088;
     background-image: linear-gradient(to top, #484599, #5284c4);
     color: #fff;

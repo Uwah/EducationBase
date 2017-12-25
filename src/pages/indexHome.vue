@@ -155,7 +155,7 @@ export default {
         },
         baseCheck(e) {
             if(e.target.hasAttribute('data-baseid')) {
-                console.log(e.getAttribute('data-baseid'))
+                console.log(e.target.getAttribute('data-baseid'))
             } else {
                 console.log(e.target.parentElement.getAttribute('data-baseid'));
             }
