@@ -50,7 +50,7 @@
                 <a href="javascript:;" class="jump-href" @click="$router.push({path: '/baseNavigation'})"></a>
             </div>
             <div class="base-locations">
-                <div class="swiper-container" id="base-locations" @click="baseCheck">
+                <div class="swiper-container" id="base-locations" @click="checkBaseMap">
                     <div class="swiper-wrapper">
                         <div :class="['swiper-slide', 'location-item', baseIndex == index?'location-item-active':'' ]" 
                         v-for="(item, index) in indexData.types" :data-baseid="item.id" :key="index">
@@ -61,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="base-map"></div>
+            <div class="base-map" id="baseMap"></div>
         </div>
         <div class="science-active">
             <div class="science-top">
@@ -123,6 +123,7 @@ export default {
         }
     },
     mounted() {
+        document.body.scrollTop=0;
         this.$http.get('/index').then(res => {
             this.indexData = res.data.msg;
         }).catch(err => {
@@ -146,6 +147,9 @@ export default {
             spaceBetween: 20,
             observer:true
         });
+        let map = new BMap.Map("baseMap");
+        var point = new BMap.Point(116.404, 39.915);  // 创建点坐标  
+        map.centerAndZoom(point, 15);   
     },
     methods: {
         knowledgeCheck(e) {
@@ -154,12 +158,18 @@ export default {
         scienceBaseCheck(e) {
             console.log(e);
         },
-        baseCheck(e) {
+        checkBaseMap(e) {
+            let baseid = 0, _this = this;
             if(e.target.hasAttribute('data-baseid')) {
-                console.log(e.target.getAttribute('data-baseid'))
+                baseid = e.target.getAttribute('data-baseid');
             } else {
-                console.log(e.target.parentElement.getAttribute('data-baseid'));
+                baseid = e.target.parentElement.getAttribute('data-baseid');
             }
+            _this.$http.get(`/searchJd?id=${baseid}`).then( res => {
+                console.log(res);
+            }).catch( err => {
+                console.log(err);
+            });
         },
         homeSearch(e) {
             console.log('home search: ', this.homeSearchData)
@@ -169,30 +179,5 @@ export default {
     }
 }
 </script>
-<style scoped>
-@import '../assets/css/indexHome.css';
-@-webkit-keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(70.14%, 0, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(70.14%,0, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-.fadeInUp {
-  animation-name: fadeInUp;
-}
-</style>
+<style src="../assets/css/indexHome.css" scoped></style>
 

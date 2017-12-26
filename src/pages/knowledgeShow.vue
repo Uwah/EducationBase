@@ -39,6 +39,7 @@ export default {
         }
     },
     methods: {
+        
         cellListChange(e) {
             console.log(e);
             this.showType = this.showType === 'list'?'cell':'list';
@@ -52,6 +53,7 @@ export default {
         }
     },
     mounted() {
+        document.body.scrollTop=0;
         console.log('enter mounted')
         this.getScienceList();
     },
@@ -60,7 +62,5 @@ export default {
     }
 }
 </script>
-<style scoped>
-    @import '../assets/css/scienceActive.css';
-</style>
+<style src="../assets/css/scienceActive.css" scoped></style>
 

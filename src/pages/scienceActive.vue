@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="knowledge-top">
-            <h3 class="title-tip seasion-count"><!--  第25期-->知识竞赛</h3>
+            <h3 class="title-tip seasion-count">知识竞赛</h3>
             <div class="search-back"></div>
             <div class="knowledge-search" style="display: none;">
                 <form action="" class="search-form">
@@ -34,6 +34,7 @@ export default {
     //     // })
     // },
     mounted() {
+        document.body.scrollTop=0;
         //this.$store.state.userToken
         if(localStorage.getItem('userToken') === '' || localStorage.getItem('userToken') === undefined) {
             this.$router.push({name: 'competitionDetail'});
@@ -45,5 +46,5 @@ export default {
 }
 </script>
 <style scoped>
-    @import '../assets/css/knowledgeShow.css';
+@import url('../assets/css/knowledgeShow.css');
 </style>

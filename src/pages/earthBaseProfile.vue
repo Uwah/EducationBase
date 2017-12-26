@@ -67,6 +67,7 @@ export default {
         }
     },
     mounted() {
+        document.body.scrollTop=0;
         this.getBannerinfoList();
         this.getAllEarthBase(1);
         new Swiper("#profile-banner", {
@@ -128,7 +129,4 @@ export default {
     }
 }
 </script>
-<style>
-
-@import '../assets/css/earthBaseProfile.css';
-</style>
+<style src="../assets/css/earthBaseProfile.css" scoped></style>

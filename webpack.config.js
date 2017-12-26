@@ -59,6 +59,9 @@ const webpackConfig = {
           '@': resolve('src')
     }
   },
+  externals: {
+      "BMap": "BMap"
+  },
   devServer: {
     historyApiFallback: true,
     noInfo: true,

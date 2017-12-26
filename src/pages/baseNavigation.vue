@@ -120,12 +120,26 @@
     </div>
 </template>
 <script>
+const Swiper = require("../assets/script/util/swiper.min.js");
 export default {
+    data() {
+        return {
 
+        }
+    },
+    mounted() {
+        document.body.scrollTop=0;
+        new Swiper("#search-result", {
+            slidesPerView: 3,
+            spaceBetween: 13,
+            observer:true
+        })
+    },
+    methods: {
+
+    }
 }
 </script>
-<style scoped>
-    @import '../assets/css/baseNavigation.css';
-</style>
+<style src="../assets/css/baseNavigation.css" scoped></style>
 
 
