@@ -57,6 +57,9 @@ const mutations = {
     },
     userToken(state, tokenInfo) {
         state.userToken = tokenInfo;
+    },
+    changeLastUrl(state, url) {
+        state.fromUrl = url;
     }
 };
 

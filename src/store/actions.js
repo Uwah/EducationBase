@@ -36,6 +36,8 @@ export default {
         } else {
             commit('userToken', userToken)
         }
-        
+    },
+    lastUrl: ({commit}, url) => {
+        commit('changeLastUrl', url)
     }
 }

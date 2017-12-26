@@ -13,20 +13,20 @@
         </div>
         <div class="search-info">
             <form action="" class="index-search">
-                <input type="search" autocomplete="off" name="index-search" class="search-ipt" placeholder="搜索您需要的内容">
-                <i class="search-home-icon"></i>
+                <input type="search" v-model="homeSearchData" autocomplete="off" name="index-search" class="search-ipt" placeholder="搜索您需要的内容">
+                <i class="search-home-icon" @click="homeSearch"></i>
             </form>
         </div>
         <div class="base-info-list">
-            <div class="base-item">
+            <div class="base-item" @click="$router.push({path: '/baseNavigation'})">
                 <i class="base-small-icon"></i>
                 <p class="small-icon-text">基地导航</p>
             </div>
-            <div class="base-item">
+            <div class="base-item" @click="$router.push({path: '/knowledgeShow'})">
                 <i class="base-small-icon"></i>
                 <p class="small-icon-text">科普活动</p>
             </div>
-            <div class="base-item">
+            <div class="base-item" @click="$router.push({path: '/scienceActive'})">
                 <i class="base-small-icon"></i>
                 <p class="small-icon-text">知识竞赛</p>
             </div>
@@ -34,7 +34,7 @@
         <div class="base-survey">
             <div class="survey-top">
                 <div class="survey-title">基地概况</div>
-                <a href="" class="jump-href"></a>
+                <a href="javascript:;" class="jump-href" @click="$router.push({path: '/earthBaseProfile'})"></a>
             </div>
             <div class="survey-content">
                 <p>嘉兴市科学技术协会（以下简称市科协）是由市级学会、协会、研究会、 市属企业事业单位科协和地方科协组成的科学技术工作者的群众组织，市委 领导下的人民团体，是党和政府联系科技工作者的桥梁、纽带和发展科技事业助手。</p>
@@ -47,7 +47,7 @@
         <div class="base-navigation">
             <div class="navigation-top">
                 <div class="navigation-title">基地导航<span class="under-line"></span></div>
-                <a href="" class="jump-href"></a>
+                <a href="javascript:;" class="jump-href" @click="$router.push({path: '/baseNavigation'})"></a>
             </div>
             <div class="base-locations">
                 <div class="swiper-container" id="base-locations" @click="baseCheck">
@@ -66,7 +66,7 @@
         <div class="science-active">
             <div class="science-top">
                 <div class="science-title">科普活动<span class="under-line"></span></div>
-                <a href="" class="jump-href"></a>
+                <a href="javascript:;" class="jump-href" @click="$router.push({path: '/knowledgeShow'})"></a>
             </div>
             <div class="science-swiper">
                 <div class="swiper-container" id="science-swiper" @click="scienceBaseCheck">
@@ -85,7 +85,7 @@
         <div class="knowledge-show">
             <div class="home-knowledge-show-top">
                 <div class="knowledge-title">知识竞赛<span class="under-line"></span></div>
-                <a href="" class="jump-href"></a>
+                <a href="javascript:;" class="jump-href" @click="$router.push({path: '/scienceActive'})"></a>
             </div>
             <div class="final-show">
                 <span class="show-year">2017年XXX</span>
@@ -118,7 +118,8 @@ export default {
     data() {
         return {
             indexData: {},
-            baseIndex: 0
+            baseIndex: 0,
+            homeSearchData: ''
         }
     },
     mounted() {
@@ -159,6 +160,9 @@ export default {
             } else {
                 console.log(e.target.parentElement.getAttribute('data-baseid'));
             }
+        },
+        homeSearch(e) {
+            console.log('home search: ', this.homeSearchData)
         }
     },
     components: {

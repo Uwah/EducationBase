@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-      <!-- <Head :title="title" :backStatus="backStatus" :searchStatus="searchStatus" :titleStatus="titleStatus" 
-      @search-data="getHomeSearch" v-show="isShowHead"></Head> -->
-
       <router-view></router-view>
       <bottom-nav></bottom-nav>
   </div>
@@ -20,12 +17,7 @@ export default {
   name: 'app',
   data () {
     return {
-      pathname:'',
-      title: "嘉兴市科普基地",
-      backStatus: true,
-      searchStatus: true,
-      titleStatus: false,
-      searchDatas: ""
+        pathname:''
     }
   },
   methods:{
@@ -78,11 +70,12 @@ export default {
       bottomNav
   },
   watch:{
-      $route(to, from) {
-          this.pathname = to.name;
-          this.showhead(this.pathname);
-          this.bottomActive(this.pathname);
-      }
+    $route(to, from) {
+        this.pathname = to.name;
+    //   this.showhead(this.pathname);
+        this.$store.dispatch('lastUrl', from.name);
+        this.bottomActive(this.pathname);
+    }
   }
 }
 </script>

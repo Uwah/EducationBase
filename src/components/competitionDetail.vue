@@ -1,40 +1,46 @@
 <template>
-    <div class="knowledge-content">
-        <div class="konwledge-bg">
-            <span>2017年XXXX</span>
+    <div class="competitionDetail">
+        <div class="knowledge-top">
+            <h3 class="title-tip seasion-count">知识竞赛</h3>
+            <go-back></go-back>
         </div>
-        <div class="konwledge-detail info-detail">
-            <p>
-                在国家大力提倡科技兴国，教育兴国的大背景下,在**市大力加强初高中青少年的文化知识尤其是科学知识的教育环境下，由**市科协发起，
-                与市教育局联合**市多所初中高中院校主办开展科学知识竞赛活动，由北京博安文化传播有限公司做大赛承办方。
-            </p>
-            <p>
-                全市初中及高中院校学生正处在人生最重要的学习成长阶段，是祖国未来一代社会中坚力量的关键准备期人才，是**市社会经济文化建设的接班人和未来力量。
-            </p>
-            <p>
-                初中及高中院校学生正面临中考高考，需要加强学习补充各方面科学知识，本次科普知识竞赛的内容丰富，包括生物、人文、地理、物理、化学、天文历史等等。
-            </p>
-            <p>
-                科普知识竞赛以生动活泼的方式，寓教于乐的特点，紧贴实事，普及科技前沿的理念，让参赛的同学能够领略无穷的乐趣，沐浴在浩瀚的知识海洋之中。
-            </p>
-            <div class="knowledge-unit">
-                <ul class="unit-list">
-                    <li>主办单位:<span class="unit-name">***教育局</span><span class="unit-name">***科技协会</span></li>
-                    <li>承办单位:<span class="unit-name">***有限公司(**分公司)</span></li>
-                    <li>赞助单位:<span class="unit-name">***有限公司</span></li>
-                </ul>
-                <span class="show-info">竞赛时间:<span class="show-time">2017年10月1日-2017年11月1日</span></span>
-                <span class="sign-up-method">报名方式: 点击页面下方“立即参与”</span>
-                <div class="prizes">
-                    <span>奖项设立:</span>
-                    <ul class="prizes-list">
-                        <li>一等奖:</li>
-                        <li>二等奖:</li>
-                        <li>三等奖:</li>
-                    </ul>
-                </div>
+        <div class="knowledge-content">
+            <div class="konwledge-bg">
+                <span>2017年XXXX</span>
             </div>
-            <button class="partake">立即参与</button>
+            <div class="konwledge-detail info-detail">
+                <p>
+                    在国家大力提倡科技兴国，教育兴国的大背景下,在**市大力加强初高中青少年的文化知识尤其是科学知识的教育环境下，由**市科协发起，
+                    与市教育局联合**市多所初中高中院校主办开展科学知识竞赛活动，由北京博安文化传播有限公司做大赛承办方。
+                </p>
+                <p>
+                    全市初中及高中院校学生正处在人生最重要的学习成长阶段，是祖国未来一代社会中坚力量的关键准备期人才，是**市社会经济文化建设的接班人和未来力量。
+                </p>
+                <p>
+                    初中及高中院校学生正面临中考高考，需要加强学习补充各方面科学知识，本次科普知识竞赛的内容丰富，包括生物、人文、地理、物理、化学、天文历史等等。
+                </p>
+                <p>
+                    科普知识竞赛以生动活泼的方式，寓教于乐的特点，紧贴实事，普及科技前沿的理念，让参赛的同学能够领略无穷的乐趣，沐浴在浩瀚的知识海洋之中。
+                </p>
+                <div class="knowledge-unit">
+                    <ul class="unit-list">
+                        <li>主办单位:<span class="unit-name">***教育局</span><span class="unit-name">***科技协会</span></li>
+                        <li>承办单位:<span class="unit-name">***有限公司(**分公司)</span></li>
+                        <li>赞助单位:<span class="unit-name">***有限公司</span></li>
+                    </ul>
+                    <span class="show-info">竞赛时间:<span class="show-time">2017年10月1日-2017年11月1日</span></span>
+                    <span class="sign-up-method">报名方式: 点击页面下方“立即参与”</span>
+                    <div class="prizes">
+                        <span>奖项设立:</span>
+                        <ul class="prizes-list">
+                            <li>一等奖:</li>
+                            <li>二等奖:</li>
+                            <li>三等奖:</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="partake">立即参与</button>
+            </div>
         </div>
         <!-- 报名弹框  -->
         <div class="sginup-bg" style="display: none;">
@@ -56,8 +62,25 @@
     </div>
 </template>
 <script>
-export default {
+
+import goBack from './goBack';
 //判断登录状态 Vuex
+export default {
+    data() {
+        return {
+            title: "知识竞赛",
+            titleStatus: true,
+            searchStatus: false
+        }
+    },
+    components: {
+        goBack
+    },
+    methods: {
+        searchInfoData(e) {
+            console.log(e);
+        }
+    }
 }
 </script>
 <style scoped>

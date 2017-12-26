@@ -1,66 +1,49 @@
 <template>
     <div class="container">
-        <div class="science-top">
-            <go-back></go-back>
-            <h3 class="title-tip">科普活动</h3>
-            <i :class="['science-list-type', showType]" @click="cellListChange"></i>
-        </div>
-        <div class="science-list">
-            <div class="cell-type-list" v-if="showType == 'list'">
-                <!--  @click="$router.push({name: 'articleDetail', params: {id: item.id, title: "科普活动"}})" -->
-                <div class="cell-type" :data-id="item.id" v-for="(item, index) in scienceList" :key="index">
-                    <img :src="item.fileName" class="cell-img" alt="">
-                    <div class="cell-detail">
-                        <span class="cell-position">{{item.title}}</span>
-                        <span class="cell-position-name">{{item.content}}</span>
-                    </div>
-                </div>
+        <div class="knowledge-top">
+            <h3 class="title-tip seasion-count"><!--  第25期-->知识竞赛</h3>
+            <div class="search-back"></div>
+            <div class="knowledge-search" style="display: none;">
+                <form action="" class="search-form">
+                    <input type="search" name="knowledge-search" id="nvg-search" placeholder="请输入基地名称">
+                </form>
             </div>
-            <div class="list-type-list" v-if="showType == 'cell'">
-                <div class="list-type" :data-id="item.id" v-for="(item, index) in scienceList" :key="index">
-                    <img :src="item.fileName" class="list-type-img" alt="">
-                    <div class="list-type-content">
-                        <span class="list-type-title">{{item.title}}</span>
-                        <p>{{item.content}}</p>
-                    </div>
-                </div>
-            </div>
+            <i class="search-icon"></i>
         </div>
-    </div>
+    </div>    
 </template>
 <script>
-import goBack from '../components/goBack';
 export default {
+    name: "konwledgeShow",
     data() {
         return {
-            showType: 'list',
-            scienceList: []
-
+            token: ''
         }
     },
-    methods: {
-        cellListChange(e) {
-            console.log(e);
-            this.showType = this.showType === 'list'?'cell':'list';
-        },
-        getScienceList() {
-            this.$http.get('/notice').then( res => {
-                this.scienceList = res.data.msg;
-            }).catch(err => {
-                console.log(err, '科普活动')
-            });
-        }
-    },
+    // beforeRouteEnter(to, from, next) {
+    //     //判断登录状态 Vuex
+    //     // beforeRouteEnter----> mounted----->next
+    //     console.log('enter route');
+    //     console.log(from);
+    //     // next(vm => {
+    //     //     if(localStorage.getItem('userToken') === '' || localStorage.getItem('userToken') === undefined) {
+    //     //         vm.$router.push({});
+    //     //     }
+    //     //     console.log(vm.$store.getters.getUserToken)
+    //     //     console.log(vm.$store.state.userToken)
+    //     // })
+    // },
     mounted() {
-        console.log('enter mounted')
-        this.getScienceList();
-    },
-    components: {
-        goBack
+        //this.$store.state.userToken
+        if(localStorage.getItem('userToken') === '' || localStorage.getItem('userToken') === undefined) {
+            this.$router.push({name: 'competitionDetail'});
+        } else {
+            this.$router.push({name: 'answerList'});
+        }
+        console.log(this.$store.getters.getUserToken)
     }
 }
 </script>
 <style scoped>
-    @import '../assets/css/scienceActive.css';
+    @import '../assets/css/knowledgeShow.css';
 </style>
-

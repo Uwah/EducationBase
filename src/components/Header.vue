@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import goBack from 'goBack';
+import goBack from './goBack';
 import search from './search.vue';
 export default {
   name: "titleTop",

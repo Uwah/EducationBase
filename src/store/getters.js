@@ -19,7 +19,8 @@ export default {
     },
     getUserToken: state => {
         return state.userToken
+    },
+    getFromUrl: state => {
+        return state.fromUrl
     }
-
-
 }

@@ -5,7 +5,9 @@
 export default {
     methods: {
         backLastPage(e) {
-            window.history.go(-1);
+			console.log(this.$store.getters.getFromUrl);
+			this.$router.push({name: this.$store.getters.getFromUrl})
+            // window.history.go(-1);
         }
     }
 }

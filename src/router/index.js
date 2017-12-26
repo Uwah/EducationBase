@@ -8,8 +8,8 @@ const routes = [
     {path: '/indexHome', component: resolve => require(["../pages/indexHome"],  resolve),name:"indexHome"},
     {path: '/earthBaseProfile', component: resolve => require(["../pages/earthBaseProfile"],  resolve),name:"earthBaseProfile"},
     {path: '/baseNavigation', component: resolve => require(["../pages/baseNavigation"],  resolve),name:"baseNavigation"},
-    {path: '/knowledgeShow', component: resolve => require(["../pages/scienceActive"],  resolve),name:"knowledgeShow"},
-    {path: '/scienceActive', component: resolve => require(["../pages/knowledgeShow"],  resolve),name:"scienceActive"},
+    {path: '/scienceActive', component: resolve => require(["../pages/scienceActive"],  resolve),name:"scienceActive"},
+    {path: '/knowledgeShow', component: resolve => require(["../pages/knowledgeShow"],  resolve),name:"knowledgeShow"},
 
     {path:'/articleDetail/:id', component: resolve => require(['../components/contentDetail'], resolve), name:"articleDetail"},
     {path:'/competitionList', component: resolve => require(['../components/competitionList'], resolve), name:"competitionList"},

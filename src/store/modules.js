@@ -5,5 +5,6 @@ export default {
     scienceStatus: false,
     knowStatus: false,
     isShowHead:true,
-    userToken: ""
+    userToken: "",
+    fromUrl: ""
 }
