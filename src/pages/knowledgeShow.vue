@@ -179,7 +179,6 @@
     </div>
 </template>
 <script>
-import {mapGetters} from 'vuex';
 export default {
     name: "konwledgeShow",
     data() {
@@ -189,17 +188,25 @@ export default {
     },
     // beforeRouteEnter(to, from, next) {
     //     //判断登录状态 Vuex
-        
+        // beforeRouteEnter----> mounted----->next
     //     console.log('enter route');
     //     next(vm => {
+    //         if(localStorage.getItem('userToken') === '' || localStorage.getItem('userToken') === undefined) {
+    //             vm.$router.push({});
+    //         }
+    //         console.log(vm.$store.getters.getUserToken)
     //         console.log(vm.$store.state.userToken)
     //     })
-    // }
+    // },
     mounted() {
-        //this.$store.getters.getUserToken
-        console.log(this.$store.state.userToken)
-    },
-    computed:mapGetters(['getUserToken'])
+        //this.$store.state.userToken
+        if(localStorage.getItem('userToken') === '' || localStorage.getItem('userToken') === undefined) {
+            this.$router.push({name: 'competitionDetail'});
+        } else {
+            this.$router.push({name: 'answerList'});
+        }
+        console.log(this.$store.getters.getUserToken)
+    }
 }
 </script>
 <style scoped>

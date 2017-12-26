@@ -1,5 +1,5 @@
 <template>
-    <div class="answer-content" style="display: none;">
+    <div class="answer-content">
         <div class="answer-head">
             恭喜您，共答对<span class="right-answer">12</span>题，共<span class="total-answer">15</span>题
         </div>
@@ -50,7 +50,7 @@ export default {
         background-size: 100% 100%;
         overflow-x: hidden;
         overflow-y: auto;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.23rem;
         color: #3e3a39;
         font-size: 0;
     }

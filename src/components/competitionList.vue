@@ -43,7 +43,7 @@ export default {
         background-size: 100% 100%;
         overflow-x: hidden;
         overflow-y: auto;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.23rem;
         color: #3e3a39;
         font-size: 0;
     }

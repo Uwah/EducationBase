@@ -1,5 +1,5 @@
 <template>
-    <div class="seasion-content" style="display: none;">
+    <div class="seasion-content">
         <div class="seasion-content-top">
             <img src="" class="seasion-img" alt="">
             <div class="seasion-info">
@@ -59,7 +59,7 @@ export default {
         background-size: 100% 100%;
         overflow-x: hidden;
         overflow-y: auto;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.23rem;
         color: #3e3a39;
         font-size: 0;
     }

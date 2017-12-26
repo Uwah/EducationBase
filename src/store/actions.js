@@ -29,7 +29,13 @@ export default {
     },
     userTokenAction: ({ commit }) => {
         //后台请求获取userToken localstorage中保存，没有就请求，有就直接用
-        let userToken = '14asdadadaa54d54a4d8as';
-        commit('userToken', userToken)
+        let userToken = '';
+        localStorage.setItem('userToken', userToken);
+        if(localStorage.getItem('userToken')) {
+
+        } else {
+            commit('userToken', userToken)
+        }
+        
     }
 }

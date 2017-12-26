@@ -40,8 +40,6 @@ export default {
 </script>
 
 <style>
-    @import '../assets/css/bottomIcon/bottomIcon.css';
-    @import '../assets/css/bottomIcon/iconfont.css';
     @media(-webkit-min-device-pixel-ratio:1.5),(min-device-pixel-ratio:1.5) {
         .bottom-fixed:before {
             content: " ";
@@ -106,14 +104,4 @@ export default {
         color: #39f;
 
     }
-    .icon{
-      font-size: .512rem;
-      color:#39f;
-      display: inherit;
-      -webkit-transition: font-size 0.25s ease-out 0s;
-      -moz-transition: font-size 0.25s ease-out 0s;
-      transition: font-size 0.25s ease-out 0s;
-
-    }
-
 </style>
