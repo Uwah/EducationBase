@@ -153,7 +153,8 @@ export default {
     },
     methods: {
         knowledgeCheck(e) {
-            console.log(e.target.getAttribute('data-season'));
+            let target = e.target;
+            this.$router.push({name: "competitionList", params: {seasonId: target.getAttribute('data-season'), title: target.innerText}});
         },
         scienceBaseCheck(e) {
             console.log(e);

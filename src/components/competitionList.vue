@@ -1,16 +1,21 @@
 <template>
     <!-- 知识竞赛列表 -->
     <div class="competition">
-        <!-- <top-head></top-head> -->
+        <div class="knowledge-top">
+            <h3 class="title-tip seasion-count" v-show="!searchObj.isShowSearchForm">{{season.title}}</h3>
+            <go-back></go-back>
+            <search :actionUrl="searchObj.actionUrl" :isShowSearch="searchObj.isShowSearch" 
+            :isShowSearchForm="searchObj.isShowSearchForm" @search-data="searchSeasionData" :topType="searchObj.topType" :isShowSeachIcon="searchObj.isShowSeachIcon"></search>
+        </div>
         <div class="history-out">
             <div class="history-knowledge">
                 <!-- 往期列表 -->
-                <div class="history-knowledge-type">
-                    <img src="../assets/images/cell-list-img.png" class="history-knowledge-type-img" alt="">
+                <div class="history-knowledge-type" :data-id="item.id" v-for="(item, index) in season.list" :key="index"> 
+                    <img :src="item.fileName" class="history-knowledge-type-img" alt="">
                     <div class="history-knowledge-type-content">
-                        <span class="history-knowledge-type-title">第25期</span>
-                        <span class="sub-title">生活知识竞赛</span>
-                        <span class="history-knowledge-count">参与人数：756</span>
+                        <span class="history-knowledge-type-title">第{{item.periods}}期</span>
+                        <span class="sub-title">{{item.title}}</span>
+                        <span class="history-knowledge-count">参与人数：{{item.indiProfile}}</span>
                     </div>
                 </div>
             </div>
@@ -25,16 +30,70 @@ import search from  './search';
 export default {
     data() {
         return {
+            searchObj: {
+                actionUrl: '',
+                isShowSearch: true,
+                isShowSearchForm: false,
+                topType: 4,
+                isShowSearchIcon: true
+            },
+            season: {
+                title: '',
+                list: []
+            },
 
         }
     },
     components:{
         goBack,
         search
+    },
+    mounted() {
+        document.body.scrollTop=0;
+        this.getSeasionList();
+    },
+    methods: {
+        getSeasionList() {
+             //    /psActivities 是查询往期接口
+             let params = this.$route.params;
+            console.log(params.seasonId);
+            this.$http.get('/psActivities').then( res => {
+                this.season.title = params.title;
+                this.season.list = res.data.msg;
+            }).catch( err => {
+                console.error(err, 'competitionList')
+            });
+        },
+        searchSeasionData(data) {
+           if(data==='') {
+               this.searchObj.isShowSearchForm = true;
+           } else {
+               this.season.list = data;
+           }
+        }
     }
 }
 </script>
 <style scoped>
+    .knowledge-top {
+        position: relative;
+        height: 1.33rem;
+        background-color: #fff;
+        font-size: 0;
+        text-align: center;
+    }
+    .title-tip {
+        color: #030000;
+        font-size: .46rem;
+        line-height: 1.04rem;
+        width: 2.33rem;
+        height: 1.04rem;
+        text-align: center;
+        background-size: 100% 100%;
+        display: inline-block;
+        margin-top: .23rem;
+        background-image: url(../assets/images/title-bg.png);
+    }
     .history-out{
         position: relative;
         background-color: #ebebeb;

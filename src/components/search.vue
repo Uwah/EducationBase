@@ -1,6 +1,6 @@
 <template>
     <div class="out" v-show="isShowSearch">
-        <div class="knowledge-search" v-show="formStatus">
+        <div class="knowledge-search" v-show="isShowSearchForm">
             <form :action="actionUrl" class="search-form">
                 <input type="search" v-model="keyword" name="knowledge-search" id="nvg-search" placeholder="请输入基地名称">
             </form>
@@ -76,6 +76,11 @@ export default {
             // }).catch( err => {
             //     console.error("查询失败", err);
             // });
+        }
+    },
+    watch: {
+        formStatus: function(newVal, oldVal) {
+            console.log(newVal, oldVal);
         }
     }
 }
