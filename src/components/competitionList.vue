@@ -10,7 +10,7 @@
         <div class="history-out">
             <div class="history-knowledge">
                 <!-- 往期列表 -->
-                <div class="history-knowledge-type" :data-id="item.id" v-for="(item, index) in season.list" :key="index"> 
+                <div class="history-knowledge-type" @click="$router.push({name: 'winnerList',params:{id:item.id}})" :data-id="item.id" v-for="(item, index) in season.list" :key="index"> 
                     <img :src="item.fileName" class="history-knowledge-type-img" alt="">
                     <div class="history-knowledge-type-content">
                         <span class="history-knowledge-type-title">第{{item.periods}}期</span>
@@ -70,6 +70,9 @@ export default {
            } else {
                this.season.list = data;
            }
+        },
+        checkWinnerList(e) {
+            console.log(e.target.getAttribute('data-id'))
         }
     }
 }

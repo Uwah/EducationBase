@@ -1,58 +1,108 @@
 <template>
-    <div class="seasion-content">
-        <div class="seasion-content-top">
-            <img src="" class="seasion-img" alt="">
-            <div class="seasion-info">
-                <span class="seasion-title">生活知识竞赛</span>
-                <span class="seasion-number">参与人数：756</span>
-            </div>
+    <div class="winnerList">
+        <div class="knowledge-top">
+            <h3 class="title-tip seasion-count" v-show="!winnerObj.isShowSearchForm">{{title}}</h3>
+            <go-back></go-back>
+            <search :actionUrl="winnerObj.actionUrl" :isShowSearch="winnerObj.isShowSearch" 
+            :isShowSearchForm="winnerObj.isShowSearchForm" @search-data="searchWinnerData" :topType="winnerObj.topType" :isShowSeachIcon="winnerObj.isShowSeachIcon"></search>
         </div>
-        <div class="prize-group">
-            <h4 class="prize-name">获奖名单</h4>
-            <div class="student-group">
-                <h4 class="group-title">中学生组</h4>
-                <ul class="student name-list">
-                    <li>陈胤捷</li>
-                    <li>胡一天</li>
-                    <li>林静晓</li>
-                    <li>林静晓</li>
-                    <li>陈胤捷</li>
-                    <li>胡一天</li>
-                    <li>林静晓</li>
-                    <li>陈胤捷</li>
-                    <li>胡一天</li>
-                    <li>林静晓</li>
-                    <li>陈胤捷</li>
-                    <li>胡一天</li>
-                    <li>林静晓</li>
-                </ul>
+        <div class="seasion-content">
+            <div class="seasion-content-top">
+                <img src="" class="seasion-img" alt="">
+                <div class="seasion-info">
+                    <span class="seasion-title">{{winner.title}}</span>
+                    <span class="seasion-number">参与人数：{{winner.count}}</span>
+                </div>
             </div>
-            <div class="adult-group">
-                <h4 class="group-title">成人组</h4>
-                <ul class="adult name-list">
-                    <li>张庭振</li>
-                    <li>赵梓帆</li>
-                    <li>殷恬歌</li>
-                    <li>张庭振</li>
-                    <li>赵梓帆</li>
-                    <li>殷恬歌</li>
-                    <li>张庭振</li>
-                    <li>赵梓帆</li>
-                    <li>殷恬歌</li>
-                    <li>张庭振</li>
-                    <li>赵梓帆</li>
-                    <li>殷恬歌</li>
-                </ul>
+            <div class="prize-group">
+                <h4 class="prize-name">获奖名单</h4>
+                <div class="student-group">
+                    <ul class="student name-list">
+                        <li>陈胤捷</li>
+                        <li>胡一天</li>
+                        <li>林静晓</li>
+                        <li>林静晓</li>
+                        <li>陈胤捷</li>
+                        <li>胡一天</li>
+                        <li>林静晓</li>
+                        <li>陈胤捷</li>
+                        <li>胡一天</li>
+                        <li>林静晓</li>
+                        <li>陈胤捷</li>
+                        <li>胡一天</li>
+                        <li>林静晓</li>
+                    </ul>
+                </div>
+                
             </div>
         </div>
     </div>
 </template>
 <script>
+import goBack from './goBack';
+import search from  './search';
 export default {
-
+    data() {
+        return {
+            winnerObj: {
+                actionUrl: '',
+                isShowSearch: true,
+                isShowSearchForm: false,
+                topType: 4,
+                isShowSearchIcon: true
+            },
+            winner: {
+                title: '',
+                list: [],
+                count: 0
+            },
+            title: ''
+        }
+    },
+    components: {
+        goBack,
+        search
+    },
+    mounted() {
+        // console.log(this.$route.params.id)
+        let params = this.$route.params;
+        this.title = params.title;
+        this.getWinnerList(params.id);
+    },
+    methods: {
+        searchWinnerData(e) {
+            console.log(e);
+        },
+        getWinnerList(id) {
+            this.$http.get(`/winners?id=${id}`).then( res => {
+                this.winner = res.data.msg;
+            }).catch( err => {
+                console.log(err);
+            });
+        }
+    }
 }
 </script>
 <style scoped>
+    .knowledge-top {
+        position: relative;
+        height: 1.33rem;
+        background-color: #fff;
+        font-size: 0;
+        text-align: center;
+    }
+    .title-tip {
+        color: #030000;
+        font-size: .46rem;
+        line-height: 1.04rem;
+        width: 2.33rem;
+        height: 1.04rem;
+        text-align: center;
+        background-size: 100% 100%;
+        display: inline-block;
+        margin-top: .23rem;
+        background-image: url(../assets/images/title-bg.png);
+    }
     .seasion-content {
         height: 12.14rem;
         background-image: url(../assets/images/know-bg.png);

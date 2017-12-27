@@ -88,7 +88,7 @@
                 <a href="javascript:;" class="jump-href" @click="$router.push({path: '/scienceActive'})"></a>
             </div>
             <div class="final-show">
-                <span class="show-year">2017年XXX</span>
+                <!-- <span class="show-year">2017年XXX</span> -->
             </div>
             <div class="QRcode-visit">
                 <div class="visit-info">
