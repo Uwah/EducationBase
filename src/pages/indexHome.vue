@@ -87,7 +87,7 @@
                 <div class="knowledge-title">知识竞赛<span class="under-line"></span></div>
                 <a href="javascript:;" class="jump-href" @click="$router.push({path: '/scienceActive'})"></a>
             </div>
-            <!-- <div class="final-show" @click="knowledgeCheck">
+            <div class="final-show" @click="knowledgeCheck">
                 <img :src="activiesData.activity.fileName" />
             </div>
             <div class="QRcode-visit">
@@ -104,8 +104,8 @@
                 <img src="../assets/images/home-QRcode.png" class="visi-code" />
             </div>
             <div class="season-list" @click="knowledgeCheck">
-                <div class="season" :style="background-image: url(item.fileName)" :data-season="item.periods" v-for="(item, index) in activiesData.list">第{{item.periods}}期</div>
-            </div> -->
+                <div class="season" :style="{backgroundImage: `url(${item.fileName})`}" :key="index" :data-season="item.periods" v-for="(item, index) in activiesData.list">第{{item.periods}}期</div>
+            </div>
         </div>
     </div>
 </template>
@@ -128,6 +128,12 @@ export default {
         document.body.scrollTop=0;
         this.$http.get('/index').then(res => {
             this.indexData = res.data.msg;
+            this.activiesData.activity = res.data.msg.activities[0];
+            if(res.data.msg.activities.length >= 2) {
+                this.activiesData.list = res.data.msg.activities.splice(0, 1);
+            }
+            
+            
         }).catch(err => {
             console.error(err);
         });
@@ -179,14 +185,12 @@ export default {
         }
     },
     watch:{
-        indexData: function(newVal, oldVal) {
-            if(newVal.length && newVal.length > 2) {
-                this.activiesData.activity = newVal.activities[0];
-                this.activiesData.list = newVal.activities.splice(0, 1);
-            }
-        }
-    },
-    components: {
+        // indexData: function(newVal, oldVal) {
+        //     if(newVal.length && newVal.length > 2) {
+        //         this.activiesData.activity = newVal.activities[0];
+        //         this.activiesData.list = newVal.activities.splice(0, 1);
+        //     }
+        // }
     }
 }
 </script>

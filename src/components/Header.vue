@@ -16,7 +16,7 @@ export default {
   name: "titleTop",
   data(){
 	  return {
-		  searchUrl: "/topSearch",
+		  searchUrl: "/topSeach",
 		  placeHolder: "请输入基地名称",
 		  topType: 2
 	  }

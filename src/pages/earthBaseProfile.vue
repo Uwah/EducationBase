@@ -99,14 +99,12 @@ export default {
         getAllEarthBase(type) {
             this.$http.get(`/searchType?searchType=${type}`).then(res => {
                 console.log(1111);
-                console.log(res)
             }).catch(err => {
                 console.log(err, "基地导航");
             });
         },
         searchEarthBase(type) {
             this.$http.get(`/searchJd?searchJd=${type}`).then(res => {
-                console.log(222222);
                 console.log(res);
             }).catch(err => {
                 console.log(err, "基地导航");
@@ -115,7 +113,6 @@ export default {
         getBannerinfoList() {
             let _this = this;
             this.$http.get('/getBaseSummary').then( res => {
-                console.log('0000000000000000000');
                 _this.banners = res.data.msg;
             }).catch( err => {
                 console.log(err, "获取基地概况banner失败")

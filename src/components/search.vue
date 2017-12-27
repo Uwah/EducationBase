@@ -57,12 +57,14 @@ export default {
             }
             console.log(_this.keyword);
             if(_this.keyword) {
-                _this.$http.post('/topSearch', {
-                    topType: _this.topType,
-                    title: _this.keyword
+                _this.$http.get('/topSeach', {
+                    params: {
+                        topType: _this.topType,
+                        title: _this.keyword
+                    }
                 }).then( res => {
                     console.log(res)
-                    _this.$emit("search-data", res);
+                    _this.$emit("search-data", res.data.msg);
                 }).catch( err => {
                     _this.$emit("search-data", err);
                     console.log(err);

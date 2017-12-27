@@ -1,63 +1,33 @@
 <template>
     <div class="container">
         <div class="navigation-top">
-            <h3 class="title-tip">基地导航</h3>
-            <div class="search-back" style="display: none;"></div>
-            <div class="navigation-search" style="display: none;">
-                <form action="" class="search-form">
-                    <input type="search" name="navigation-search" id="nvg-search" placeholder="请输入基地名称">
-                </form>
-            </div>
-            <i class="search-icon"></i>
+            <h3 class="title-tip" v-show="!isShowSearchForm">基地导航</h3>
+            <go-back></go-back>
+            <search :actionUrl="actionUrl" :topType="topType" @search-data="searchData" :isShowSearch="isShowSearch" :isShowSearchForm="isShowSearchForm" :isShowSearchIcon="isShowSearchIcon"></search>
         </div>
         <div class="search-base-banner">
             <div class="swiper-container" id="search-result">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide active"><div class="base-type">博物馆<span class="type-count">30</span></div></div>
-                    <div class="swiper-slide"><div class="base-type">科技馆<span class="type-count">20</span></div></div>
-                    <div class="swiper-slide"><div class="base-type">农业基地<span class="type-count">10</span></div></div>
-                    <div class="swiper-slide"><div class="base-type">体育馆<span class="type-count">12</span></div></div>
-                    <div class="swiper-slide"><div class="base-type">动物园<span class="type-count">3</span></div></div>
+                    <div :class="['swiper-slide', index==0?'active':'']"  v-for="(item, index) in baseTypeList" :key="index"><div class="base-type">{{item.typeName}}<span class="type-count">{{item.count}}</span></div></div>
                 </div>
             </div>
         </div>
         <div class="base-content">
             <ul class="base-list search-result">
-                <li>
+                <!-- item.id -->
+                <li v-for="(item, index) in baseAddress" :key="index">
                     <i class="base-icon"></i>
                     <div class="base-info">
                         <h4>船文化博物馆</h4>
-                        <span>栅堰路278号</span>
+                        <span>{{item.address}}</span>
                     </div>
                     <div class="direction">
-                        <span class="dir-count"><span class="count">5000</span>人次</span>
-                        <i class="direction-icon"></i>
-                    </div>
-                </li>
-                <li>
-                    <i class="base-icon"></i>
-                    <div class="base-info">
-                        <h4>船文化博物馆</h4>
-                        <span>栅堰路278号</span>
-                    </div>
-                    <div class="direction">
-                        <span class="dir-count"><span class="count">5000</span>人次</span>
-                        <i class="direction-icon"></i>
-                    </div>
-                </li>
-                <li>
-                    <i class="base-icon"></i>
-                    <div class="base-info">
-                        <h4>船文化博物馆</h4>
-                        <span>栅堰路278号</span>
-                    </div>
-                    <div class="direction">
-                        <span class="dir-count"><span class="count">5000</span>人次</span>
+                        <span class="dir-count"><span class="count">{{item.count}}</span>人次</span>
                         <i class="direction-icon"></i>
                     </div>
                 </li>
             </ul>
-            <div class="no-search" style="display: none;">
+            <div class="no-search">
                 <p class="search-tip">搜索指定内容</p>
                 <div class="demo-search">
                     <span class="demo-text">农业基地</span>
@@ -121,22 +91,50 @@
 </template>
 <script>
 const Swiper = require("../assets/script/util/swiper.min.js");
+import goBack from '../components/goBack';
+import search from '../components/search';
 export default {
     data() {
         return {
-
+            baseTypeList: [],
+            actionUrl: "",
+            isShowSearch: true,
+            isShowSearchForm: false,
+            isShowSearchIcon: true,
+            type: 1,
+            topType: 2,
+            baseAddress: []
         }
     },
     mounted() {
         document.body.scrollTop=0;
+        this.getBaseTypeList();
         new Swiper("#search-result", {
             slidesPerView: 3,
             spaceBetween: 13,
             observer:true
-        })
+        });
     },
     methods: {
-
+        getBaseTypeList() {
+            this.$http.get('/getBaseSummary').then( res => {
+                this.baseTypeList = res.data.msg.types;
+            }).catch( err => {
+                console.log(err, 'earthBaseProfile');
+            })
+        },
+        searchData(data) {
+            if(data === '') {
+                this.isShowSearchForm = true;
+                this.baseAddress = [];
+            } else {
+                this.baseAddress = data;
+            }
+        }
+    },
+    components: {
+        goBack,
+        search
     }
 }
 </script>
