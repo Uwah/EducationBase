@@ -308,7 +308,6 @@ input[type="search"]::-webkit-search-cancel-button{
     margin-left: .74rem;
     width: 5.6rem;
     height: 3.6rem;
-    background-image: url(../images/home-zhishijingsai.png);
     background-size: 100% 100%;
     font-size: 0;
 }
@@ -334,7 +333,7 @@ input[type="search"]::-webkit-search-cancel-button{
 .visit-info {
     display: inline-block;
     font-size: 0;
-    padding: .36rem 0 0 .3rem;
+    padding: .2rem 0 0 .2rem;
     flex: 1;
 }
 .info-text {
@@ -381,9 +380,4 @@ input[type="search"]::-webkit-search-cancel-button{
     background-size: 100% 100%;
     -webkit-filter: grayscale(1);
 }
-.season:nth-child(1),.season:nth-child(3) {
-    background-image: url(../images/home-bottom-banner-filter.png);
-}
-.season:nth-child(2) {
-    background-image: url(../images/home-bottom-banner-filter2.png);
-}
+

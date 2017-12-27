@@ -87,27 +87,25 @@
                 <div class="knowledge-title">知识竞赛<span class="under-line"></span></div>
                 <a href="javascript:;" class="jump-href" @click="$router.push({path: '/scienceActive'})"></a>
             </div>
-            <div class="final-show">
-                <!-- <span class="show-year">2017年XXX</span> -->
+            <!-- <div class="final-show" @click="knowledgeCheck">
+                <img :src="activiesData.activity.fileName" />
             </div>
             <div class="QRcode-visit">
                 <div class="visit-info">
-                    <span class="info-text">第26期知识竞赛</span>
+                    <span class="info-text">第{{activiesData.activity.periods}}期知识竞赛</span>
                     <span class="info-text">活动时间：2017.10.1-2017.11.1</span>
                     <span class="info-text">报名方式：</span>
                     <div class="type-list">
-                        <span class="types">123456789@163.com(email)</span>
-                        <span class="types">12345678901(手机)</span>
+                        <span class="types">{{activiesData.activity.email}}(email)</span>
+                        <span class="types">{{activiesData.activity.mobile}}(手机)</span>
                     </div>
                     
                 </div>
                 <img src="../assets/images/home-QRcode.png" class="visi-code" />
             </div>
             <div class="season-list" @click="knowledgeCheck">
-                <div class="season" data-season="25">第25期</div>
-                <div class="season" data-season="26">第26期</div>
-                <div class="season" data-season="later">往期</div>
-            </div>
+                <div class="season" :style="background-image: url(item.fileName)" :data-season="item.periods" v-for="(item, index) in activiesData.list">第{{item.periods}}期</div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -119,7 +117,11 @@ export default {
         return {
             indexData: {},
             baseIndex: 0,
-            homeSearchData: ''
+            homeSearchData: '',
+            activiesData: {
+                activity: {},
+                list: []
+            }
         }
     },
     mounted() {
@@ -174,6 +176,14 @@ export default {
         },
         homeSearch(e) {
             console.log('home search: ', this.homeSearchData)
+        }
+    },
+    watch:{
+        indexData: function(newVal, oldVal) {
+            if(newVal.length && newVal.length > 2) {
+                this.activiesData.activity = newVal.activities[0];
+                this.activiesData.list = newVal.activities.splice(0, 1);
+            }
         }
     },
     components: {
