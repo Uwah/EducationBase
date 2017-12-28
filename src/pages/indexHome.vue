@@ -132,7 +132,7 @@ export default {
             if(res.data.msg.activities.length >= 2) {
                 this.activiesData.list = res.data.msg.activities.splice(0, 1);
             }
-            this.setBaseMapMarker(this.indexData.types);
+            this.setBaseMapMarker(this.indexData.types[0].list);
             
         }).catch(err => {
             console.error(err);
@@ -193,12 +193,22 @@ export default {
         setBaseMapMarker(markerList) {
             let map = new BMap.Map("baseMap");
             for(let type of markerList) {
-                let point = new BMap.Point(type.x, type.y);
-                let marker = new BMap.Marker(point);
-                map.addOverlay(marker)
+                // 创建地址解析器实例
+                var myGeo = new BMap.Geocoder();
+                // 将地址解析结果显示在地图上,并调整地图视野
+                myGeo.getPoint(type.address, function(point){
+                    if (point) {
+                        map.centerAndZoom(point, 16);
+                        map.addOverlay(new BMap.Marker(point));
+                    }else{
+                        console.log("您选择地址没有解析到结果!");
+                    }
+                }, type.city);
+                
+                
             }
-            var point = new BMap.Point(markerList[0].x, markerList[0].y);  // 创建点坐标  
-            map.centerAndZoom(point, 15);
+            // var point = new BMap.Point(markerList[0].x, markerList[0].y);  // 创建点坐标  
+            // map.centerAndZoom(point, 15);
         },
         homeSearch(e) {
             console.log('home search: ', this.homeSearchData)
