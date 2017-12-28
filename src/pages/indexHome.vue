@@ -148,16 +148,24 @@ export default {
         new Swiper("#base-locations", {
             slidesPerView: 4,
             spaceBetween: 20,
-            observer:true
+            observer:true,
+            observeParents:true,
+            onSlideChangeEnd: function(swiper) {
+                swiper.update(true)
+            }
         });
         new Swiper("#science-swiper", {
             slidesPerView: 2,
-            spaceBetween: 20,
+            spaceBetween: 10,
             observer:true
         });
         let map = new BMap.Map("baseMap");
         var point = new BMap.Point(116.404, 39.915);  // 创建点坐标  
-        map.centerAndZoom(point, 15);   
+        map.centerAndZoom(point, 15);
+        setTimeout(() => {
+            document.getElementById('base-locations').children[0].style.transform="translate3d(0px, 0px, 0px)";
+            document.getElementById('science-swiper').children[0].style.transform="translate3d(0px, 0px, 0px)";
+        }, 100); 
     },
     methods: {
         knowledgeCheck(e) {

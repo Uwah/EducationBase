@@ -114,6 +114,9 @@ export default {
             spaceBetween: 13,
             observer:true
         });
+        setTimeout(() => {
+            document.getElementById('search-result').children[0].style.transform="translate3d(0px, 0px, 0px)";
+        }, 100);
     },
     methods: {
         getBaseTypeList() {
