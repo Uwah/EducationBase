@@ -212,6 +212,7 @@ export default {
         },
         homeSearch(e) {
             console.log('home search: ', this.homeSearchData)
+            this.$router.push({name: 'searchPage', params: {address: this.homeSearchData}})
         }
     },
     watch:{

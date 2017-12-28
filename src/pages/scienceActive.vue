@@ -36,10 +36,10 @@ export default {
     mounted() {
         document.body.scrollTop=0;
         //this.$store.state.userToken
-        if(localStorage.getItem('userToken') === '' || localStorage.getItem('userToken') === undefined) {
-            this.$router.push({name: 'competitionDetail'});
-        } else {
+        if(!!localStorage.getItem('userToken')) {
             this.$router.push({name: 'answerList'});
+        } else {
+            this.$router.push({name: 'competitionDetail'});
         }
         console.log(this.$store.getters.getUserToken)
     }

@@ -15,7 +15,8 @@ const routes = [
     {path:'/competitionList', component: resolve => require(['../components/competitionList'], resolve), name:"competitionList"},
     {path:'/competitionDetail', component: resolve => require(['../components/competitionDetail'], resolve), name:"competitionDetail"},
     {path:'/winnerList', component: resolve => require(['../components/winnerList'], resolve), name:"winnerList"},
-    {path:'/answerList', component: resolve => require(['../components/answerList'], resolve), name:"answerList"}
+    {path:'/answerList', component: resolve => require(['../components/answerList'], resolve), name:"answerList"},
+    {path: '/searchPage', component: resolve => require(['../components/searchPage'], resolve),name:'searchPage'}
     
 ];
 

@@ -39,11 +39,11 @@
                         </ul>
                     </div>
                 </div>
-                <button class="partake">立即参与</button>
+                <button class="partake" @click="goSignUp">立即参与</button>
             </div>
         </div>
         <!-- 报名弹框  -->
-        <div class="sginup-bg" style="display: none;">
+        <div class="sginup-bg" v-if="signUpStatus">
             <div class="sginup-frame">
                 <h4 class="sginup-title">报名</h4>
                 <form action="" class="sginup-form"  method="post">
@@ -70,7 +70,8 @@ export default {
         return {
             title: "知识竞赛",
             titleStatus: true,
-            searchStatus: false
+            searchStatus: false,
+            signUpStatus: false
         }
     },
     components: {
@@ -79,6 +80,9 @@ export default {
     methods: {
         searchInfoData(e) {
             console.log(e);
+        },
+        goSignUp(e) {
+            this.signUpStatus = true;
         }
     }
 }
@@ -159,7 +163,16 @@ export default {
     .partake {
         width: 5.3rem;
         height: 1.06rem;
+        line-height: 1.06rem;
+        font-size: .54rem;
+        letter-spacing: 5px;
+        text-align: center;
+        background-color: rgba(59, 87, 155, .7);
         border: 0;
+        border-top-left-radius: 0.503rem;
+        border-top-right-radius: 0.503rem;
+        border-bottom-left-radius: 0.503rem;
+        border-bottom-right-radius: 0.503rem;
         color: #fff;
         margin: 0 auto;
         display: block;

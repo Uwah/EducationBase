@@ -280,7 +280,7 @@
     background-size: 100% 100%;
 }
 .ipt-content {
-    padding: .35rem .5rem 0;
+    padding: .2rem .5rem 0;
 }
 .sginup-form .ipt-content:nth-child(2) {
     padding: .2rem .5rem 0;
@@ -288,7 +288,7 @@
 .ipt-content label {
     color: #3e3a39;
     font-size: .26rem;
-    padding-bottom: .22rem;
+    padding-bottom: .2rem;
     display: inline-block;
     width: 100%;
 }
@@ -298,15 +298,22 @@
     border: 2px solid #bbbbbc;
 }
 .sgin-commit {
-    background-color: #6167b6;
-    color: #fff;
-    font-size: .26rem;
+    border: 2px solid #6167b6;
+    color: #6167b6;
+    font-size: .40rem;
+    letter-spacing: 5px;   
     text-align: center;
-    padding: .2rem 1rem;
-    border: 0;
-    margin: .1rem auto 0;
+    height: .72rem;
+    width: 2.5rem;
+    letter-spacing: 3px;
+    border-top-left-radius: .36rem;
+    border-top-right-radius: .36rem;
+    border-bottom-left-radius: .36rem;
+    border-bottom-right-radius: .36rem;
+    padding: 0;
+    background-color: transparent;
+    margin: .2rem auto 0;
     display: block;
-    border-radius: 5px; 
 }
 /*****答题列表*******/
 .answer-content,.history-out {

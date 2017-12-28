@@ -99,6 +99,7 @@ export default {
         getAllEarthBase(type) {
             this.$http.get(`/searchType?searchType=${type}`).then(res => {
                 console.log(1111);
+                console.log(res);
             }).catch(err => {
                 console.log(err, "基地导航");
             });
