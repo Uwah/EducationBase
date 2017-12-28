@@ -53,7 +53,7 @@
                 <div class="swiper-container" id="base-locations" @click="checkBaseMap">
                     <div class="swiper-wrapper">
                         <div :class="['swiper-slide', 'location-item', baseIndex == index?'location-item-active':'' ]" 
-                        v-for="(item, index) in indexData.types" :data-baseid="item.id" :key="index">
+                        v-for="(item, index) in indexData.types" :data-index="index" :data-baseid="item.id" :key="index">
                             <span class="base-count">{{item.count}}</span>
                             <i :class="['home-location-small', baseIndex == index?'home-location-small-active':'']"></i>
                             <p>{{item.typeName}}</p>
@@ -132,7 +132,7 @@ export default {
             if(res.data.msg.activities.length >= 2) {
                 this.activiesData.list = res.data.msg.activities.splice(0, 1);
             }
-            
+            this.setBaseMapMarker(this.indexData.types);
             
         }).catch(err => {
             console.error(err);
@@ -159,9 +159,7 @@ export default {
             spaceBetween: 10,
             observer:true
         });
-        let map = new BMap.Map("baseMap");
-        var point = new BMap.Point(116.404, 39.915);  // 创建点坐标  
-        map.centerAndZoom(point, 15);
+        
         setTimeout(() => {
             document.getElementById('base-locations').children[0].style.transform="translate3d(0px, 0px, 0px)";
             document.getElementById('science-swiper').children[0].style.transform="translate3d(0px, 0px, 0px)";
@@ -176,17 +174,31 @@ export default {
             console.log(e);
         },
         checkBaseMap(e) {
-            let baseid = 0, _this = this;
+            let baseid = 0, _this = this, index = 0;
             if(e.target.hasAttribute('data-baseid')) {
                 baseid = e.target.getAttribute('data-baseid');
+                index = e.target.getAttribute('data-index');
             } else {
                 baseid = e.target.parentElement.getAttribute('data-baseid');
+                index = e.target.parentElement.getAttribute('data-index');
             }
-            _this.$http.get(`/searchJd?id=${baseid}`).then( res => {
-                console.log(res);
-            }).catch( err => {
-                console.log(err);
-            });
+            _this.baseIndex = index;
+            this.setBaseMapMarker(this.indexData.types[index].list);
+            // _this.$http.get(`/searchJd?id=${baseid}`).then( res => {
+            //     console.log(res);
+            // }).catch( err => {
+            //     console.log(err);
+            // });
+        },
+        setBaseMapMarker(markerList) {
+            let map = new BMap.Map("baseMap");
+            for(let type of markerList) {
+                let point = new BMap.Point(type.x, type.y);
+                let marker = new BMap.Marker(point);
+                map.addOverlay(marker)
+            }
+            var point = new BMap.Point(markerList[0].x, markerList[0].y);  // 创建点坐标  
+            map.centerAndZoom(point, 15);
         },
         homeSearch(e) {
             console.log('home search: ', this.homeSearchData)
