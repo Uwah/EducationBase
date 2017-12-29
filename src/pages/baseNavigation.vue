@@ -37,7 +37,7 @@
                     <span class="demo-text">博物馆</span>
                     <span class="demo-text">企业</span>
                 </div>
-            </div>
+            </div><!-- http://developer.baidu.com/map/wiki/index.php?title=uri/api/android -->
             <div class="search-info" style="display: none;">
                 <ul class="search-info-list">
                     <li>

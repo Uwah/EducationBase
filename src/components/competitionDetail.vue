@@ -46,14 +46,14 @@
         <div class="sginup-bg" v-if="signUpStatus">
             <div class="sginup-frame">
                 <h4 class="sginup-title">报名</h4>
-                <form action="" class="sginup-form"  method="post">
+                <form class="sginup-form" @submit.prevent="submitForm($event)">
                     <div class="ipt-content">
                         <label for="phone-ipt">手机号</label>
-                        <input type="number" placeholder="请输入手机号" class="sginup-ipt" id="phone-ipt" name="phone">
+                        <input type="number" v-model="user.phone" placeholder="请输入手机号" class="sginup-ipt" id="phone-ipt" name="phone">
                     </div>
                     <div class="ipt-content">
                         <label for="phone-ipt">姓名</label>
-                        <input type="number" placeholder="请输入姓名" class="sginup-ipt" id="name-ipt" name="name">
+                        <input type="text" v-model="user.name" placeholder="请输入姓名" class="sginup-ipt" id="name-ipt" name="name">
                     </div>
                     <button type="submit" class="sgin-commit">提交</button>
                 </form>
@@ -71,7 +71,11 @@ export default {
             title: "知识竞赛",
             titleStatus: true,
             searchStatus: false,
-            signUpStatus: false
+            signUpStatus: false,
+            user: {
+                phone: '',
+                name: ''
+            }
         }
     },
     components: {
@@ -83,6 +87,16 @@ export default {
         },
         goSignUp(e) {
             this.signUpStatus = true;
+        },
+        submitForm(evt) {
+            evt.preventDefault();
+            debugger
+            let user = this.user;
+            this.$http.post("/login", {name: user.name, phone: user.phone}).then( res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err, "login");
+            })
         }
     }
 }
