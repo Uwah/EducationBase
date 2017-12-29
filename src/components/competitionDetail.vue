@@ -92,7 +92,8 @@ export default {
             evt.preventDefault();
             debugger
             let user = this.user;
-            this.$http.post("/login", {name: user.name, phone: user.phone}).then( res => {
+            ///post
+            this.$http.get("/login", {params: {name: user.name, phone: user.phone}}).then( res => {
                 console.log(res);
             }).catch(err => {
                 console.log(err, "login");
