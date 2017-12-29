@@ -93,7 +93,7 @@
             <div class="QRcode-visit">
                 <div class="visit-info">
                     <span class="info-text">第{{activiesData.activity.periods}}期知识竞赛</span>
-                    <span class="info-text">活动时间：2017.10.1-2017.11.1</span>
+                    <span class="info-text">活动时间：{{activiesData.activity.startTime}}-{{activiesData.activity.endTime}}</span>
                     <span class="info-text">报名方式：</span>
                     <div class="type-list">
                         <span class="types">{{activiesData.activity.email}}(email)</span>
@@ -111,7 +111,9 @@
 </template>
 <script>
 const Swiper = require("../assets/script/util/swiper.min.js");
-
+/**
+ * formatTime抽取，作为一个install组件 use
+ */
 export default {
     data() {
         return {
@@ -126,13 +128,17 @@ export default {
     },
     mounted() {
         document.body.scrollTop=0;
+        let _this = this;
         this.$http.get('/index').then(res => {
-            this.indexData = res.data.msg;
-            this.activiesData.activity = res.data.msg.activities[0];
+            
+            _this.indexData = res.data.msg;
+            _this.activiesData.activity = res.data.msg.activities[0];
             if(res.data.msg.activities.length >= 2) {
-                this.activiesData.list = res.data.msg.activities.splice(0, 1);
+                _this.activiesData.list = res.data.msg.activities.splice(0, 1);
             }
-            this.setBaseMapMarker(this.indexData.types[0].list);
+             _this.activiesData.activity.startTime = _this.formatTime(_this.activiesData.activity.startTime);
+             _this.activiesData.activity.endTime = _this.formatTime(this.activiesData.activity.endTime);
+            _this.setBaseMapMarker(_this.indexData.types[0].list);
             
         }).catch(err => {
             console.error(err);
@@ -163,7 +169,8 @@ export default {
         setTimeout(() => {
             document.getElementById('base-locations').children[0].style.transform="translate3d(0px, 0px, 0px)";
             document.getElementById('science-swiper').children[0].style.transform="translate3d(0px, 0px, 0px)";
-        }, 100); 
+        }, 50); 
+        
     },
     methods: {
         knowledgeCheck(e) {
@@ -213,6 +220,12 @@ export default {
         homeSearch(e) {
             console.log('home search: ', this.homeSearchData)
             this.$router.push({name: 'searchPage', params: {address: this.homeSearchData}})
+        },
+        formatTime(second) {
+            if(second) {
+                let date = new Date(second);
+                return date.getFullYear()+'.'+date.getMonth()+'.'+date.getDate();
+            }
         }
     },
     watch:{

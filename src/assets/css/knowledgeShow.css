@@ -251,14 +251,14 @@
 }
 .sginup-frame {
     width: 5.96rem;
-    height: 5rem;
+    height: 5.5rem;
     background-color: #fff;
     position: absolute;
-    top: 50%;
     font-size: 0;
+    top: 20%;
     box-shadow: 6px 6px 2px #ccc;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
 }
 .sginup-title {
     color: #3e3a39;
@@ -312,7 +312,10 @@
     border-bottom-right-radius: .36rem;
     padding: 0;
     background-color: transparent;
-    margin: .2rem auto 0;
+    position: absolute;
+    bottom: .25rem;
+    left: 50%;
+    transform: translateX(-50%);
     display: block;
 }
 /*****答题列表*******/

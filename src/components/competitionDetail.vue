@@ -49,12 +49,13 @@
                 <form class="sginup-form" @submit.prevent="submitForm($event)">
                     <div class="ipt-content">
                         <label for="phone-ipt">手机号</label>
-                        <input type="number" v-model="user.phone" placeholder="请输入手机号" class="sginup-ipt" id="phone-ipt" name="phone">
+                        <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" v-model="user.phone" placeholder="请输入手机号" class="sginup-ipt" id="phone-ipt" name="phone">
                     </div>
                     <div class="ipt-content">
                         <label for="phone-ipt">姓名</label>
                         <input type="text" v-model="user.name" placeholder="请输入姓名" class="sginup-ipt" id="name-ipt" name="name">
                     </div>
+                    <span class="error" v-if="errorTip">手机号或姓名输入有误</span>
                     <button type="submit" class="sgin-commit">提交</button>
                 </form>
             </div>
@@ -75,7 +76,8 @@ export default {
             user: {
                 phone: '',
                 name: ''
-            }
+            },
+            errorTip: false
         }
     },
     components: {
@@ -90,14 +92,23 @@ export default {
         },
         submitForm(evt) {
             evt.preventDefault();
-            debugger
+            // debugger
             let user = this.user;
-            ///post
-            this.$http.get("/login", {params: {name: user.name, phone: user.phone}}).then( res => {
-                console.log(res);
-            }).catch(err => {
-                console.log(err, "login");
-            })
+            if(user.phone.trim() !== '' && /^1(3|4|5|7|8)\d{9}$/.test(user.phone) && user.name.trim() !=='' && /[\u4e00-\u9fa5]/.test(user.name)) {
+                ///post --->405
+                this.$http.get("/login", {params: {name: user.name, phone: user.phone}}).then( res => {
+                    console.log(res);
+                }).catch(err => {
+                    console.log(err, "login");
+                })
+            } else {
+                this.errorTip = true;
+                let timer = setTimeout(() => {
+                    this.errorTip = false;
+                    return false;
+                }, 3000);
+            }
+            
         }
     }
 }
@@ -191,5 +202,13 @@ export default {
         color: #fff;
         margin: 0 auto;
         display: block;
+    }
+    .error {
+        color: #fe0000;
+        display: inline-block;
+        font-size: .24rem;
+        line-break: 1;
+        padding-top: .1rem;
+        padding-left: .5rem;
     }
 </style>

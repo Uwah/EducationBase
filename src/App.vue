@@ -14,13 +14,13 @@ import bottomNav from './components/BottomNav.vue';
 
 
 export default {
-  name: 'app',
-  data () {
-    return {
-        pathname:''
-    }
-  },
-  methods:{
+    name: 'app',
+    data () {
+        return {
+            pathname:''
+        }
+    },
+    methods:{
         showhead(pathname) {
             console.log(pathname)
             if(pathname === "home" || pathname === "found") {
@@ -54,29 +54,29 @@ export default {
                 default:
                 break;
             }
-      },
-      getHomeSearch(e) {
-          console.log(e);
-      }
-  },
-  mounted(){
-      this.pathname = this.$route.name;
-      this.showhead(this.pathname);
-      this.bottomActive(this.pathname);
-    //   this.$store.dispatch("userTokenAction");
-  },
-  computed:mapGetters(['count', 'isShowHead']),
-  components : {
-      bottomNav
-  },
-  watch:{
-    $route(to, from) {
-        this.pathname = to.name;
-    //   this.showhead(this.pathname);
-        this.$store.dispatch('lastUrl', from.name);
+        },
+        getHomeSearch(e) {
+            console.log(e);
+        }
+    },
+    mounted(){
+        this.pathname = this.$route.name;
+        this.showhead(this.pathname);
         this.bottomActive(this.pathname);
+    //   this.$store.dispatch("userTokenAction");
+    },
+    computed:mapGetters(['count', 'isShowHead']),
+    components : {
+        bottomNav
+    },
+    watch:{
+        $route(to, from) {
+            this.pathname = to.name;
+        //   this.showhead(this.pathname);
+            this.$store.dispatch('lastUrl', from.name);
+            this.bottomActive(this.pathname);
+        }
     }
-  }
 }
 </script>
 
