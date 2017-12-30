@@ -54,24 +54,24 @@ export default {
             let _this = this;
             if(_this.isShowSearchForm === false) {
                 _this.$emit("search-data", '');
+            } else {
+                _this.$emit("search-data", _this.keyword);
             }
-            console.log(_this.keyword);
-            if(_this.keyword) {
-                _this.$http.get('/topSeach', {
-                    params: {
-                        topType: _this.topType,
-                        title: _this.keyword
-                    }
-                }).then( res => {
-                    console.log(res)
-                    _this.$emit("search-data", res.data.msg);
-                }).catch( err => {
-                    _this.$emit("search-data", err);
-                    console.log(err);
-
-                })
-                
-            }
+            // console.log(_this.keyword);
+            // if(_this.keyword) {
+            //     _this.$http.get('/topSeach', {
+            //         params: {
+            //             topType: _this.topType,
+            //             title: _this.keyword
+            //         }
+            //     }).then( res => {
+            //         console.log(res)
+            //         _this.$emit("search-data", res.data.msg);
+            //     }).catch( err => {
+            //         _this.$emit("search-data", err);
+            //         console.log(err);
+            //     })
+            // }
             
             // this.$http.get('').then(res => {
             //     _this.$emit("search-data", res);

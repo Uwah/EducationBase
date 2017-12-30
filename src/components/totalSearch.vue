@@ -24,12 +24,27 @@
                 </div>
             </div>
             <div class="total-search-info">
-                <div class="search-type-area" v-for="(value, key) in searchList" :key="key">
-                    <span class="type-name">{{key ==2 ?'基地导航': key ==3?'基地概况':key ==4?'知识竞赛':key ==5?'科普活动':''}}</span>
+                <div class="search-type-area" v-for="(value, key) in searchList" :key="key" v-if="topType != 2">
+                    <span v-if="topType == 1" class="type-name">{{key ==2 ?'基地导航': key ==3?'基地概况':key ==4?'知识竞赛':key ==5?'科普活动':''}}</span>
                     <ul class="total-search-history" @click="searchDetail">
                         <li v-for="(type, tindex) in value" :key="tindex" :data-address="type.address" :data-id="type.id" :list-type="key" >
                             <i class="total-history-search-icon"></i>
                             <span class="total-history-search-name">{{type.name}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="search-type-area" v-for="(value, key) in searchList" :key="key" v-if="topType == 2">
+                    <ul class="total-base-list total-search-result"  @click="searchDetail">
+                        <li v-for="(type, tindex) in value" :key="tindex" :data-address="type.address" :data-id="type.id" :list-type="key">
+                            <i class="total-base-icon"></i>
+                            <div class="total-base-info">
+                                <h4>{{type.name}}</h4>
+                                <span>{{type.address}}</span>
+                            </div>
+                            <div class="total-direction">
+                                <span class="total-dir-count"><span class="total-count">{{type.count}}</span>人次</span>
+                                <i class="total-direction-icon"></i>
+                            </div>
                         </li>
                     </ul>
                 </div>

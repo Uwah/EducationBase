@@ -36,8 +36,8 @@ export default {
     mounted() {
         document.body.scrollTop=0;
         //this.$store.state.userToken
-        if(!!localStorage.getItem('userToken')) {
-            this.$router.push({name: 'answerList'});
+        if(!!localStorage.getItem('userId')) {
+            this.$router.push({name: 'answerList', params: {id: 18}});
         } else {
             this.$router.push({name: 'competitionDetail'});
         }

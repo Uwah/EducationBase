@@ -1,54 +1,50 @@
 <template>
-    <div class="answer-content">
-        <div class="answer-head">
-            恭喜您，共答对<span class="right-answer">12</span>题，共<span class="total-answer">15</span>题
+    <div class="answerList-content">
+        <div class="knowledge-top">
+            <h3 class="answer-title-tip seasion-count">{{anwserObj.title}}</h3>
+            <go-back></go-back>
+            <search :actionUrl="actionUrl" :topType="topType" @search-data="searchData" :isShowSearch="isShowSearch" 
+            :isShowSearchForm="isShowSearchForm" :isShowSearchIcon="isShowSearchIcon"></search>
         </div>
-        <div class="answer-item">
-            <h4 class="answer-title"><span class="answer-count">1、</span>噪声对人体哪个系统有害：</h4>
-            <ul class="answer-list"  @click="anwserActive">
-                <li class="active" data-index="0">A、心血管系统</li>
-                <li>B、消化系统</li>
-                <li>C、呼吸系统</li>
-            </ul>
-        </div>
-        <div class="answer-item">
-            <h4 class="answer-title error-answer"><span class="answer-count">2、</span>噪声对人体哪个系统有害：</h4>
-            <ul class="answer-list">
-                <li class="active">A、心血管系统</li>
-                <li>B、消化系统</li>
-                <li>C、呼吸系统</li>
-            </ul>
-        </div>
-        <div class="answer-item">
-            <h4 class="answer-title"><span class="answer-count">1、</span>噪声对人体哪个系统有害：</h4>
-            <ul class="answer-list">
-                <li class="active">A、心血管系统</li>
-                <li>B、消化系统</li>
-                <li>C、呼吸系统</li>
-            </ul>
-        </div>
-        <div class="answer-item">
-            <h4 class="answer-title error-answer"><span class="answer-count">2、</span>噪声对人体哪个系统有害：</h4>
-            <ul class="answer-list">
-                <li class="active">A、心血管系统</li>
-                <li>B、消化系统</li>
-                <li>C、呼吸系统</li>
-            </ul>
-        </div>
-        <button class="answer-commit" @click="commitAnswer">提交</button>
-        <div class="sginup-bg" style="display: none;">
-            <div class="commit-success">提交成功</div>
+        <div class="answer-content">
+            <div class="answer-head" v-if="correctStatus">
+                恭喜您，共答对<span class="right-answer">{{correctObj.correct}}</span>题，共<span class="total-answer">{{correctObj.total}}</span>题
+            </div>
+            <div class="answer-item" v-for="(item, index) in anwserObj.questions" :key="index">
+                <h4 class="answer-title"><span class="answer-count">{{index+1}}、</span>{{item.title}}：</h4>
+                <ul class="answer-list" :data-answerId="item.id">
+                    <li v-for="(answ, aindex) in item.qids"  @click="anwserActive(answ.titleLetter, item.id, aindex, $event)" :data-letter="answ.titleLetter" 
+                    :key="aindex">{{answ.titleLetter}}、{{answ.titleChinese}}</li>
+                </ul>
+            </div>
+            <button class="answer-commit" v-if="!correctStatus" @click="commitAnswer">提交</button>
+            <div class="sginup-bg" v-if="modelStatus">
+                <div class="commit-success">提交成功</div>
+            </div>
         </div>
     </div>
+    
 </template>
 <script>
 let allAnswer = {};
+import goBack from './goBack';
+import search from './search';
 export default {
     data() {
         return {
             answersList: [],
-            questionList: [],
-            modelStatus: false
+            anwserObj: {},
+            modelStatus: true,
+            correctStatus: false,
+            topType: 4,
+            actionUrl: "",
+            correctObj: {
+                total: 0,
+                correct: 0
+            },
+            isShowSearch: true,
+            isShowSearchForm: false,
+            isShowSearchIcon: true
         }
     },
     mounted(){
@@ -59,44 +55,63 @@ export default {
             let params = this.$route.params;
             this.$http.get(`/knowledgeCompetition?id=${params.id}`).then(res => {
                 console.log(res)
+                this.anwserObj = res.data.msg;
+                this.correctObj.total = this.anwserObj.questions.length
             }).catch(err => {
                 console.log(err, "答题列表");
             })
         },
         commitAnswer() {
+            let anwserArr = [], anwser = '', _this = this;
+            for(let a in allAnswer) {
+                anwserArr.push(a+'-'+allAnswer[a]);
+            }
+            anwser = anwserArr.join(',');
+            _this.$http({
+                url: '/addAnswer',
+                method: 'post',
+                data: {
+                    answers: anwser
+                },
+                transformRequest: [function (data) {
+                    let ret = ''
+                    for (let it in data) {
+                        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+                    }
+                    return ret
+                }],
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then( res => {
+                console.log(res);
+                _this.correctStatus = true;
+                _this.modelStatus = true;
+                this.correctObj.correct = res.data.msg;
+                setTimeout(() => {
+                    _this.modelStatus = false;
+                }, 3000);
 
+            }).catch(err => {
+                console.log(err, "login");
+            });
         },
-        anwserActive(evt) {
-            let parentNode = evt.target.parentNode,
-                allList = evt.target.parentNode.children,
-                index = evt.target.getAttribute('data-index'),
-                answerId = parentNode.getAttribute('data-answer-id');
+        anwserActive(letter, itemId, index, evt) {
+            let allList = evt.target.parentNode.children;
             for(let i = 0; i < allList.length; i++) {
                 allList[i].setAttribute('class', '');
             }
             allList[index].setAttribute('class', 'active');
-            let letterType = '';
-            switch(index) {
-                case 0:
-                letterType = 'A';
-                break;
-                case 1:
-                letterType = 'B';
-                break;
-                case 2:
-                letterType = 'C';
-                break;
-                case 3:
-                letterType = 'D';
-                break;
-                default:
-                break;
-            }
-            allAnswer[answerId] = 'letterType';
-            // if(allAnswer[answerId]) {
-            //     allAnswer[answerId] = 'letterType';
-            // }
+            allAnswer[itemId]=letter;
+            console.log(allAnswer);
+        },
+        searchData(data) {
+            console.log(data)
         }
+    },
+    components: {
+        goBack,
+        search
     }
 }
 </script>
@@ -176,7 +191,7 @@ export default {
         border-bottom-left-radius: 0.503rem;
         border-bottom-right-radius: 0.503rem;
         color: #fff;
-        margin: 0 auto;
+        margin: .3rem auto 0;
         display: block;
     }
     .commit-success {
@@ -186,6 +201,29 @@ export default {
         height: 1rem;
         width: 3rem;
         text-align: center;
-        background-color: ##fff;
+        background-color: #fff;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+    }
+    .knowledge-top {
+        position: relative;
+        height: 1.33rem;
+        background-color: #fff;
+        font-size: 0;
+        text-align: center;
+    }
+    .answer-title-tip {
+        color: #030000;
+        font-size: .46rem;
+        line-height: 1.04rem;
+        /* width: 2.33rem; */
+        height: 1.04rem;
+        text-align: center;
+        background-size: 100% 100%;
+        display: inline-block;
+        margin-top: .18rem;
+        background-image: url(../assets/images/title-bg.png);
     }
 </style>

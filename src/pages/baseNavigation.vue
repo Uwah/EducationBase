@@ -72,9 +72,9 @@ export default {
         searchData(data) {
             if(data === '') {
                 this.isShowSearchForm = true;
-                this.baseAddress = [];
             } else {
-                this.baseAddress = data;
+                console.log(data);
+                this.$router.push({name: 'totalSearch', params: {address: data, type: 2}})
             }
         },
         navChange(id, index) {

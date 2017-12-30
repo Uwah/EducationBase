@@ -6,7 +6,7 @@
         </div>
         <div class="knowledge-content">
             <div class="konwledge-bg">
-                <span>2017年XXXX</span>
+                <!-- <span>2017年XXXX</span> -->
             </div>
             <div class="konwledge-detail info-detail">
                 <p>
@@ -92,15 +92,34 @@ export default {
         },
         submitForm(evt) {
             evt.preventDefault();
-            // debugger
-            let user = this.user;
+            let user = this.user, _this = this;
             if(user.phone.trim() !== '' && /^1(3|4|5|7|8)\d{9}$/.test(user.phone) && user.name.trim() !=='' && /[\u4e00-\u9fa5]/.test(user.name)) {
-                ///post --->405
-                this.$http.get("/login", {params: {name: user.name, phone: user.phone}}).then( res => {
+                _this.$http({
+                    url: '/login',
+                    method: 'post',
+                    data: {
+                        mobile: user.phone,
+                        userName: user.name
+                    },
+                    transformRequest: [function (data) {
+                        let ret = ''
+                        for (let it in data) {
+                            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+                        }
+                        return ret
+                    }],
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then( res => {
                     console.log(res);
+                    if(res.data.code == 200) {
+                        localStorage.setItem('userId', res.data.msg.id)
+                        this.checkActiveAnswer(18);
+                    }
                 }).catch(err => {
                     console.log(err, "login");
-                })
+                });
             } else {
                 this.errorTip = true;
                 let timer = setTimeout(() => {
@@ -108,7 +127,16 @@ export default {
                     return false;
                 }, 3000);
             }
-            
+        },
+        checkActiveAnswer(id) {
+            this.$http.get(`/knowledgeCompetition?id=${id}`).then( res => {
+                console.log(res)
+                if(res.data.code == 200) {
+                    this.$router.push({name: "answerList", params:{id: 18}});
+                }
+            }).catch(err => {
+                console.log(err);
+            })
         }
     }
 }

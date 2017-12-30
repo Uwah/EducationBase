@@ -69,9 +69,10 @@
                 <a href="javascript:;" class="jump-href" @click="$router.push({path: '/knowledgeShow'})"></a>
             </div>
             <div class="science-swiper">
-                <div class="swiper-container" id="science-swiper" @click="scienceBaseCheck">
+                <div class="swiper-container" id="science-swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide science-info" v-for="(item, index) in indexData.notices" :key="index">
+                        <div class="swiper-slide science-info" @click="$router.push({name: 'articleDetail', params: {id: item.id, type: 5}});"
+                        v-for="(item, index) in indexData.notices" :key="index">
                             <img class="banner-img" :src="item.fileName" />
                             <div class="swiper-content-info">
                                 <span class="info-title">{{item.title}}</span>
@@ -176,9 +177,6 @@ export default {
         knowledgeCheck(e) {
             let target = e.target;
             this.$router.push({name: "competitionList", params: {seasonId: target.getAttribute('data-season'), title: target.innerText}});
-        },
-        scienceBaseCheck(e) {
-            console.log(e);
         },
         checkBaseMap(e) {
             let baseid = 0, _this = this, index = 0;

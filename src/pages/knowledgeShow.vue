@@ -51,7 +51,6 @@ export default {
             });
         },
         goDetail(id) {
-            debugger;
             this.$router.push({name: "articleDetail", params: {id: id, type: this.topType}});
         }
     },

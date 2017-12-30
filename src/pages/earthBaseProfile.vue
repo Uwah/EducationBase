@@ -86,13 +86,12 @@ export default {
         });
     },
     methods: {
-        searchData(e) {
-            console.log(e)
+        searchData(kw) {
             if(!this.isShowSearchForm) {
                 this.isShowSearchForm = true;
             } else {
-                console.log(e);
-
+                console.log(kw);
+                this.$router.push({name: 'totalSearch', params: {address: kw, type: 3}})
             }
         },
         baseTypeChange(id, index) {
