@@ -1,22 +1,19 @@
 <template>
     <div>
         <div class="content-top">
-            <h3 class="content-title-tip seasion-count"><!--  第25期-->基地概况</h3>
+            <h3 class="content-title-tip seasion-count">{{topType == 3?'基地概况':'科普活动'}}</h3>
             <go-back></go-back>
         </div>
         <div class="profile-detail">
             <div class="detail-top">
-                <span class="detail-title">嘉兴市南湖区建国北路111号</span>
-                <i class="map-navigation"></i>
+                <span class="detail-title">{{detailObj.address}}</span>
+                <i class="map-navigation" @click="$router.push({name: 'searchPage', params: {address: detailObj.address}})"></i>
             </div>
             <div class="article-content">
-                <h4 class="article-title">嘉兴市科技中心</h4>
+                <h4 class="article-title">{{detailObj.title}}</h4>
                 <div class="article--detail">
-                    <img src="" class="article-img" alt="">
-                    <p class="article">南京理工大学是  2006年4月国家教育部批准增北京科技大学等104所学校61个国家大学生文化素质教育基地之一。
-                        为加强我校大学生文化素质教育工作，建设好南京理 工大学国家大学生文化素质教育基地，我校当即成立了“南京理工大学国家大学
-                        生文化素质教育基地建设领导小组”，并由一名校党委副书记分管这项工作。为进一 步整合学校的资源、理顺学校有关大学生文化素质教育的管理，于2007年上半年，学校决定成立了文化艺术素质教育中心。
-                    </p>
+                    <img :src="detailObj.fileName" class="article-img" alt="">
+                    <p class="article">{{detailObj.indiprofile}}</p>
                 </div>
             </div>
         </div>
@@ -27,21 +24,25 @@ import goBack from './goBack';
 export default {
     data() {
         return {
-
+            detailObj: {},
+            topType: 3
         }
     },
     methods: {
-
-    },
-    beforeRouteEnter(to, from, next) {
-        let param = to.params;
-        next(vm => {
-            vm.$http.get('').then( res => {
-
+        getDetail() {
+            console.log('detail')
+            let params = this.$route.params;
+            this.topType = params.type || 3;
+            this.$http.get(`/getIndiProfile?topType=${params.type}&id=${params.id}`).then( res => {
+                this.detailObj = res.data.msg;
             }).catch( err => {
                 console.log(err, "获取详情失败");
-            })
-        })
+            });
+            this.topType == 3?this.$store.dispatch("basestate"):this.$store.dispatch("knowstate");
+        }
+    },
+    mounted() {
+        this.getDetail();
     },
     components: {
         goBack

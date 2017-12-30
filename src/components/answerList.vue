@@ -5,8 +5,8 @@
         </div>
         <div class="answer-item">
             <h4 class="answer-title"><span class="answer-count">1、</span>噪声对人体哪个系统有害：</h4>
-            <ul class="answer-list">
-                <li class="active">A、心血管系统</li>
+            <ul class="answer-list"  @click="anwserActive">
+                <li class="active" data-index="0">A、心血管系统</li>
                 <li>B、消化系统</li>
                 <li>C、呼吸系统</li>
             </ul>
@@ -35,11 +35,69 @@
                 <li>C、呼吸系统</li>
             </ul>
         </div>
+        <button class="answer-commit" @click="commitAnswer">提交</button>
+        <div class="sginup-bg" style="display: none;">
+            <div class="commit-success">提交成功</div>
+        </div>
     </div>
 </template>
 <script>
+let allAnswer = {};
 export default {
+    data() {
+        return {
+            answersList: [],
+            questionList: [],
+            modelStatus: false
+        }
+    },
+    mounted(){
+        this.getAnswers()
+    },
+    methods: {
+        getAnswers() {
+            let params = this.$route.params;
+            this.$http.get(`/knowledgeCompetition?id=${params.id}`).then(res => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err, "答题列表");
+            })
+        },
+        commitAnswer() {
 
+        },
+        anwserActive(evt) {
+            let parentNode = evt.target.parentNode,
+                allList = evt.target.parentNode.children,
+                index = evt.target.getAttribute('data-index'),
+                answerId = parentNode.getAttribute('data-answer-id');
+            for(let i = 0; i < allList.length; i++) {
+                allList[i].setAttribute('class', '');
+            }
+            allList[index].setAttribute('class', 'active');
+            let letterType = '';
+            switch(index) {
+                case 0:
+                letterType = 'A';
+                break;
+                case 1:
+                letterType = 'B';
+                break;
+                case 2:
+                letterType = 'C';
+                break;
+                case 3:
+                letterType = 'D';
+                break;
+                default:
+                break;
+            }
+            allAnswer[answerId] = 'letterType';
+            // if(allAnswer[answerId]) {
+            //     allAnswer[answerId] = 'letterType';
+            // }
+        }
+    }
 }
 </script>
 
@@ -103,5 +161,31 @@ export default {
     .answer-list li.active {
         color: #fff;
         background-color: #8ba8d4;
+    }
+    .answer-commit {
+        width: 5.3rem;
+        height: 1.06rem;
+        line-height: 1.06rem;
+        font-size: .54rem;
+        letter-spacing: 5px;
+        text-align: center;
+        background-color: rgba(59, 87, 155, .7);
+        border: 0;
+        border-top-left-radius: 0.503rem;
+        border-top-right-radius: 0.503rem;
+        border-bottom-left-radius: 0.503rem;
+        border-bottom-right-radius: 0.503rem;
+        color: #fff;
+        margin: 0 auto;
+        display: block;
+    }
+    .commit-success {
+        color: #4e4e4e;
+        font-size: .36rem;
+        line-height: 1rem;
+        height: 1rem;
+        width: 3rem;
+        text-align: center;
+        background-color: ##fff;
     }
 </style>

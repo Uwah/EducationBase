@@ -219,7 +219,7 @@ export default {
         },
         homeSearch(e) {
             console.log('home search: ', this.homeSearchData)
-            this.$router.push({name: 'searchPage', params: {address: this.homeSearchData}})
+            this.$router.push({name: 'totalSearch', params: {address: this.homeSearchData, type: 1}})
         },
         formatTime(second) {
             if(second) {

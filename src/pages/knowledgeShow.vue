@@ -7,8 +7,7 @@
         </div>
         <div class="science-list">
             <div class="cell-type-list" v-if="showType == 'list'">
-                <!--  @click="$router.push({name: 'articleDetail', params: {id: item.id, title: "科普活动"}})" -->
-                <div class="cell-type" :data-id="item.id" v-for="(item, index) in scienceList" :key="index">
+                <div class="cell-type" :data-id="item.id" @click="goDetail(item.id)" v-for="(item, index) in scienceList" :key="index">
                     <img :src="item.fileName" class="cell-img" alt="">
                     <div class="cell-detail">
                         <span class="cell-position">{{item.title}}</span>
@@ -17,7 +16,7 @@
                 </div>
             </div>
             <div class="list-type-list" v-if="showType == 'cell'">
-                <div class="list-type" :data-id="item.id" v-for="(item, index) in scienceList" :key="index">
+                <div class="list-type" :data-id="item.id" @click="goDetail(item.id)" v-for="(item, index) in scienceList" :key="index">
                     <img :src="item.fileName" class="list-type-img" alt="">
                     <div class="list-type-content">
                         <span class="list-type-title">{{item.title}}</span>
@@ -34,8 +33,8 @@ export default {
     data() {
         return {
             showType: 'list',
-            scienceList: []
-
+            scienceList: [],
+            topType: 5
         }
     },
     methods: {
@@ -50,6 +49,10 @@ export default {
             }).catch(err => {
                 console.log(err, '科普活动')
             });
+        },
+        goDetail(id) {
+            debugger;
+            this.$router.push({name: "articleDetail", params: {id: id, type: this.topType}});
         }
     },
     mounted() {

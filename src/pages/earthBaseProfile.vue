@@ -19,29 +19,30 @@
                 <div class="profile-title-list">
                     <div class="swiper-container" id="profile-list-swiper">
                         <div class="swiper-wrapper">
-                            <div :class="['swiper-slide',index==0?'active':'']" v-for="(item, index) in banners.types" :key="index" :data-id="item.id">{{item.typeName}}</div>
+                            <div @click="baseTypeChange(item.id, index)" :class="['swiper-slide',typeIndex==index?'active':'']" 
+                            v-for="(item, index) in banners.types" :key="index" :data-id="item.id">{{item.typeName}}</div>
                         </div>
                     </div>
                     <i :class="['content-type',contentType]" @click="profileChange"></i>
                 </div>
             </div>
-            <div class="profile-list">
-                <div class="cell-list-content" v-if="contentType == 'cell'">
-                    <div class="cell-type" @click="$router.push({path: `/articleDetail/1`})"> <!--  v-for="item in profileList" -->
-                        <img src="../assets/images/cell-list-img.png" class="cell-img" alt="">
-                        <div class="cell-detail">
-                            <span class="cell-position"><i class="position-icon"></i>秀洲区</span>
-                            <span class="cell-position-name">嘉兴市五四文化博物馆</span>
-                        </div>
+            <div class="profile-list" v-show="contentType == 'cell'">
+                <div class="cell-type" :data-id="item.id" v-for="(item, index) in profileList" :key="index"
+                    @click="goArticleDetail($event, item.id)">
+                    <img :src="item.fileName" class="cell-img" alt="">
+                    <div class="cell-detail">
+                        <span class="cell-position"><i class="position-icon"></i>{{item.qu}}</span>
+                        <span class="cell-position-name">{{item.userName}}</span>
                     </div>
                 </div>
-                <div class="list-list-content" v-if="contentType == 'list'">
-                    <div class="earth-list-type" @click="$router.push({path: `/articleDetail/1`})">
-                        <img src="../assets/images/cell-list-img.png" class="list-type-img" alt="">
-                        <div class="list-type-content">
-                            <span class="list-type-title">嘉兴市五四文化博物馆</span>
-                            <p>南京理工大学是2006年4月国家教育部批准增科技大学等104所学校61个国家大学生文化素质教育基地之一...</p>
-                        </div>
+            </div>
+            <div class="profile-list" v-show="contentType == 'list'">
+                <div class="earth-list-type" :data-id="item.id" v-for="(item, index) in profileList" :key="index"
+                    @click="goArticleDetail($event, item.id)">
+                    <img :src="item.fileName" class="list-type-img" alt="">
+                    <div class="list-type-content">
+                        <span class="list-type-title">{{item.userName}}</span>
+                        <p>{{item.indiProfile}}</p>
                     </div>
                 </div>
             </div>
@@ -63,13 +64,14 @@ export default {
             profileList: [],
             banners: {},
             type: 1,
-            topType: 3
+            topType: 3,
+            typeIndex: 0
         }
     },
     mounted() {
         document.body.scrollTop=0;
         this.getBannerinfoList();
-        this.getAllEarthBase(1);
+        // this.getAllEarthBase(1);
         new Swiper("#profile-banner", {
             autoplay: true,
             observer:true,
@@ -93,20 +95,18 @@ export default {
 
             }
         },
+        baseTypeChange(id, index) {
+            this.typeIndex = index;
+            this.searchEarthBase(id);
+        },
         profileChange(e) {
             this.contentType = this.contentType ==='cell' ? 'list': 'cell';
         },
-        getAllEarthBase(type) {
-            this.$http.get(`/searchType?searchType=${type}`).then(res => {
-                console.log(1111);
+        searchEarthBase(id) {
+            let _this = this;
+            _this.$http.get(`/searchJd?id=${id}`).then(res => {
                 console.log(res);
-            }).catch(err => {
-                console.log(err, "基地导航");
-            });
-        },
-        searchEarthBase(type) {
-            this.$http.get(`/searchJd?searchJd=${type}`).then(res => {
-                console.log(res);
+                _this.profileList = res.data.msg
             }).catch(err => {
                 console.log(err, "基地导航");
             });
@@ -115,11 +115,14 @@ export default {
             let _this = this;
             this.$http.get('/getBaseSummary').then( res => {
                 _this.banners = res.data.msg;
+                _this.searchEarthBase(_this.banners.types[0].id)
             }).catch( err => {
                 console.log(err, "获取基地概况banner失败")
             })
         },
-        // articleDetail()
+        goArticleDetail(a, id){
+             this.$router.push({name: "articleDetail", params: {id: id, type: this.topType}});
+        }
     },
     components: {
         search,
