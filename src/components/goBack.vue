@@ -3,6 +3,13 @@
 </template>
 <script>
 export default {
+    props: {
+        topType: {
+            type: Number,
+            require: true,
+            default: 1
+        }
+    },
     methods: {
         backLastPage(e) {
 			console.log(this.$store.getters.getFromUrl);

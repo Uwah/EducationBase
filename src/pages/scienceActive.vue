@@ -36,13 +36,13 @@ export default {
     mounted() {
         document.body.scrollTop=0;
         //this.$store.state.userToken
-        // this.$router.push({name: 'competitionDetail'});
-        if(!!localStorage.getItem('userId')) {
-            // this.$router.push({name: 'answerList', params: {id: 18}});
-            this.$router.push({name: 'winnerList', params: {id: 18}});
-        } else {
-            this.$router.push({name: 'competitionDetail'});
-        }
+        this.$router.push({name: 'competitionDetail'});
+        // if(!!localStorage.getItem('userId')) {
+        //     // this.$router.push({name: 'answerList', params: {id: 18}});
+        //     this.$router.push({name: 'winnerList', params: {id: 18}});
+        // } else {
+        //     this.$router.push({name: 'competitionDetail'});
+        // }
         console.log(this.$store.getters.getUserToken)
     }
 }

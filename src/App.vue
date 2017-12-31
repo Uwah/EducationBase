@@ -65,7 +65,6 @@ export default {
         this.bottomActive(this.pathname);
     //   this.$store.dispatch("userTokenAction");
     },
-    computed:mapGetters(['count', 'isShowHead']),
     components : {
         bottomNav
     },
