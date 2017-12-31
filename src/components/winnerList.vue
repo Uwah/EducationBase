@@ -3,8 +3,6 @@
         <div class="knowledge-top">
             <h3 class="title-tip seasion-count" v-show="!winnerObj.isShowSearchForm">{{title}}</h3>
             <go-back></go-back>
-            <search :actionUrl="winnerObj.actionUrl" :isShowSearch="winnerObj.isShowSearch" 
-            :isShowSearchForm="winnerObj.isShowSearchForm" @search-data="searchWinnerData" :topType="winnerObj.topType" :isShowSeachIcon="winnerObj.isShowSeachIcon"></search>
         </div>
         <div class="seasion-content">
             <div class="seasion-content-top">
@@ -18,19 +16,7 @@
                 <h4 class="prize-name">获奖名单</h4>
                 <div class="student-group">
                     <ul class="student name-list">
-                        <li>陈胤捷</li>
-                        <li>胡一天</li>
-                        <li>林静晓</li>
-                        <li>林静晓</li>
-                        <li>陈胤捷</li>
-                        <li>胡一天</li>
-                        <li>林静晓</li>
-                        <li>陈胤捷</li>
-                        <li>胡一天</li>
-                        <li>林静晓</li>
-                        <li>陈胤捷</li>
-                        <li>胡一天</li>
-                        <li>林静晓</li>
+                        <li v-for="(item, index) in winner.list" :key="index">{{item}}</li>
                     </ul>
                 </div>
                 

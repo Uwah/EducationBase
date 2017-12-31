@@ -10,7 +10,7 @@
         <div class="history-out">
             <div class="history-knowledge">
                 <!-- 往期列表 -->
-                <div class="history-knowledge-type" @click="$router.push({name: 'winnerList',params:{id:item.id}})" :data-id="item.id" v-for="(item, index) in season.list" :key="index"> 
+                <div class="history-knowledge-type" @click="$router.push({name: 'winnerList',params:{id:item.id, title: `第${item.periods}期`}})" :data-id="item.id" v-for="(item, index) in season.list" :key="index"> 
                     <img :src="item.fileName" class="history-knowledge-type-img" alt="">
                     <div class="history-knowledge-type-content">
                         <span class="history-knowledge-type-title">第{{item.periods}}期</span>
@@ -68,7 +68,8 @@ export default {
            if(data==='') {
                this.searchObj.isShowSearchForm = true;
            } else {
-               this.season.list = data;
+               this.$router.push({name: 'totalSearch', params: {address: data, type: this.topType}})
+            //    this.season.list = data;
            }
         },
         checkWinnerList(e) {

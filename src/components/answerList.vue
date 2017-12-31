@@ -18,6 +18,7 @@
                 </ul>
             </div>
             <button class="answer-commit" v-if="!correctStatus" @click="commitAnswer">提交</button>
+            <!-- 弹框后期可做成公共组件 -->
             <div class="sginup-bg" v-if="modelStatus">
                 <div class="commit-success">提交成功</div>
             </div>
@@ -195,13 +196,15 @@ export default {
         display: block;
     }
     .commit-success {
-        color: #4e4e4e;
-        font-size: .36rem;
-        line-height: 1rem;
-        height: 1rem;
-        width: 3rem;
+        color: #3e3a39;
+        font-size: .54rem;
+        line-height: 1.52rem;
+        letter-spacing: 2px;    
+        height: 1.52rem;
+        width: 3.94rem;
         text-align: center;
-        background-color: #fff;
+        background-color: rgba(255, 255, 255, .6);
+        box-shadow: 0px 0px 28px 0px rgba(0, 0, 0, 0.4);
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);

@@ -39,7 +39,7 @@
                         </ul>
                     </div>
                 </div>
-                <button class="partake" @click="goSignUp">立即参与</button>
+                <button class="partake" @click="goSignUp" v-if="answerStatus">立即参与</button>
             </div>
         </div>
         <!-- 报名弹框  -->
@@ -77,11 +77,19 @@ export default {
                 phone: '',
                 name: ''
             },
-            errorTip: false
+            errorTip: false,
+            answerStatus: false
         }
     },
     components: {
         goBack
+    },
+    mounted() {
+        if(!!localStorage.getItem('userId')) {
+            this.answerStatus = false;
+        } else {
+            this.answerStatus = true;
+        }    
     },
     methods: {
         searchInfoData(e) {

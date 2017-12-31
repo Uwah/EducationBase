@@ -105,7 +105,8 @@
                 <img src="../assets/images/home-QRcode.png" class="visi-code" />
             </div>
             <div class="season-list" @click="knowledgeCheck">
-                <div class="season" :style="{backgroundImage: `url(${item.fileName})`}" :key="index" :data-season="item.periods" v-for="(item, index) in activiesData.list">第{{item.periods}}期</div>
+                <div class="season" :style="{backgroundImage: `url(${item.fileName})`}" :key="index" :data-season="item.periods" 
+                v-for="(item, index) in activiesData.list">{{item.periods != 'later'? `第${item.periods}期`: '往期'}}</div>
             </div>
         </div>
     </div>
@@ -137,6 +138,7 @@ export default {
             if(res.data.msg.activities.length >= 2) {
                 _this.activiesData.list = res.data.msg.activities.splice(0, 1);
             }
+            _this.activiesData.list.push({fileName: '../assets/images/home-bottom-banner-filter2.png', periods: 'later'});
              _this.activiesData.activity.startTime = _this.formatTime(_this.activiesData.activity.startTime);
              _this.activiesData.activity.endTime = _this.formatTime(this.activiesData.activity.endTime);
             _this.setBaseMapMarker(_this.indexData.types[0].list);
@@ -175,8 +177,12 @@ export default {
     },
     methods: {
         knowledgeCheck(e) {
-            let target = e.target;
-            this.$router.push({name: "competitionList", params: {seasonId: target.getAttribute('data-season'), title: target.innerText}});
+            let target = e.target, season = target.getAttribute('data-season');
+            if(season !== 'later') {
+                this.$router.push({name: "winnerList", params: {id: season, title: target.innerText}});
+            } else {
+                this.$router.push({name: "competitionList", params: {seasonId: season, title: target.innerText}});
+            }
         },
         checkBaseMap(e) {
             let baseid = 0, _this = this, index = 0;
