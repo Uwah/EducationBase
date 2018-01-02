@@ -88,11 +88,11 @@
                 <div class="knowledge-title">知识竞赛<span class="under-line"></span></div>
                 <a href="javascript:;" class="jump-href"></a>
             </div>
-            <div class="final-show" :style="{backgroundImage: `url(${activiesData.activity.fileName})`}" @click="knowledgeCheck"></div>
+            <div class="final-show" :style="{backgroundImage: `url(${activiesData.activity.fileName})`}" @click="$router.push({name: 'winnerList', params: {id: activiesData.activity.periods, title: `第${activiesData.activity.periods}期`}})"></div>
             <div class="QRcode-visit">
                 <div class="visit-info">
                     <span class="info-text">第{{activiesData.activity.periods}}期知识竞赛</span>
-                    <span class="info-text">活动时间：{{activiesData.activity.startTime}}-{{activiesData.activity.endTime}}</span>
+                    <span class="info-text" style="display: block;">活动时间：{{activiesData.activity.startTime}}-{{activiesData.activity.endTime}}</span>
                     <span class="info-text">报名方式：</span>
                     <div class="type-list">
                         <span class="types">{{activiesData.activity.email}}(email)</span>
@@ -136,7 +136,7 @@ export default {
             if(res.data.msg.activities.length >= 2) {
                 _this.activiesData.list = res.data.msg.activities.splice(0, 1);
             }
-            _this.activiesData.list.push({fileName: '../assets/images/home-bottom-banner-filter2.png', periods: 'later'});
+            _this.activiesData.list.push({fileName: '/dist/home-bottom-banner-filter2.png', periods: 'later'});
              _this.activiesData.activity.startTime = _this.formatTime(_this.activiesData.activity.startTime);
              _this.activiesData.activity.endTime = _this.formatTime(this.activiesData.activity.endTime);
             _this.setBaseMapMarker(_this.indexData.types[0].list);
@@ -207,7 +207,7 @@ export default {
                 // 将地址解析结果显示在地图上,并调整地图视野
                 myGeo.getPoint(type.address, function(point){
                     if (point) {
-                        map.centerAndZoom(point, 16);
+                        map.centerAndZoom(point, 11);
                         map.addOverlay(new BMap.Marker(point));
                     }else{
                         console.log("您选择地址没有解析到结果!");

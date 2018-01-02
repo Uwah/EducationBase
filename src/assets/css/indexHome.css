@@ -38,6 +38,7 @@
 }
 .top-banner {
     height: 4.74rem;
+    z-index: 1;
 }
 .swiper-container,.swiper-wrapper, .swiper-slide, .banner-img {
     width: 100%;
@@ -293,7 +294,7 @@ input[type="search"]::-webkit-search-cancel-button{
     font-size: .26rem;
 }
 .info-content {
-    font-size: .2rem;
+    font-size: .24rem;
     padding-top: .18rem;
     padding-right: .14rem;
     height: .54rem;

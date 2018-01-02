@@ -9,8 +9,8 @@
             <div class="profile-banner">
                 <div class="swiper-container" id="profile-banner">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide" v-for="(item, index) in banners.banners" :key="index"
-                        ><a href=""><img :src="item.fileName" /></a></div>
+                        <div class="swiper-slide" :data-id="item.id" v-for="(item, index) in banners.banners" :key="index"
+                        ><a href="javascript:;" @click="goArticleDetail($event, item.id)"><img :src="item.fileName" /></a></div>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
