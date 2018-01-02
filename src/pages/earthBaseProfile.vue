@@ -120,6 +120,7 @@ export default {
             })
         },
         goArticleDetail(a, id){
+            //TODO toptype类型确认 
              this.$router.push({name: "articleDetail", params: {id: id, type: this.topType}});
         }
     },

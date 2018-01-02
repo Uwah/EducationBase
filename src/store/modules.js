@@ -6,5 +6,6 @@ export default {
     knowStatus: false,
     isShowHead:true,
     userToken: "",
-    fromUrl: ""
+    fromUrl: "",
+    topType: 1
 }

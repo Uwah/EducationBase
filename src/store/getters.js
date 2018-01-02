@@ -22,5 +22,8 @@ export default {
     },
     getFromUrl: state => {
         return state.fromUrl
+    },
+    getTopType: state => {
+        return state.topType
     }
 }

@@ -6,7 +6,7 @@ export default {
     props: {
         topType: {
             type: Number,
-            require: true,
+            require: false,
             default: 1
         }
     },
