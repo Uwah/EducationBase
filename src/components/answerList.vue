@@ -19,9 +19,7 @@
             </div>
             <button class="answer-commit" v-if="!correctStatus" @click="commitAnswer">提交</button>
             <!-- 弹框后期可做成公共组件 -->
-            <div class="sginup-bg" v-if="modelStatus">
-                <div class="commit-success">提交成功</div>
-            </div>
+            <prop-model :showStatus="prop.status" :propText="prop.text"></prop-model>
         </div>
     </div>
     
@@ -30,12 +28,16 @@
 let allAnswer = {};
 import goBack from './goBack';
 import search from './search';
+import propModel from './propModel';
 export default {
     data() {
         return {
             answersList: [],
             anwserObj: {},
-            modelStatus: true,
+            prop: {
+                status: false,
+                text: ''
+            },
             correctStatus: false,
             topType: 4,
             actionUrl: "",
@@ -87,10 +89,11 @@ export default {
             }).then( res => {
                 console.log(res);
                 _this.correctStatus = true;
-                _this.modelStatus = true;
+                _this.prop.status = true;
+                _this.prop.text = '提交成功';
                 this.correctObj.correct = res.data.msg;
                 setTimeout(() => {
-                    _this.modelStatus = false;
+                    _this.prop.status = false;
                 }, 3000);
 
             }).catch(err => {
@@ -112,7 +115,8 @@ export default {
     },
     components: {
         goBack,
-        search
+        search,
+        propModel
     }
 }
 </script>
@@ -194,21 +198,6 @@ export default {
         color: #fff;
         margin: .3rem auto 0;
         display: block;
-    }
-    .commit-success {
-        color: #3e3a39;
-        font-size: .54rem;
-        line-height: 1.52rem;
-        letter-spacing: 2px;    
-        height: 1.52rem;
-        width: 3.94rem;
-        text-align: center;
-        background-color: rgba(255, 255, 255, .6);
-        box-shadow: 0px 0px 28px 0px rgba(0, 0, 0, 0.4);
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        position: absolute;
     }
     .knowledge-top {
         position: relative;

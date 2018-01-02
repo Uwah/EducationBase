@@ -60,11 +60,13 @@
                 </form>
             </div>
         </div>
+        <prop-model :showStatus="prop.status" :propText="prop.text"></prop-model>
     </div>
 </template>
 <script>
 
 import goBack from './goBack';
+import propModel from './propModel';
 //判断登录状态 Vuex
 export default {
     data() {
@@ -78,11 +80,16 @@ export default {
                 name: ''
             },
             errorTip: false,
-            answerStatus: false
+            answerStatus: false,
+            prop: {
+                status: false,
+                text: ''
+            }
         }
     },
     components: {
-        goBack
+        goBack,
+        propModel
     },
     mounted() {
         if(!!localStorage.getItem('userId')) {
@@ -121,17 +128,20 @@ export default {
                     }
                 }).then( res => {
                     console.log(res);
+                    debugger;
                     if(res.data.code == 200) {
                         localStorage.setItem('userId', res.data.msg.id)
-                        this.checkActiveAnswer(18);
+                        _this.signUpStatus = false;
+                        _this.answerStatus = false;
+                        _this.checkActiveAnswer(18);
                     }
                 }).catch(err => {
                     console.log(err, "login");
                 });
             } else {
-                this.errorTip = true;
+                _this.errorTip = true;
                 let timer = setTimeout(() => {
-                    this.errorTip = false;
+                    _this.errorTip = false;
                     return false;
                 }, 3000);
             }
@@ -141,6 +151,12 @@ export default {
                 console.log(res)
                 if(res.data.code == 200) {
                     this.$router.push({name: "answerList", params:{id: 18}});
+                } else if(res.data.code == 1) {
+                    this.prop.status = true;
+                    this.prop.text = res.data.msg;
+                    setTimeout(() => {
+                        this.prop.status = false;
+                    }, 3000);   
                 }
             }).catch(err => {
                 console.log(err);

@@ -72,6 +72,7 @@
     height: 4.2rem;
     background-color: #fff;
     font-size: 0;
+    overflow: hidden;
 }
 .cell-img {
     width: 100%;
@@ -95,8 +96,9 @@
 .cell-position-name {
     font-size: .24rem;
     text-align: left;
-    padding-top: .16rem;
+    padding-top: .1rem;
     font-weight: bold;
+    height: .6rem;
     color: #3e3a39;
 }
 /**********list*********/
@@ -133,5 +135,7 @@
     color: #181818;
     font-size: .28rem;
     font-weight: bold;
-    line-height: 1.5;
+    line-height: 1.2;
+    height: 1.3rem;
+    overflow: hidden;
 }

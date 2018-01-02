@@ -32,9 +32,9 @@
             </div>
         </div>
         <div class="base-survey">
-            <div class="survey-top">
+            <div class="survey-top" @click="$router.push({path: '/earthBaseProfile'})">
                 <div class="survey-title">基地概况</div>
-                <a href="javascript:;" class="jump-href" @click="$router.push({path: '/earthBaseProfile'})"></a>
+                <a href="javascript:;" class="jump-href"></a>
             </div>
             <div class="survey-content">
                 <p>嘉兴市科学技术协会（以下简称市科协）是由市级学会、协会、研究会、 市属企业事业单位科协和地方科协组成的科学技术工作者的群众组织，市委 领导下的人民团体，是党和政府联系科技工作者的桥梁、纽带和发展科技事业助手。</p>
@@ -45,9 +45,9 @@
             </div>
         </div>
         <div class="base-navigation">
-            <div class="navigation-top">
+            <div class="navigation-top" @click="$router.push({path: '/baseNavigation'})">
                 <div class="navigation-title">基地导航<span class="under-line"></span></div>
-                <a href="javascript:;" class="jump-href" @click="$router.push({path: '/baseNavigation'})"></a>
+                <a href="javascript:;" class="jump-href"></a>
             </div>
             <div class="base-locations">
                 <div class="swiper-container" id="base-locations" @click="checkBaseMap">
@@ -64,9 +64,9 @@
             <div class="base-map" id="baseMap"></div>
         </div>
         <div class="science-active">
-            <div class="science-top">
+            <div class="science-top" @click="$router.push({path: '/knowledgeShow'})">
                 <div class="science-title">科普活动<span class="under-line"></span></div>
-                <a href="javascript:;" class="jump-href" @click="$router.push({path: '/knowledgeShow'})"></a>
+                <a href="javascript:;" class="jump-href"></a>
             </div>
             <div class="science-swiper">
                 <div class="swiper-container" id="science-swiper">
@@ -76,7 +76,7 @@
                             <img class="banner-img" :src="item.fileName" />
                             <div class="swiper-content-info">
                                 <span class="info-title">{{item.title}}</span>
-                                <span class="info-content">{{item.content}}</span>
+                                <span class="info-content" v-html="item.content"></span>
                             </div>
                         </div>
                     </div>
@@ -84,13 +84,11 @@
             </div>
         </div>
         <div class="knowledge-show">
-            <div class="home-knowledge-show-top">
+            <div class="home-knowledge-show-top" @click="$router.push({path: '/scienceActive'})">
                 <div class="knowledge-title">知识竞赛<span class="under-line"></span></div>
-                <a href="javascript:;" class="jump-href" @click="$router.push({path: '/scienceActive'})"></a>
+                <a href="javascript:;" class="jump-href"></a>
             </div>
-            <div class="final-show" @click="knowledgeCheck">
-                <img :src="activiesData.activity.fileName" />
-            </div>
+            <div class="final-show" :style="{backgroundImage: `url(${activiesData.activity.fileName})`}" @click="knowledgeCheck"></div>
             <div class="QRcode-visit">
                 <div class="visit-info">
                     <span class="info-text">第{{activiesData.activity.periods}}期知识竞赛</span>

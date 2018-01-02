@@ -26,7 +26,7 @@
                     <i :class="['content-type',contentType]" @click="profileChange"></i>
                 </div>
             </div>
-            <div class="profile-list" v-show="contentType == 'cell'">
+            <div class="profile-list" v-show="contentType == 'list'">
                 <div class="cell-type" :data-id="item.id" v-for="(item, index) in profileList" :key="index"
                     @click="goArticleDetail($event, item.id)">
                     <img :src="item.fileName" class="cell-img" alt="">
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="profile-list" v-show="contentType == 'list'">
+            <div class="profile-list" v-show="contentType == 'cell'">
                 <div class="earth-list-type" :data-id="item.id" v-for="(item, index) in profileList" :key="index"
                     @click="goArticleDetail($event, item.id)">
                     <img :src="item.fileName" class="list-type-img" alt="">

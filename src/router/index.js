@@ -4,7 +4,7 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 const routes = [
-    {path:'/', component: resolve => require(["../pages/indexHome"],  resolve), redirect:"/indexHome"},
+    {path:'/', redirect:"/indexHome"},
     {path: '/indexHome', component: resolve => require(["../pages/indexHome"],  resolve),name:"indexHome"},
     {path: '/earthBaseProfile', component: resolve => require(["../pages/earthBaseProfile"],  resolve),name:"earthBaseProfile"},
     {path: '/baseNavigation', component: resolve => require(["../pages/baseNavigation"],  resolve),name:"baseNavigation"},
@@ -18,6 +18,7 @@ const routes = [
     {path:'/answerList', component: resolve => require(['../components/answerList'], resolve), name:"answerList"},
     {path: '/searchPage', component: resolve => require(['../components/searchPage'], resolve), name:'searchPage'},
     {path: '/totalSearch', component: resolve => require(['../components/totalSearch'], resolve), name:'totalSearch'},
+    {path: '*', component: resolve => require(["../pages/indexHome"]) }
     
 ];
 

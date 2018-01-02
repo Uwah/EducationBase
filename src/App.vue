@@ -52,6 +52,7 @@ export default {
                     this.$store.dispatch("sciencestate");
                 break;
                 default:
+                    this.$store.dispatch('homestate'); //默认进首页
                 break;
             }
         },
@@ -95,6 +96,7 @@ a {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 #app {
-
+    min-height: 100%;
+    background-color: #f3f3f3;
 }
 </style>

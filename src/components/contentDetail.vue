@@ -13,7 +13,7 @@
                 <h4 class="article-title">{{detailObj.title}}</h4>
                 <div class="article--detail">
                     <img :src="detailObj.fileName" class="article-img" alt="">
-                    <p class="article">{{detailObj.indiprofile}}</p>
+                    <p class="article" v-html="detailObj.indiprofile"></p>
                 </div>
             </div>
         </div>
@@ -122,5 +122,8 @@ export default {
         font-size: .26rem;
         color: #595757;
         line-height: 1.5;
+    }
+    #app {
+        background-color: #fff;
     }
 </style>
