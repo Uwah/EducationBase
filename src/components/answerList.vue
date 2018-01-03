@@ -128,7 +128,6 @@ export default {
         background-size: 100% 100%;
         overflow-x: hidden;
         overflow-y: auto;
-        margin-bottom: 1.23rem;
         color: #3e3a39;
         font-size: 0;
     }
@@ -150,7 +149,7 @@ export default {
     .answer-head {
         height: 1.86rem;
         color: #fff;
-        line-height: 1.86rem;
+        line-height: 1.7rem;
         background-color: #a2aac4;
         padding-left: .5rem;
         font-size: .32rem;
@@ -196,7 +195,7 @@ export default {
         border-bottom-left-radius: 0.503rem;
         border-bottom-right-radius: 0.503rem;
         color: #fff;
-        margin: .3rem auto 0;
+        margin: .5rem auto 0;
         display: block;
     }
     .knowledge-top {

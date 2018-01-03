@@ -376,7 +376,7 @@ input[type="search"]::-webkit-search-cancel-button{
 .season-list {
     display: flex;
     padding: .4rem .5rem 0;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 .season {
     width: 1.96rem;
@@ -388,4 +388,6 @@ input[type="search"]::-webkit-search-cancel-button{
     background-size: 100% 100%;
     -webkit-filter: grayscale(1);
 }
-
+.season-list .season:nth-child(2) {
+    margin: 0 .28rem;
+}

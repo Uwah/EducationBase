@@ -136,9 +136,9 @@ export default {
             if(res.data.msg.activities.length >= 2) {
                 _this.activiesData.list = res.data.msg.activities.splice(0, 1);
             }
-            _this.activiesData.list.push({fileName: '/dist/home-bottom-banner-filter2.png', periods: 'later'});
-             _this.activiesData.activity.startTime = _this.formatTime(_this.activiesData.activity.startTime);
-             _this.activiesData.activity.endTime = _this.formatTime(this.activiesData.activity.endTime);
+            _this.activiesData.list.push({fileName: '/dist/home-bottom-banner-filter.png', periods: 'later'});
+            _this.activiesData.activity.startTime = _this.formatTime(_this.activiesData.activity.startTime);
+            _this.activiesData.activity.endTime = _this.formatTime(this.activiesData.activity.endTime);
             _this.setBaseMapMarker(_this.indexData.types[0].list);
             setTimeout(() => {
                 document.getElementById('base-locations').children[0].style.transform="translate3d(0px, 0px, 0px)";

@@ -10,7 +10,7 @@
                 <div class="cell-type" :data-id="item.id" @click="goDetail(item.id)" v-for="(item, index) in scienceList" :key="index">
                     <img :src="item.fileName" class="cell-img" alt="">
                     <div class="cell-detail">
-                        <span class="cell-position">{{item.title}}</span>
+                        <span class="cell-position">{{item.qu}}</span>
                         <span class="cell-position-name" v-html="item.content"></span>
                     </div>
                 </div>

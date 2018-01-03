@@ -5,24 +5,10 @@
             <go-back :topType="topType"></go-back>
         </div>
         <div class="knowledge-content">
-            <div class="konwledge-bg">
-                <!-- <span>2017年XXXX</span> -->
-            </div>
+            <div class="konwledge-bg" :style="{backgroundImage: `url(${detailInfo.fileName})`}"></div>
             <div class="konwledge-detail info-detail">
-                <p>
-                    在国家大力提倡科技兴国，教育兴国的大背景下,在**市大力加强初高中青少年的文化知识尤其是科学知识的教育环境下，由**市科协发起，
-                    与市教育局联合**市多所初中高中院校主办开展科学知识竞赛活动，由北京博安文化传播有限公司做大赛承办方。
-                </p>
-                <p>
-                    全市初中及高中院校学生正处在人生最重要的学习成长阶段，是祖国未来一代社会中坚力量的关键准备期人才，是**市社会经济文化建设的接班人和未来力量。
-                </p>
-                <p>
-                    初中及高中院校学生正面临中考高考，需要加强学习补充各方面科学知识，本次科普知识竞赛的内容丰富，包括生物、人文、地理、物理、化学、天文历史等等。
-                </p>
-                <p>
-                    科普知识竞赛以生动活泼的方式，寓教于乐的特点，紧贴实事，普及科技前沿的理念，让参赛的同学能够领略无穷的乐趣，沐浴在浩瀚的知识海洋之中。
-                </p>
-                <div class="knowledge-unit">
+                <p v-html="detailInfo.indiProfile"></p>
+                <!-- <div class="knowledge-unit">
                     <ul class="unit-list">
                         <li>主办单位:<span class="unit-name">***教育局</span><span class="unit-name">***科技协会</span></li>
                         <li>承办单位:<span class="unit-name">***有限公司(**分公司)</span></li>
@@ -38,7 +24,7 @@
                             <li>三等奖:</li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 <button class="partake" @click="goSignUp" v-if="answerStatus">立即参与</button>
             </div>
         </div>
@@ -85,7 +71,8 @@ export default {
             prop: {
                 status: false,
                 text: ''
-            }
+            },
+            detailInfo: {}
         }
     },
     components: {
@@ -93,6 +80,7 @@ export default {
         propModel
     },
     mounted() {
+        this.scienceInfo();
         if(!!localStorage.getItem('userId')) {
             this.answerStatus = false;
         } else {
@@ -100,8 +88,12 @@ export default {
         }    
     },
     methods: {
-        searchInfoData(e) {
-            console.log(e);
+        scienceInfo() {
+            this.$http.get('/getPsActivities').then( res => {
+                this.detailInfo = res.data.msg;
+            }).catch( err => {
+                console.log(err, 'getPsActivities')
+            });
         },
         goSignUp(e) {
             this.signUpStatus = true;
@@ -134,7 +126,7 @@ export default {
                         localStorage.setItem('userId', res.data.msg.id)
                         _this.signUpStatus = false;
                         _this.answerStatus = false;
-                        _this.checkActiveAnswer(18);
+                        _this.checkActiveAnswer(_this.detailInfo.id);
                     }
                 }).catch(err => {
                     console.log(err, "login");
@@ -151,7 +143,7 @@ export default {
             this.$http.get(`/knowledgeCompetition?id=${id}`).then( res => {
                 console.log(res)
                 if(res.data.code == 200) {
-                    this.$router.push({name: "answerList", params:{id: 18}});
+                    this.$router.push({name: "answerList", params:{id: id}});
                 } else if(res.data.code == 1) {
                     this.prop.status = true;
                     this.prop.text = res.data.msg;
@@ -167,24 +159,28 @@ export default {
 }
 </script>
 <style scoped>
+    .title-tip {
+        color: #030000;
+        font-size: .46rem;
+        line-height: 1.04rem;
+        width: 2.33rem;
+        height: 1.04rem;
+        text-align: center;
+        background-size: 100% 100%;
+        display: inline-block;
+        margin-top: .18rem;
+        background-image: url(../assets/images/title-bg.png);
+    }
     .knowledge-content {
         font-size: 0;
         position: relative;
     }
     .konwledge-bg {
         height: 4.13rem;
-        background-image: url(../assets/images/konwledge-bg.png);
         background-size: 100% 100%;
     }
-    .konwledge-bg span {
-        color: #fff;
-        font-size: .26rem;
-        line-height: 1;
-        padding-top: .3rem;
-        padding-left: .3rem;
-    }
     .konwledge-detail {
-        height: 12.14rem;
+        max-height: 12.14rem;
         background-image: url(../assets/images/know-bg.png);
         background-size: 100% 100%;
         overflow-x: hidden;
@@ -192,6 +188,7 @@ export default {
         /* margin-bottom: 1.23rem; */
         color: #3e3a39;
         font-size: 0;
+        height: 6.67rem;
     }
     .info-detail {
         padding: 1.3rem .8rem 0;
@@ -255,6 +252,7 @@ export default {
         color: #fff;
         margin: 0 auto;
         display: block;
+        margin-top: .5rem;
     }
     .error {
         color: #fe0000;
