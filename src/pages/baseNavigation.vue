@@ -2,7 +2,7 @@
     <div class="container">
         <div class="navigation-top">
             <h3 class="title-tip" v-show="!isShowSearchForm">基地导航</h3>
-            <go-back></go-back>
+            <go-back :topType="topType"></go-back>
             <search :actionUrl="actionUrl" :topType="topType" @search-data="searchData" :isShowSearch="isShowSearch" :isShowSearchForm="isShowSearchForm" :isShowSearchIcon="isShowSearchIcon"></search>
         </div>
         <div class="search-base-banner">
@@ -56,15 +56,16 @@ export default {
             spaceBetween: 13,
             observer:true
         });
-        setTimeout(() => {
-            document.getElementById('search-result').children[0].style.transform="translate3d(0px, 0px, 0px)";
-        }, 100);
+        
     },
     methods: {
         getBaseTypeList() {
             this.$http.get('/searchType?searchType=1').then( res => {
                 this.baseTypeList = res.data.msg;
                 this.getBaseNav(this.baseTypeList[0].id);
+                setTimeout(() => {
+                    document.getElementById('search-result').children[0].style.transform="translate3d(0px, 0px, 0px)";
+                }, 100);
             }).catch( err => {
                 console.log(err, 'baseNavigation');
             })

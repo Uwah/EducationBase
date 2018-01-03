@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="science-top">
-            <go-back></go-back>
+            <go-back :topType="topType"></go-back>
             <h3 class="title-tip">科普活动</h3>
             <i :class="['science-list-type', showType]" @click="cellListChange"></i>
         </div>

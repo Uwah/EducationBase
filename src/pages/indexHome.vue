@@ -140,7 +140,10 @@ export default {
              _this.activiesData.activity.startTime = _this.formatTime(_this.activiesData.activity.startTime);
              _this.activiesData.activity.endTime = _this.formatTime(this.activiesData.activity.endTime);
             _this.setBaseMapMarker(_this.indexData.types[0].list);
-            
+            setTimeout(() => {
+                document.getElementById('base-locations').children[0].style.transform="translate3d(0px, 0px, 0px)";
+                document.getElementById('science-swiper').children[0].style.transform="translate3d(0px, 0px, 0px)";
+            }, 100);
         }).catch(err => {
             console.error(err);
         });
@@ -166,12 +169,6 @@ export default {
             spaceBetween: 10,
             observer:true
         });
-        
-        setTimeout(() => {
-            document.getElementById('base-locations').children[0].style.transform="translate3d(0px, 0px, 0px)";
-            document.getElementById('science-swiper').children[0].style.transform="translate3d(0px, 0px, 0px)";
-        }, 50); 
-        
     },
     methods: {
         knowledgeCheck(e) {

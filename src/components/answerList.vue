@@ -2,7 +2,7 @@
     <div class="answerList-content">
         <div class="knowledge-top">
             <h3 class="answer-title-tip seasion-count">{{anwserObj.title}}</h3>
-            <go-back></go-back>
+            <go-back :topType="topType"></go-back>
             <search :actionUrl="actionUrl" :topType="topType" @search-data="searchData" :isShowSearch="isShowSearch" 
             :isShowSearchForm="isShowSearchForm" :isShowSearchIcon="isShowSearchIcon"></search>
         </div>

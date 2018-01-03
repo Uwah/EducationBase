@@ -2,7 +2,7 @@
     <div class="container">
         <div class="profile-top">
             <h3 class="title-tip" v-show="!isShowSearchForm">基地概况</h3>
-            <go-back></go-back>
+            <go-back :topType="topType"></go-back>
             <search :actionUrl="actionUrl" :topType="topType" @search-data="searchData" :isShowSearch="isShowSearch" :isShowSearchForm="isShowSearchForm" :isShowSearchIcon="isShowSearchIcon"></search>
         </div>
         <div class="profile-list-content">

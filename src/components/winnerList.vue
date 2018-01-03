@@ -2,7 +2,7 @@
     <div class="winnerList">
         <div class="knowledge-top">
             <h3 class="title-tip seasion-count" v-show="!winnerObj.isShowSearchForm">{{title}}</h3>
-            <go-back></go-back>
+            <go-back :topType="topType"></go-back>
         </div>
         <div class="seasion-content">
             <div class="seasion-content-top">

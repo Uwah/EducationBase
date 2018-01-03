@@ -2,7 +2,7 @@
     <div>
         <div class="content-top">
             <h3 class="content-title-tip seasion-count">{{topType == 3?'基地概况':'科普活动'}}</h3>
-            <go-back></go-back>
+            <go-back :topType="topType"></go-back>
         </div>
         <div class="profile-detail">
             <div class="detail-top">

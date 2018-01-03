@@ -1,7 +1,7 @@
 <template>
     <div class="total-content">
         <div class="total-top">
-            <go-back></go-back>
+            <go-back :topType="topType"></go-back>
             <div class="out">
                 <div class="knowledge-search">
                     <form action="" class="search-form">
@@ -25,7 +25,7 @@
             </div>
             <div class="total-search-info">
                 <div class="search-type-area" v-for="(value, key) in searchList" :key="key" v-if="topType != 2">
-                    <span v-if="topType == 1" class="type-name">{{key ==2 ?'基地导航': key ==3?'基地概况':key ==4?'知识竞赛':key ==5?'科普活动':''}}</span>
+                    <span v-if="topType == 1 && value.length > 0" class="type-name">{{key ==2 ?'基地导航': key ==3?'基地概况':key ==4?'知识竞赛':key ==5?'科普活动':''}}</span>
                     <ul class="total-search-history" @click="searchDetail">
                         <li v-for="(type, tindex) in value" :key="tindex" :data-address="type.address" :data-id="type.id" :list-type="key" >
                             <i class="total-history-search-icon"></i>
@@ -48,6 +48,7 @@
                         </li>
                     </ul>
                 </div>
+                <span class="no-result" v-if="searchStatus">暂无搜索结果...</span>
             </div>
         </div>
     </div>
@@ -61,7 +62,8 @@ export default {
             actionUrl: "",
             searchList: [],
             keyword: '',
-            topType: 0
+            searchStatus: false,
+            topType: 1
 
         }
     },
@@ -81,9 +83,16 @@ export default {
             console.log(data)
         },
         getSearchInfo() {
+            let flag = true;
             this.$http.get(`/topSeach?topType=${this.topType}&title=${this.keyword}`)
                 .then(res => {
                     this.searchList = res.data.msg;
+                    for(let r in this.searchList) {
+                        if(this.searchList[r].length > 0) {
+                            flag = false;
+                        }
+                    }
+                    this.searchStatus = flag;
                 }).catch(err => {
                     console.log(err, 'search');
                 });
@@ -354,5 +363,14 @@ export default {
         margin-left: .67rem; 
         text-align: center;
         background-color: #b3b3b3;
+    }
+    .no-result {
+        color: #615f5f;
+        font-size: .28rem;
+        width: 100%;
+        line-height: 1;
+        display: inline-block;
+        text-align: center;
+        padding-top: .2rem;
     }
 </style>

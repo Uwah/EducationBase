@@ -12,9 +12,35 @@ export default {
     },
     methods: {
         backLastPage(e) {
-			console.log(this.$store.getters.getFromUrl);
-			this.$router.push({name: this.$store.getters.getFromUrl})
-            // window.history.go(-1);
+            console.log(this.$store.getters.getFromUrl);
+            let formUrl = this.$store.getters.getFromUrl;
+            if(formUrl === 'winnerList') {
+                this.$router.push({name: "competitionList", params: {seasonId: 'later', title: '往期'}});
+                this.$store.dispatch('sciencestate'); 
+            } else {
+                // switch(this.topType) {
+                //     case 1:
+                //         this.$router.push({name: 'indexHome'})
+                //         break;
+                //     case 2:
+                //         this.$router.push({name: 'earthBaseProfile'})
+                //         break;
+                //     case 3:
+                //         this.$router.push({name: 'baseNavigation'})
+                //         break;
+                //     case 4:
+                //         this.$router.push({name: 'scienceActive'})
+                //         break;
+                //     case 5:
+                //         this.$router.push({name: 'knowledgeShow'})
+                //         break;
+                //     default:
+                //         this.$router.push({name: 'indexHome'})
+                //     break;
+                // }
+                this.$router.push({name: formUrl})
+            }
+			// this.$router.push({name: this.$store.getters.getFromUrl})
         }
     }
 }

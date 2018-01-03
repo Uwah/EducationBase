@@ -97,7 +97,9 @@ a {
 }
 #app {
     min-height: 100%;
-    background-color: #f3f3f3;
-    margin-bottom: 1.34rem;
+    /* background-color: #f3f3f3; */
+    /* margin-bottom: 1.34rem; */
+    position: relative;
+    padding-bottom: 1.34rem;
 }
 </style>
