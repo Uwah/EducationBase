@@ -72,7 +72,10 @@ export default {
     },
     watch:{
         $route(to, from) {
+            debugger
+            //判断 to
             this.pathname = to.name;
+            // if(from.name !== 'indexHome' && from.name !== 'earthBaseProfile' && from.name !== 'baseNavigation' && from.name !== 'scienceActive' && from.name !== 'knowledgeShow')
         //   this.showhead(this.pathname);
             this.$store.dispatch('lastUrl', from.name);
             this.bottomActive(this.pathname);

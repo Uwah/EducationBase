@@ -4,7 +4,7 @@
             <go-back :topType="topType"></go-back>
             <div class="out">
                 <div class="knowledge-search">
-                    <form action="" class="search-form">
+                    <form action="" class="search-form" @submit="getSearchInfo">
                         <input type="search" v-model="keyword" name="knowledge-search" id="nvg-search" placeholder="请输入基地名称">
                     </form>
                 </div>
@@ -73,6 +73,9 @@ export default {
     mounted() {
         console.log('aaaaa');
         let kw = this.$route.params;
+        if(Object.keys(kw).length === 0) {
+            //this.$store.getters.getFromUrl
+        }
         this.keyword = kw.address;
         this.topType = kw.type;
         this.setFooterStatus(kw.type);
@@ -112,7 +115,7 @@ export default {
                 this.$http.get("/navigation", {id: searchItem.id}).then(res => {console.log(res)}).catch(error => {console.log(error)})
                 this.$router.push({name: "searchPage", params: {address: searchItem.address}})
             } else if(searchItem.type == 3 || searchItem.type == 5) {
-                this.$router.push({name: "articleDetail", params: {id: searchItem.id, type: searchItem.type}})
+                this.$router.push({name: "articleDetail", params: {id: searchItem.id, type: parseInt(searchItem.type)}})
             } else if(searchItem.type == 4) {
                 this.$router.push({name: 'competitionDetail'});
             }

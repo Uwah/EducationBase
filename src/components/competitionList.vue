@@ -3,7 +3,7 @@
     <div class="competition">
         <div class="knowledge-top">
             <h3 class="title-tip seasion-count" v-show="!searchObj.isShowSearchForm">{{season.title}}</h3>
-            <go-back :topType="topType"></go-back>
+            <go-back :topType="searchObj.topType"></go-back>
             <search :actionUrl="searchObj.actionUrl" :isShowSearch="searchObj.isShowSearch" 
             :isShowSearchForm="searchObj.isShowSearchForm" @search-data="searchSeasionData" :topType="searchObj.topType" :isShowSeachIcon="searchObj.isShowSeachIcon"></search>
         </div>
