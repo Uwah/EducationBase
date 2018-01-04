@@ -2,7 +2,7 @@
     <div class="winnerList">
         <div class="knowledge-top">
             <h3 class="title-tip seasion-count" v-show="!winnerObj.isShowSearchForm">{{title}}</h3>
-            <go-back :topType="topType"></go-back>
+            <go-back :topType="winnerObj.topType"></go-back>
         </div>
         <div class="seasion-content">
             <div class="seasion-content-top">
@@ -50,7 +50,7 @@ export default {
         search
     },
     mounted() {
-        // console.log(this.$route.params.id)
+        console.log(this.$route.params.id)
         let params = this.$route.params;
         this.title = params.title;
         this.getWinnerList(params.id);
@@ -95,7 +95,6 @@ export default {
         background-size: 100% 100%;
         overflow-x: hidden;
         overflow-y: auto;
-        margin-bottom: 1.23rem;
         color: #3e3a39;
         font-size: 0;
     }

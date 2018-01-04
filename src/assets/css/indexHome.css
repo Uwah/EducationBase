@@ -136,7 +136,7 @@ input[type="search"]::-webkit-search-cancel-button{
 .small-icon-text {
     font-size: .26rem;
 }
-.base-survey,.base-navigation,.science-active,.knowledge-show {
+.base-survey,.base-navigation {
     padding-top: .4rem;
 }
 .survey-top, .navigation-top,.science-top,.home-knowledge-show-top {
@@ -305,14 +305,14 @@ input[type="search"]::-webkit-search-cancel-button{
 }
 .knowledge-show {
     width: 100%;
-    height: 8.84rem;
+    height: 8.6rem;
     background-size: 100% 100%;
     background-image: url(../images/knowledge-show.png);
-    background-repeat: repeat-y;
+    background-repeat: no-repeat;
     font-size: 0;
 }
 .final-show  {
-    margin-top: .4rem;
+    margin-top: .3rem;
     margin-left: .74rem;
     width: 5.6rem;
     height: 3.6rem;
@@ -375,7 +375,7 @@ input[type="search"]::-webkit-search-cancel-button{
 }
 .season-list {
     display: flex;
-    padding: .4rem .5rem 0;
+    padding: .24rem .5rem 0;
     /* justify-content: space-between; */
 }
 .season {

@@ -140,34 +140,38 @@ export default {
             _this.activiesData.activity.startTime = _this.formatTime(_this.activiesData.activity.startTime);
             _this.activiesData.activity.endTime = _this.formatTime(this.activiesData.activity.endTime);
             _this.setBaseMapMarker(_this.indexData.types[0].list);
+            new Swiper("#topBanner",{
+                autoplay: true,
+                observer:true,//修改swiper自己或子元素时，自动初始化swiper
+                pagination: {
+                    el: '.swiper-pagination',
+                }
+            });
+            new Swiper("#base-locations", {
+                slidesPerView: 4,
+                spaceBetween: 20,
+                observer:true,
+                observeParents:true,
+                onSlideChangeEnd: function(swiper) {
+                    swiper.update(true)
+                }
+            });
+            new Swiper("#science-swiper", {
+                slidesPerView: 'auto',
+                spaceBetween: 10,
+                observer:true,
+                observeParents:true,
+                onSlideChangeEnd: function(swiper) {
+                    console.log(1)
+                    swiper.update(true)
+                }
+            });
             setTimeout(() => {
                 document.getElementById('base-locations').children[0].style.transform="translate3d(0px, 0px, 0px)";
                 document.getElementById('science-swiper').children[0].style.transform="translate3d(0px, 0px, 0px)";
             }, 100);
         }).catch(err => {
             console.error(err);
-        });
-       
-        new Swiper("#topBanner",{
-            autoplay: true,
-            observer:true,//修改swiper自己或子元素时，自动初始化swiper
-            pagination: {
-                el: '.swiper-pagination',
-            }
-        });
-        new Swiper("#base-locations", {
-            slidesPerView: 4,
-            spaceBetween: 20,
-            observer:true,
-            observeParents:true,
-            onSlideChangeEnd: function(swiper) {
-                swiper.update(true)
-            }
-        });
-        new Swiper("#science-swiper", {
-            slidesPerView: 2,
-            spaceBetween: 10,
-            observer:true
         });
     },
     methods: {

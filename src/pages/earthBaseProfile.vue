@@ -8,9 +8,9 @@
         <div class="profile-list-content">
             <div class="profile-banner">
                 <div class="swiper-container" id="profile-banner">
-                    <div class="swiper-wrapper">
+                    <div class="swiper-wrapper"><!--  @click="goArticleDetail($event, item.id)" -->
                         <div class="swiper-slide" :data-id="item.id" v-for="(item, index) in banners.banners" :key="index"
-                        ><a href="javascript:;" @click="goArticleDetail($event, item.id)"><img :src="item.fileName" /></a></div>
+                        ><a href="javascript:;"><img :src="item.fileName" /></a></div>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -79,11 +79,7 @@ export default {
                 el: '.swiper-pagination',
             }
         });
-        new Swiper("#profile-list-swiper", {
-            observer:true,
-            slidesPerView: 4,
-            spaceBetween: 20
-        });
+        
     },
     methods: {
         searchData(kw) {
@@ -114,6 +110,14 @@ export default {
             let _this = this;
             this.$http.get('/getBaseSummary').then( res => {
                 _this.banners = res.data.msg;
+                new Swiper("#profile-list-swiper", {
+                    observer:true,
+                    slidesPerView: 4,
+                    spaceBetween: 20
+                });
+                setTimeout(() => {
+                    document.getElementById('profile-list-swiper').children[0].style.transform="translate3d(0px, 0px, 0px)";
+                }, 100);
                 _this.searchEarthBase(_this.banners.types[0].id)
             }).catch( err => {
                 console.log(err, "获取基地概况banner失败")

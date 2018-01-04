@@ -30,6 +30,7 @@ export default {
             }
         },
         bottomActive(pathname) {
+            console.log(pathname)
             switch(pathname) {
                 case "indexHome":
                     this.$store.dispatch('homestate');
@@ -85,15 +86,15 @@ export default {
 @import './assets/css/common.css';
 @import './assets/css/swiper/swiper.min.css';
 html,body,p,ul,li,table,strong {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 ul>li {
-  list-style: none;
+    list-style: none;
 }
 a {
-  text-decoration: none;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 #app {
     min-height: 100%;
