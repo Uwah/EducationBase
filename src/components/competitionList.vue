@@ -58,19 +58,20 @@ export default {
              let params = this.$route.params;
             console.log(params.seasonId);
             this.$http.get('/psActivities').then( res => {
-                this.season.title = params.title;
+                this.season.title = params.title || '往期';
                 this.season.list = res.data.msg;
             }).catch( err => {
                 console.error(err, 'competitionList')
             });
         },
         searchSeasionData(data) {
-           if(data==='') {
+            debugger
+            if(data==='') {
                this.searchObj.isShowSearchForm = true;
-           } else {
-               this.$router.push({name: 'totalSearch', params: {address: data, type: this.topType}})
+            } else {
+                this.$router.push({name: 'totalSearch',params: {address: data, type: this.searchObj.topType}})
             //    this.season.list = data;
-           }
+            }
         },
         checkWinnerList(e) {
             console.log(e.target.getAttribute('data-id'))

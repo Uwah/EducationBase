@@ -72,6 +72,7 @@ export default {
     },
     mounted() {
         console.log('aaaaa');
+        // debugger
         let kw = this.$route.params;
         if(Object.keys(kw).length === 0) {
             //this.$store.getters.getFromUrl
@@ -111,13 +112,33 @@ export default {
                 searchItem.id = target.parentElement.getAttribute('data-id');
                 searchItem.address = target.parentElement.getAttribute('data-address');
             }
-            if(searchItem.type == 2) {
+            if(searchItem.type == 2 || searchItem.type == 1) {
                 this.$http.get("/navigation", {id: searchItem.id}).then(res => {console.log(res)}).catch(error => {console.log(error)})
                 this.$router.push({name: "searchPage", params: {address: searchItem.address}})
             } else if(searchItem.type == 3 || searchItem.type == 5) {
                 this.$router.push({name: "articleDetail", params: {id: searchItem.id, type: parseInt(searchItem.type)}})
             } else if(searchItem.type == 4) {
                 this.$router.push({name: 'competitionDetail'});
+            }
+            switch(searchItem.type) {
+                case "1":
+                    this.$store.dispatch('homestate');
+                break;
+                case "3":
+                    this.$store.dispatch("basestate");
+                break;
+                case "2":
+                    this.$store.dispatch("navstate");
+                break;
+                case "5":
+                    this.$store.dispatch("knowstate");
+                break;
+                case "4":
+                    this.$store.dispatch("sciencestate");
+                break;
+                default:
+                    this.$store.dispatch('homestate'); //默认进首页
+                break;
             }
         },
         setFooterStatus(topType) {

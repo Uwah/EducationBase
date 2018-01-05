@@ -29,6 +29,7 @@ export default {
         search
     },
     mounted() {
+        // debugger
         this.renderMapcontent();
 
     },
