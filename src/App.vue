@@ -79,6 +79,30 @@ export default {
                 break;
             }
         },
+        navName(type) {
+            let sName = '';
+            switch(type) {
+                case 1:
+                    sName = 'homestate';
+                break;
+                case 3:
+                    sName = "basestate";
+                break;
+                case 2:
+                    sName = "navstate";
+                break;
+                case 5:
+                    sName = "knowstate";
+                break;
+                case 4:
+                    sName = "sciencestate";
+                break;
+                default:
+                    sName = 'homestate'; //默认进首页
+                break;
+            }
+            return sName;
+        },
         getHomeSearch(e) {
             console.log(e);
         }
@@ -97,40 +121,24 @@ export default {
             // debugger
             //判断 to
             this.pathname = to.name;
+            let topType = this.$store.getters.getTopType;
             if(to.name === 'totalSearch') {
                 if(from.name !== 'indexHome' && from.name !== 'earthBaseProfile' && from.name !== 'baseNavigation' 
                     && from.name !== 'scienceActive' && from.name !== 'knowledgeShow' && from.name !== 'competitionList') {
-                    console.log(this.$store.getters.getTopType)
-                    this.mapNav(this.$store.getters.getTopType);
+                    console.log(topType)
+                    this.mapNav(topType);
                 } else {
-                    let sName = '';
-                    switch(this.$store.getters.getTopType) {
-                        case 1:
-                            sName = 'homestate';
-                        break;
-                        case 3:
-                            sName = "basestate";
-                        break;
-                        case 2:
-                            sName = "navstate";
-                        break;
-                        case 5:
-                            sName = "knowstate";
-                        break;
-                        case 4:
-                            sName = "sciencestate";
-                        break;
-                        default:
-                            sName = 'homestate'; //默认进首页
-                        break;
-                    }
-                    this.bottomActive(sName);
+                    this.$store.dispatch(this.navName(topType));
                 }
             } else if(to.name === 'searchPage'){
-                let name = this.$store.getters.getTopType === 1 ? 'indexHome':'baseNavigation';
-                this.bottomActive(name);
+                this.$store.dispatch(this.navName(topType));
             } else {
-                this.bottomActive(this.pathname);
+                if(this.pathname === 'articleDetail' && from.name === 'searchPage') {
+                    this.mapNav(topType);
+                } else {
+                    this.bottomActive(this.pathname);
+                }
+                
             }
             
         //   this.showhead(this.pathname);
