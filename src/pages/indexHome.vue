@@ -102,8 +102,8 @@
                 </div>
                 <img src="../assets/images/home-QRcode.png" class="visi-code" />
             </div>
-            <div class="season-list" @click="knowledgeCheck">
-                <div class="season" :style="{backgroundImage: `url(${item.fileName})`}" :key="index" :data-season="item.periods" 
+            <div class="season-list">
+                <div class="season" @click="knowledgeCheck" :style="{backgroundImage: `url(${item.fileName})`}" :key="index" :data-season="item.periods" 
                 v-for="(item, index) in activiesData.list">{{item.periods != 'later'? `第${item.periods}期`: '往期'}}</div>
             </div>
         </div>

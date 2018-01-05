@@ -6,7 +6,7 @@
         </div>
         <div class="seasion-content">
             <div class="seasion-content-top">
-                <img src="" class="seasion-img" alt="">
+                <img src="../assets/images/list-img.png" class="seasion-img" alt=""/>
                 <div class="seasion-info">
                     <span class="seasion-title">{{winner.title}}</span>
                     <span class="seasion-number">参与人数：{{winner.count}}</span>
