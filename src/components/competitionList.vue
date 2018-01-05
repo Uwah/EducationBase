@@ -15,7 +15,7 @@
                     <div class="history-knowledge-type-content">
                         <span class="history-knowledge-type-title">第{{item.periods}}期</span>
                         <span class="sub-title">{{item.title}}</span>
-                        <span class="history-knowledge-count">参与人数：{{item.indiProfile}}</span>
+                        <span class="history-knowledge-count">参与人数：{{item.count}}</span>
                     </div>
                 </div>
             </div>
