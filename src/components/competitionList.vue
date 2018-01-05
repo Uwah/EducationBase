@@ -65,7 +65,7 @@ export default {
             });
         },
         searchSeasionData(data) {
-            debugger
+            // debugger
             if(data==='') {
                this.searchObj.isShowSearchForm = true;
             } else {

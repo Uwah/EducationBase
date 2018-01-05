@@ -121,7 +121,7 @@ export default {
                     }
                 }).then( res => {
                     console.log(res);
-                    debugger;
+                    // debugger;
                     if(res.data.code == 200) {
                         localStorage.setItem('userId', res.data.msg.id)
                         _this.signUpStatus = false;
