@@ -17,7 +17,7 @@
                 <i :class="[icon,knowActive?'kepuhuodong-active':'kepuhuodong']"></i>
                 <p :class="[knowActive?'active':'']">科普活动</p>
             </router-link>
-            <router-link to="/scienceActive" class="footer-item">
+            <router-link to="/competitionDetail" class="footer-item">
                 <i :class="[icon,scienceActive?'konw-active':'konw']"></i>
                 <p :class="[scienceActive?'active':'']">知识竞赛</p>
             </router-link>

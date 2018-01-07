@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-
+import indexHome from "../pages/indexHome";
 
 Vue.use(VueRouter);
 const routes = [
     {path:'/', redirect:"/indexHome"},
-    {path: '/indexHome', component: resolve => require(["../pages/indexHome"],  resolve),name:"indexHome"},
+    {path: '/indexHome', component: indexHome,name:"indexHome"},
     {path: '/earthBaseProfile', component: resolve => require(["../pages/earthBaseProfile"],  resolve),name:"earthBaseProfile"},
     {path: '/baseNavigation', component: resolve => require(["../pages/baseNavigation"],  resolve),name:"baseNavigation"},
     {path: '/scienceActive', component: resolve => require(["../pages/scienceActive"],  resolve),name:"scienceActive"},
@@ -18,12 +18,12 @@ const routes = [
     {path:'/answerList', component: resolve => require(['../components/answerList'], resolve), name:"answerList"},
     {path: '/searchPage', component: resolve => require(['../components/searchPage'], resolve), name:'searchPage'},
     {path: '/totalSearch', component: resolve => require(['../components/totalSearch'], resolve), name:'totalSearch'},
-    {path: '*', component: resolve => require(["../pages/indexHome"]) }
+    {path: '*', component: indexHome }
     
 ];
 
 export default new VueRouter({
     routes,
-    mode:'history',
+    mode:'hash',
     base: '/'
 });

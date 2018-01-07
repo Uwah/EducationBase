@@ -37,7 +37,7 @@ export default {
         letter-spacing: 2px;    
         height: 1.52rem;
         max-width: 80%;
-        min-width: 4.5rem;
+        min-width: 6rem;
         text-align: center;
         background-color: rgba(255, 255, 255, .6);
         box-shadow: 0px 0px 28px 0px rgba(0, 0, 0, 0.4);

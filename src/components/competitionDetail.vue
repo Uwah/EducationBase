@@ -7,7 +7,7 @@
         <div class="knowledge-content">
             <div class="konwledge-bg" :style="{backgroundImage: `url(${detailInfo.fileName})`}"></div>
             <div class="konwledge-detail info-detail">
-                <p v-html="detailInfo.indiProfile"></p>
+                <div v-html="detailInfo.indiProfile"></div>
                 <!-- <div class="knowledge-unit">
                     <ul class="unit-list">
                         <li>主办单位:<span class="unit-name">***教育局</span><span class="unit-name">***科技协会</span></li>
@@ -25,7 +25,7 @@
                         </ul>
                     </div>
                 </div> -->
-                <button class="partake" @click="goSignUp" v-if="answerStatus">立即参与</button>
+                <button class="partake" @click="goSignUp">立即参与</button>
             </div>
         </div>
         <!-- 报名弹框  -->
@@ -72,7 +72,8 @@ export default {
                 status: false,
                 text: ''
             },
-            detailInfo: {}
+            detailInfo: {},
+            partakeInfo: {}
         }
     },
     components: {
@@ -80,23 +81,38 @@ export default {
         propModel
     },
     mounted() {
-        this.scienceInfo();
-        if(!!localStorage.getItem('userId')) {
-            this.answerStatus = false;
-        } else {
-            this.answerStatus = true;
-        }    
+        this.scienceInfo();  
     },
     methods: {
         scienceInfo() {
             this.$http.get('/getPsActivities').then( res => {
                 this.detailInfo = res.data.msg;
+                this.checkActiveAnswer(this.detailInfo.id);
             }).catch( err => {
                 console.log(err, 'getPsActivities')
             });
         },
         goSignUp(e) {
-            this.signUpStatus = true;
+            //根据getPsActivities 返回id用knowledgeCompetition查当前按钮点击情况
+            // this.signUpStatus = true;
+            console.log('goSignUp')
+            if(this.partakeInfo.code == 200) {
+                this.$router.push({name: "answerList", params:{id: this.detailInfo.id}});
+            } else if(this.partakeInfo.code == 1) {
+                this.prop.status = true;
+                this.prop.text = this.partakeInfo.msg;
+                setTimeout(() => {
+                    this.prop.status = false;
+                }, 3000);   
+            } else if(this.partakeInfo.code == 2) {
+                this.signUpStatus = true;
+            } else {
+                this.prop.status = true;
+                this.prop.text = '服务异常，请联系管理员';
+                setTimeout(() => {
+                    this.prop.status = false;
+                }, 3000);
+            }
         },
         submitForm(evt) {
             evt.preventDefault();
@@ -126,7 +142,13 @@ export default {
                         localStorage.setItem('userId', res.data.msg.id)
                         _this.signUpStatus = false;
                         _this.answerStatus = false;
-                        _this.checkActiveAnswer(_this.detailInfo.id);
+                        _this.$router.push({name: "answerList", params:{id: _this.detailInfo.id}});
+                    } else if(res.data.code == 1) {
+                        _this.prop.status = true;
+                        _this.prop.text = _res.data.msg;
+                        setTimeout(() => {
+                            _this.prop.status = false;
+                        }, 3000);   
                     }
                 }).catch(err => {
                     console.log(err, "login");
@@ -142,15 +164,7 @@ export default {
         checkActiveAnswer(id) {
             this.$http.get(`/knowledgeCompetition?id=${id}`).then( res => {
                 console.log(res)
-                if(res.data.code == 200) {
-                    this.$router.push({name: "answerList", params:{id: id}});
-                } else if(res.data.code == 1) {
-                    this.prop.status = true;
-                    this.prop.text = res.data.msg;
-                    setTimeout(() => {
-                        this.prop.status = false;
-                    }, 3000);   
-                }
+                this.partakeInfo = res.data;
             }).catch(err => {
                 console.log(err);
             })
@@ -159,6 +173,7 @@ export default {
 }
 </script>
 <style scoped>
+    @import url('../assets/css/knowledgeShow.css');
     .title-tip {
         color: #030000;
         font-size: .46rem;
@@ -188,16 +203,21 @@ export default {
         /* margin-bottom: 1.23rem; */
         color: #3e3a39;
         font-size: 0;
-        height: 6.67rem;
+        min-height: 6.67rem;
+        height: auto;
     }
     .info-detail {
         padding: 1.3rem .8rem 0;
+        position: relative;
+        display: flex;
+        flex-direction: column;
     }
-    .konwledge-detail p {
+    .konwledge-detail div {
         font-size: .24rem;
         line-height: 1.2;
         text-indent: .4rem;
         padding-bottom: 2px;
+        flex: 1;
     }
     .knowledge-unit {
         color: #3e3a39;
@@ -250,9 +270,14 @@ export default {
         border-bottom-left-radius: 0.503rem;
         border-bottom-right-radius: 0.503rem;
         color: #fff;
-        margin: 0 auto;
+        margin-top: .3rem;
+        margin-bottom: 1.47rem;
+        /* margin: 0 auto;
         display: block;
-        margin-top: .5rem;
+        position: absolute;
+        bottom: 1.48rem;
+        left: 50%;
+        transform: translateX(-50%); */
     }
     .error {
         color: #fe0000;

@@ -177,7 +177,7 @@ input[type="search"]::-webkit-search-cancel-button{
 }
 .survey-content>p {
     color: #231815;
-    font-size: .18rem;
+    font-size: .22rem;
     line-height: 1.8;
     text-indent: .4rem;
 }
@@ -310,6 +310,7 @@ input[type="search"]::-webkit-search-cancel-button{
     background-image: url(../images/knowledge-show.png);
     background-repeat: no-repeat;
     font-size: 0;
+    margin-top: -4px;
 }
 .final-show  {
     margin-top: .3rem;

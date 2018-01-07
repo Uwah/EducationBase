@@ -93,7 +93,8 @@ export default {
             });
         },
         goMap(address, id) {
-            this.$http.get("/navigation", {id: id}).then(res => {console.log(res)}).catch(error => {console.log(error)});
+            console.log(id,'map')
+            this.$http.get(`/navigation?id=${id}`).then(res => {console.log(res)}).catch(error => {console.log(error)});
             this.$router.push({name: "searchPage", params: {address: address}})
         }
     },

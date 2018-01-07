@@ -69,7 +69,7 @@ export default {
                     this.$router.push({name: 'earthBaseProfile'})
                     break;
                 case 4:
-                    this.$router.push({name: 'scienceActive'})
+                    this.$router.push({name: 'competitionDetail'})
                     break;
                 case 5:
                     this.$router.push({name: 'knowledgeShow'})
@@ -169,6 +169,6 @@ a {
     /* background-color: #f3f3f3; */
     /* margin-bottom: 1.34rem; */
     position: relative;
-    padding-bottom: 1.34rem;
+    padding-bottom: 1.3rem;
 }
 </style>

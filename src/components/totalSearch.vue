@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="total-base-content">
-            <div class="total-no-search" v-if="searchList.length === 0">
+            <div class="total-no-search" style="display: none;">
                 <p class="total-search-tip">搜索指定内容</p>
                 <div class="total-demo-search">
                     <span class="total-demo-text">农业基地</span>
@@ -113,7 +113,7 @@ export default {
                 searchItem.address = target.parentElement.getAttribute('data-address');
             }
             if(searchItem.type == 2 || searchItem.type == 1) {
-                this.$http.get("/navigation", {id: searchItem.id}).then(res => {console.log(res)}).catch(error => {console.log(error)})
+                this.$http.get(`/navigation?id=${searchItem.id}`).then(res => {console.log(res)}).catch(error => {console.log(error)})
                 this.$router.push({name: "searchPage", params: {address: searchItem.address}})
             } else if(searchItem.type == 3 || searchItem.type == 5) {
                 this.$router.push({name: "articleDetail", params: {id: searchItem.id, type: parseInt(searchItem.type)}})

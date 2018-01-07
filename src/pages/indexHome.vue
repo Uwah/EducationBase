@@ -26,7 +26,7 @@
                 <i class="base-small-icon"></i>
                 <p class="small-icon-text">科普活动</p>
             </div>
-            <div class="base-item" @click="$router.push({path: '/scienceActive'})">
+            <div class="base-item" @click="$router.push({path: '/competitionDetail'})">
                 <i class="base-small-icon"></i>
                 <p class="small-icon-text">知识竞赛</p>
             </div>
@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="knowledge-show">
-            <div class="home-knowledge-show-top" @click="$router.push({path: '/scienceActive'})">
+            <div class="home-knowledge-show-top" @click="$router.push({path: '/competitionDetail'})">
                 <div class="knowledge-title">知识竞赛<span class="under-line"></span></div>
                 <a href="javascript:;" class="jump-href"></a>
             </div>
@@ -129,7 +129,7 @@ export default {
     mounted() {
         document.body.scrollTop=0;
         let _this = this;
-        this.$http.get('/index').then(res => {
+        _this.$http.get('/index').then(res => {
             
             _this.indexData = res.data.msg;
             _this.activiesData.activity = res.data.msg.activities[0];

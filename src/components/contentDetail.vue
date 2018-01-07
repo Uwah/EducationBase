@@ -32,6 +32,28 @@ export default {
         getDetail() {
             console.log('detail')
             let params = this.$route.params;
+            if(Object.keys(params).length === 0) {
+                switch(this.$store.getters.getTopType) {
+                    case 1:
+                        this.$router.push({name: 'indexHome'})
+                        break;
+                    case 2:
+                        this.$router.push({name: 'baseNavigation'})
+                        break;
+                    case 3:
+                        this.$router.push({name: 'earthBaseProfile'})
+                        break;
+                    case 4:
+                        this.$router.push({name: 'competitionDetail'})
+                        break;
+                    case 5:
+                        this.$router.push({name: 'knowledgeShow'})
+                        break;
+                    default:
+                        this.$router.push({name: 'indexHome'})
+                    break;
+                }
+            }
             this.topType = params.type || 3;
             this.$http.get(`/getIndiProfile?topType=${params.type}&id=${params.id}`).then( res => {
                 this.detailObj = res.data.msg;

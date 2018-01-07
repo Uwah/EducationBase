@@ -11,7 +11,7 @@
                 恭喜您，共答对<span class="right-answer">{{correctObj.correct}}</span>题，共<span class="total-answer">{{correctObj.total}}</span>题
             </div>
             <div class="answer-item" v-for="(item, index) in anwserObj.questions" :key="index">
-                <h4 class="answer-title"><span class="answer-count">{{index+1}}、</span>{{item.title}}：</h4>
+                <h4 class="answer-title"><span class="answer-count">{{index+1}}、</span>{{item.title}}</h4>
                 <ul class="answer-list" :data-answerId="item.id">
                     <li v-for="(answ, aindex) in item.qids"  @click="anwserActive(answ.titleLetter, item.id, aindex, $event)" :data-letter="answ.titleLetter" 
                     :key="aindex">{{answ.titleLetter}}、{{answ.titleChinese}}</li>
@@ -56,6 +56,28 @@ export default {
     methods: {
         getAnswers() {
             let params = this.$route.params;
+            if(Object.keys(params).length === 0) {
+                switch(this.$store.getters.getTopType) {
+                    case 1:
+                        this.$router.push({name: 'indexHome'})
+                        break;
+                    case 2:
+                        this.$router.push({name: 'baseNavigation'})
+                        break;
+                    case 3:
+                        this.$router.push({name: 'earthBaseProfile'})
+                        break;
+                    case 4:
+                        this.$router.push({name: 'competitionDetail'})
+                        break;
+                    case 5:
+                        this.$router.push({name: 'knowledgeShow'})
+                        break;
+                    default:
+                        this.$router.push({name: 'indexHome'})
+                    break;
+                }
+            }
             this.$http.get(`/knowledgeCompetition?id=${params.id}`).then(res => {
                 console.log(res)
                 this.anwserObj = res.data.msg;
@@ -74,7 +96,8 @@ export default {
                 url: '/addAnswer',
                 method: 'post',
                 data: {
-                    answers: anwser
+                    answers: anwser,
+                    id: _this.anwserObj.id
                 },
                 transformRequest: [function (data) {
                     let ret = ''
@@ -88,9 +111,13 @@ export default {
                 }
             }).then( res => {
                 console.log(res);
+                if(res.data.code == 200) {
+                    _this.prop.text = '提交成功';
+                } else {
+                    _this.prop.text = res.data.msg;
+                }
                 _this.correctStatus = true;
                 _this.prop.status = true;
-                _this.prop.text = '提交成功';
                 this.correctObj.correct = res.data.msg;
                 setTimeout(() => {
                     _this.prop.status = false;
@@ -195,7 +222,7 @@ export default {
         border-bottom-left-radius: 0.503rem;
         border-bottom-right-radius: 0.503rem;
         color: #fff;
-        margin: .5rem auto 0;
+        margin: .5rem auto .3rem;
         display: block;
     }
     .knowledge-top {

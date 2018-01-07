@@ -49,7 +49,7 @@ export default {
         search
     },
     mounted() {
-        document.body.scrollTop=0;
+        
         this.getSeasionList();
     },
     methods: {
@@ -60,6 +60,7 @@ export default {
             this.$http.get('/psActivities').then( res => {
                 this.season.title = params.title || '往期';
                 this.season.list = res.data.msg;
+                document.body.scrollTop=0;
             }).catch( err => {
                 console.error(err, 'competitionList')
             });
@@ -107,7 +108,6 @@ export default {
         background-size: 100% 100%;
         overflow-x: hidden;
         overflow-y: auto;
-        margin-bottom: 1.23rem;
         color: #3e3a39;
         font-size: 0;
     }

@@ -15,7 +15,12 @@ export default {
             console.log(this.$store.getters.getFromUrl);
             let formUrl = this.$store.getters.getFromUrl;
             if(formUrl === 'winnerList') {
-                this.$router.push({name: "competitionList", params: {seasonId: 'later', title: '往期'}});
+                if(window.location.hash.indexOf('competitionList') < 0) {
+                    this.$router.push({name: "competitionList", params: {seasonId: 'later', title: '往期'}});
+                } else {
+                    this.$router.push({name: 'competitionDetail'})
+                }
+                
                 this.$store.dispatch('sciencestate'); 
             } else {
                 // switch(this.topType) {
