@@ -11,7 +11,7 @@
                     <img :src="item.fileName" class="cell-img" alt="">
                     <div class="cell-detail">
                         <span class="cell-position">{{item.qu}}</span>
-                        <span class="cell-position-name" v-html="item.content"></span>
+                        <span class="cell-position-name">{{item.subtitle}}</span>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                     <img :src="item.fileName" class="list-type-img" alt="">
                     <div class="list-type-content">
                         <span class="list-type-title">{{item.title}}</span>
-                        <p v-html="item.content"></p>
+                        <p>{{item.subtitle}}</p>
                     </div>
                 </div>
             </div>

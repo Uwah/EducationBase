@@ -42,7 +42,7 @@
                     <img :src="item.fileName" class="list-type-img" alt="">
                     <div class="list-type-content">
                         <span class="list-type-title">{{item.userName}}</span>
-                        <p v-html="item.indiProfile"></p>
+                        <p>{{item.subtitle}}</p>
                     </div>
                 </div>
             </div>

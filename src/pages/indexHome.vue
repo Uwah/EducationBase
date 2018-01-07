@@ -76,7 +76,7 @@
                             <img class="banner-img" :src="item.fileName" />
                             <div class="swiper-content-info">
                                 <span class="info-title">{{item.title}}</span>
-                                <span class="info-content" v-html="item.content"></span>
+                                <span class="info-content">{{item.subtitle}}</span>
                             </div>
                         </div>
                     </div>
