@@ -30,12 +30,35 @@ export default {
     },
     mounted() {
         // debugger
-        this.renderMapcontent();
-
+        let params = this.$route.params;
+        this.renderMapcontent(params);
+        // if(Object.keys(params).length > 0) {
+        //     this.renderMapcontent(params);
+        // } else {
+        //     switch(this.$store.getters.getTopType) {
+        //         case 1:
+        //             this.$router.push({name: 'indexHome'})
+        //             break;
+        //         case 2:
+        //             this.$router.push({name: 'baseNavigation'})
+        //             break;
+        //         case 3:
+        //             this.$router.push({name: 'earthBaseProfile'})
+        //             break;
+        //         case 4:
+        //             this.$router.push({name: 'competitionDetail'})
+        //             break;
+        //         case 5:
+        //             this.$router.push({name: 'knowledgeShow'})
+        //             break;
+        //         default:
+        //             this.$router.push({name: 'indexHome'})
+        //         break;
+        //     }
+        // }
     },
     methods: {
-        renderMapcontent() {
-            let params = this.$route.params;
+        renderMapcontent(params) {
             console.log(params.address)
             let map = new BMap.Map('map-area');
             map.centerAndZoom(new BMap.Point(113.96, 22.67), 11);
