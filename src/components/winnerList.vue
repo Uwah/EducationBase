@@ -179,13 +179,13 @@ export default {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        justify-content: space-between;
+        /* justify-content: space-between; */
         font-size: 0;
     }
     .name-list li{
         font-size: .22rem;
         line-height: 1;
         color: #231815;
-        padding: .3rem .1rem 0 0;
+        padding: .3rem .15rem 0 0;
     }
 </style>

@@ -230,7 +230,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     font-size: 0;
 }
 .name-list li{
@@ -329,7 +329,7 @@
 .answer-title {
     color: #231815;
     font-size: .28rem;
-    line-height: 1;
+    line-height: 1.1;
     font-weight: 500;
     padding-bottom: .3rem;
 }

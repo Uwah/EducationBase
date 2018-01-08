@@ -26,16 +26,18 @@
             <div class="total-search-info">
                 <div class="search-type-area" v-for="(value, key) in searchList" :key="key" v-if="topType != 2">
                     <span v-if="topType == 1 && value.length > 0" class="type-name">{{key ==2 ?'基地导航': key ==3?'基地概况':key ==4?'知识竞赛':key ==5?'科普活动':''}}</span>
-                    <ul class="total-search-history" @click="searchDetail">
-                        <li v-for="(type, tindex) in value" :key="tindex" :data-address="type.address" :data-id="type.id" :list-type="key" >
+                    <ul class="total-search-history">
+                        <li v-for="(type, tindex) in value"  @click="searchDetail(type.id, key, type.address)" :key="tindex" :data-address="type.address" 
+                        :data-id="type.id" :list-type="key" >
                             <i class="total-history-search-icon"></i>
                             <span class="total-history-search-name">{{type.name}}</span>
                         </li>
                     </ul>
                 </div>
                 <div class="search-type-area" v-for="(value, key) in searchList" :key="key" v-if="topType == 2">
-                    <ul class="total-base-list total-search-result"  @click="searchDetail">
-                        <li v-for="(type, tindex) in value" :key="tindex" :data-address="type.address" :data-id="type.id" :list-type="key">
+                    <ul class="total-base-list total-search-result">
+                        <li v-for="(type, tindex) in value" @click="searchDetail(type.id, key, type.address)" :key="tindex" 
+                        :data-address="type.address" :data-id="type.id" :list-type="key">
                             <i class="total-base-icon"></i>
                             <div class="total-base-info">
                                 <h4>{{type.name}}</h4>
@@ -62,7 +64,7 @@ export default {
             actionUrl: "",
             searchList: [],
             keyword: '',
-            searchStatus: false,
+            searchStatus: true,
             topType: 1
 
         }
@@ -74,19 +76,26 @@ export default {
         console.log('aaaaa');
         // debugger
         let kw = this.$route.params;
-        if(Object.keys(kw).length === 0) {
+        if(Object.keys(kw).length > 0) {
+            this.keyword = kw.address;
+            this.topType = kw.type;
+            this.getSearchInfo();
+        } else {
             //this.$store.getters.getFromUrl
+            console.log(this.$store.getters.getTopType)
+            this.keyword = '';
+            this.topType = this.$store.getters.getTopType;
         }
-        this.keyword = kw.address;
-        this.topType = kw.type;
+        
         this.setFooterStatus(kw.type);
-        this.getSearchInfo();
+        
     },
     methods: {
         searchData(data) {
             console.log(data)
         },
         getSearchInfo() {
+            console.log('search click')
             let flag = true;
             this.$http.get(`/topSeach?topType=${this.topType}&title=${this.keyword}`)
                 .then(res => {
@@ -101,17 +110,11 @@ export default {
                     console.log(err, 'search');
                 });
         },
-        searchDetail(evt) {
-            let target = evt.target, searchItem = {};
-            if(target.hasAttribute('data-id')) {
-                searchItem.type = target.getAttribute('list-type');
-                searchItem.id = target.getAttribute('data-id');
-                searchItem.address = target.getAttribute('data-address');
-            } else if(target.parentElement.hasAttribute('data-id')) {
-                searchItem.type = target.parentElement.getAttribute('list-type');
-                searchItem.id = target.parentElement.getAttribute('data-id');
-                searchItem.address = target.parentElement.getAttribute('data-address');
-            }
+        searchDetail(id, type, address) {
+            let searchItem = {};
+            searchItem.type = type;
+            searchItem.id = id;
+            searchItem.address = address;
             if(searchItem.type == 2 || searchItem.type == 1) {
                 this.$http.get(`/navigation?id=${searchItem.id}`).then(res => {console.log(res)}).catch(error => {console.log(error)})
                 this.$router.push({name: "searchPage", params: {address: searchItem.address}})
@@ -120,26 +123,7 @@ export default {
             } else if(searchItem.type == 4) {
                 this.$router.push({name: 'competitionDetail'});
             }
-            switch(searchItem.type) {
-                case "1":
-                    this.$store.dispatch('homestate');
-                break;
-                case "3":
-                    this.$store.dispatch("basestate");
-                break;
-                case "2":
-                    this.$store.dispatch("navstate");
-                break;
-                case "5":
-                    this.$store.dispatch("knowstate");
-                break;
-                case "4":
-                    this.$store.dispatch("sciencestate");
-                break;
-                default:
-                    this.$store.dispatch('homestate'); //默认进首页
-                break;
-            }
+            this.setFooterStatus(parseInt(searchItem.type));
         },
         setFooterStatus(topType) {
             switch(topType) {

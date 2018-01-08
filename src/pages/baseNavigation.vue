@@ -64,7 +64,11 @@ export default {
                 this.baseTypeList = res.data.msg;
                 this.getBaseNav(this.baseTypeList[0].id);
                 setTimeout(() => {
-                    document.getElementById('search-result').children[0].style.transform="translate3d(0px, 0px, 0px)";
+                    try {
+                        document.getElementById('search-result').children[0].style.transform="translate3d(0px, 0px, 0px)";
+                    } catch (error) {
+                        console.log('返回过快，数据暂未渲染')
+                    }
                 }, 100);
             }).catch( err => {
                 console.log(err, 'baseNavigation');

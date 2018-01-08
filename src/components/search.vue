@@ -2,7 +2,7 @@
     <div class="out" v-show="isShowSearch">
         <div class="knowledge-search" v-show="isShowSearchForm">
             <form :action="actionUrl" class="search-form">
-                <input type="search" v-model="keyword" name="knowledge-search" id="nvg-search" placeholder="请输入基地名称">
+                <input type="search" v-model="keyword" name="knowledge-search" id="nvg-search" :placeholder="searchHolder">
             </form>
         </div>
         <i class="search-icon" v-show="isShowSeachIcon" @click="getSearchInfo"></i>
@@ -15,7 +15,9 @@ export default {
     data() {
         return {
             keyword: "",
-            formStatus: false
+            formStatus: false,
+            holder: ''
+
         }
     },
     props: {
@@ -43,10 +45,16 @@ export default {
             type: Boolean,
             require: false,
             default: true
+        },
+        searchHolder: {
+            type: String,
+            require: false,
+            default: "请输入基地名称"
         }
     },
     mounted(){
         this.formStatus = this.isShowSearchForm;
+        this.holder = this.searchHolder;
     },
     methods: {
         
@@ -83,6 +91,9 @@ export default {
     watch: {
         formStatus: function(newVal, oldVal) {
             console.log(newVal, oldVal);
+        },
+        searchHolder: function(nv, ov) {
+            this.holder = nv;
         }
     }
 }

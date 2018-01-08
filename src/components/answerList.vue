@@ -3,15 +3,15 @@
         <div class="knowledge-top">
             <h3 class="answer-title-tip seasion-count">{{anwserObj.title}}</h3>
             <go-back :topType="topType"></go-back>
-            <search :actionUrl="actionUrl" :topType="topType" @search-data="searchData" :isShowSearch="isShowSearch" 
-            :isShowSearchForm="isShowSearchForm" :isShowSearchIcon="isShowSearchIcon"></search>
+            <!-- <search :actionUrl="actionUrl" :topType="topType" @search-data="searchData" :isShowSearch="isShowSearch" 
+            :isShowSearchForm="isShowSearchForm" :isShowSearchIcon="isShowSearchIcon"></search> -->
         </div>
         <div class="answer-content">
             <div class="answer-head" v-if="correctStatus">
                 恭喜您，共答对<span class="right-answer">{{correctObj.correct}}</span>题，共<span class="total-answer">{{correctObj.total}}</span>题
             </div>
             <div class="answer-item" v-for="(item, index) in anwserObj.questions" :key="index">
-                <h4 class="answer-title"><span class="answer-count">{{index+1}}、</span>{{item.title}}</h4>
+                <h4 class="answer-title" :answer-title-id="item.id"><span class="answer-count">{{index+1}}、</span>{{item.title}}<span v-show="correctStatus" :id="'r'+item.id" class="right-answer"></span></h4>
                 <ul class="answer-list" :data-answerId="item.id">
                     <li v-for="(answ, aindex) in item.qids"  @click="anwserActive(answ.titleLetter, item.id, aindex, $event)" :data-letter="answ.titleLetter" 
                     :key="aindex">{{answ.titleLetter}}、{{answ.titleChinese}}</li>
@@ -116,9 +116,13 @@ export default {
                 } else {
                     _this.prop.text = res.data.msg;
                 }
+                let rightList = res.data.msg.list;
+                for(let i = 0; i< rightList.length; i++) {
+                    document.getElementById('r'+ rightList[i].id).innerText = '正确答案：' + rightList[i].answer; 
+                }
                 _this.correctStatus = true;
                 _this.prop.status = true;
-                this.correctObj.correct = res.data.msg;
+                this.correctObj.correct = res.data.msg.score;
                 setTimeout(() => {
                     _this.prop.status = false;
                 }, 3000);
@@ -169,7 +173,7 @@ export default {
     .answer-title {
         color: #231815;
         font-size: .28rem;
-        line-height: 1;
+        line-height: 1.1;
         font-weight: 500;
         padding-bottom: .3rem;
     }
@@ -243,5 +247,11 @@ export default {
         display: inline-block;
         margin-top: .18rem;
         background-image: url(../assets/images/title-bg.png);
+    }
+    .right-answer {
+        padding-left: .12rem;
+        font-size: inherit;
+        line-height: inherit;
+        color: #e60012;
     }
 </style>

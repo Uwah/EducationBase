@@ -5,7 +5,7 @@
             <h3 class="title-tip seasion-count" v-show="!searchObj.isShowSearchForm">{{season.title}}</h3>
             <go-back :topType="searchObj.topType"></go-back>
             <search :actionUrl="searchObj.actionUrl" :isShowSearch="searchObj.isShowSearch" 
-            :isShowSearchForm="searchObj.isShowSearchForm" @search-data="searchSeasionData" :topType="searchObj.topType" :isShowSeachIcon="searchObj.isShowSeachIcon"></search>
+            :isShowSearchForm="searchObj.isShowSearchForm" :searchHolder="holderText" @search-data="searchSeasionData" :topType="searchObj.topType" :isShowSeachIcon="searchObj.isShowSeachIcon"></search>
         </div>
         <div class="history-out">
             <div class="history-knowledge">
@@ -41,7 +41,7 @@ export default {
                 title: '',
                 list: []
             },
-
+            holderText: '搜索往期竞赛'
         }
     },
     components:{

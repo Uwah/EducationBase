@@ -88,7 +88,7 @@
                 <div class="knowledge-title">知识竞赛<span class="under-line"></span></div>
                 <a href="javascript:;" class="jump-href"></a>
             </div>
-            <div class="final-show" :style="{backgroundImage: `url(${activiesData.activity.fileName})`}" @click="$router.push({name: 'winnerList', params: {id: activiesData.activity.periods, title: `第${activiesData.activity.periods}期`}})"></div>
+            <div class="final-show" :style="{backgroundImage: `url(${activiesData.activity.fileName})`}" @click="$router.push({name: 'winnerList', params: {id: activiesData.activity.id, title: `第${activiesData.activity.periods}期`}})"></div>
             <div class="QRcode-visit">
                 <div class="visit-info">
                     <span class="info-text">第{{activiesData.activity.periods}}期知识竞赛</span>
