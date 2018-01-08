@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="search-info">
-            <form action="" class="index-search">
+            <form action="" @submit="fromEvent($event)" class="index-search">
                 <input type="search" v-model="homeSearchData" autocomplete="off" name="index-search" class="search-ipt" placeholder="搜索您需要的内容">
                 <i class="search-home-icon" @click="homeSearch"></i>
             </form>
@@ -228,6 +228,12 @@ export default {
         homeSearch(e) {
             console.log('home search: ', this.homeSearchData)
             this.$router.push({name: 'totalSearch', params: {address: this.homeSearchData, type: 1}})
+        },
+        fromEvent(e) {
+            if(e.type === 'submit') {
+                e.preventDefault();
+                this.homeSearch(e);
+            }
         },
         formatTime(second) {
             if(second) {
