@@ -145,6 +145,7 @@ export default {
                         _this.$router.push({name: "answerList", params:{id: _this.detailInfo.id}});
                     } else if(res.data.code == 1) {
                         _this.prop.status = true;
+                        _this.signUpStatus = false;
                         _this.prop.text = res.data.msg;
                         setTimeout(() => {
                             _this.prop.status = false;

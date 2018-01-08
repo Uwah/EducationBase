@@ -170,6 +170,9 @@ export default {
         padding: .4rem 1.1rem 0;
         font-size: 0;
     }
+    .answer-item:last-child {
+        padding-bottom: .5rem;
+    }
     .answer-title {
         color: #231815;
         font-size: .28rem;
