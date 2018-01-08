@@ -103,7 +103,7 @@
                 <img src="../assets/images/home-QRcode.png" class="visi-code" />
             </div>
             <div class="season-list">
-                <div class="season" @click="knowledgeCheck" :style="{backgroundImage: `url(${item.fileName})`}" :key="index" :data-season="item.periods" 
+                <div class="season" @click="knowledgeCheck" :style="{backgroundImage: `url(${item.fileName})`}" :key="index" :data-season="item.id" 
                 v-for="(item, index) in activiesData.list">{{item.periods != 'later'? `第${item.periods}期`: '往期'}}</div>
             </div>
         </div>
@@ -136,7 +136,7 @@ export default {
             if(res.data.msg.activities.length >= 2) {
                 _this.activiesData.list = res.data.msg.activities.splice(0, 1);
             }
-            _this.activiesData.list.push({fileName: '/dist/home-bottom-banner-filter.png', periods: 'later'});
+            _this.activiesData.list.push({fileName: '/dist/home-bottom-banner-filter.png', periods: 'later', id: 'later'});
             _this.activiesData.activity.startTime = _this.formatTime(_this.activiesData.activity.startTime);
             _this.activiesData.activity.endTime = _this.formatTime(this.activiesData.activity.endTime);
             _this.setBaseMapMarker(_this.indexData.types[0].list);

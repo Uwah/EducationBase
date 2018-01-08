@@ -188,4 +188,7 @@ export default {
         color: #231815;
         padding: .3rem .15rem 0 0;
     }
+    .seasion-title {
+        padding-left: 2.6rem;
+    }
 </style>
