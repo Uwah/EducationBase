@@ -167,8 +167,13 @@ export default {
                 }
             });
             setTimeout(() => {
-                document.getElementById('base-locations').children[0].style.transform="translate3d(0px, 0px, 0px)";
-                document.getElementById('science-swiper').children[0].style.transform="translate3d(0px, 0px, 0px)";
+                try {
+                    document.getElementById('base-locations').children[0].style.transform="translate3d(0px, 0px, 0px)";
+                    document.getElementById('science-swiper').children[0].style.transform="translate3d(0px, 0px, 0px)";
+                } catch (error) {
+                    console.log('操作过快数据暂未更新')
+                }
+                
             }, 100);
         }).catch(err => {
             console.error(err);

@@ -1,7 +1,7 @@
 <template>
     <div class="out" v-show="isShowSearch">
         <div class="knowledge-search" v-show="isShowSearchForm">
-            <form :action="actionUrl" class="search-form">
+            <form :action="actionUrl" @submit="submitSearch($event)" class="search-form">
                 <input type="search" v-model="keyword" name="knowledge-search" id="nvg-search" :placeholder="searchHolder">
             </form>
         </div>
@@ -60,6 +60,7 @@ export default {
         
         getSearchInfo(e) {
             let _this = this;
+            console.log(_this.keyword)
             if(_this.isShowSearchForm === false) {
                 _this.$emit("search-data", '');
             } else {
@@ -86,6 +87,13 @@ export default {
             // }).catch( err => {
             //     console.error("查询失败", err);
             // });
+        },
+        submitSearch(e) { //手机键盘搜索按键处理...
+            let keycode = e.keyCode;
+            if(e.type === 'submit' || keycode == 13) {
+                e.preventDefault();
+                this.$emit("search-data", this.keyword);
+            }
         }
     },
     watch: {
