@@ -4,7 +4,7 @@ import indexHome from "../pages/indexHome";
 
 Vue.use(VueRouter);
 const routes = [
-    {path:'/', redirect:"/indexHome"},
+    {path:'/', component: indexHome,name:"indexHome"},
     {path: '/indexHome', component: indexHome,name:"indexHome"},
     {path: '/earthBaseProfile', component: resolve => require(["../pages/earthBaseProfile"],  resolve),name:"earthBaseProfile"},
     {path: '/baseNavigation', component: resolve => require(["../pages/baseNavigation"],  resolve),name:"baseNavigation"},
@@ -24,6 +24,6 @@ const routes = [
 
 export default new VueRouter({
     routes,
-    mode:'hash',
+    mode:'history',
     base: '/'
 });

@@ -81,13 +81,23 @@ export default {
             this.$http.get(`/knowledgeCompetition?id=${params.id}`).then(res => {
                 console.log(res)
                 this.anwserObj = res.data.msg;
-                this.correctObj.total = this.anwserObj.questions.length
+                if(res.data.code == 200) {
+                    this.correctObj.total = this.anwserObj.questions.length
+                } else {
+                    this.prop.status = true;
+                    this.prop.text = res.data.msg;
+                    setTimeout(() => {
+                        this.prop.status = false;
+                    }, 3000);
+                }
+                
             }).catch(err => {
                 console.log(err, "答题列表");
             })
         },
         commitAnswer() {
             let anwserArr = [], anwser = '', _this = this;
+            if(Object.keys(allAnswer).length === 0) return;
             for(let a in allAnswer) {
                 anwserArr.push(a+'-'+allAnswer[a]);
             }
