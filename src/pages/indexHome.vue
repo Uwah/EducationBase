@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-        <div class="top-bar">
+        <!-- <div class="top-bar">
             <span class="base-title">嘉兴市科普基地</span>
-        </div>
+        </div> -->
         <div class="top-banner">
             <div class="swiper-container swiper-container-horizontal" id="topBanner">
                 <div class="swiper-wrapper">
@@ -50,9 +50,9 @@
                 <a href="javascript:;" class="jump-href"></a>
             </div>
             <div class="base-locations">
-                <div class="swiper-container" id="base-locations" @click="checkBaseMap">
+                <div class="swiper-container" id="base-locations">
                     <div class="swiper-wrapper">
-                        <div :class="['swiper-slide', 'location-item', baseIndex == index?'location-item-active':'' ]" 
+                        <div :class="['swiper-slide', 'location-item', baseIndex == index?'location-item-active':'' ]" @click="checkBaseMap(item.id, index)"
                         v-for="(item, index) in indexData.types" :data-index="index" :data-baseid="item.id" :key="index">
                             <span class="base-count">{{item.count}}</span>
                             <i :class="['home-location-small', baseIndex == index?'home-location-small-active':'']"></i>
@@ -196,15 +196,8 @@ export default {
                 this.$router.push({name: "competitionList", params: {seasonId: season, title: target.innerText}});
             }
         },
-        checkBaseMap(e) {
-            let baseid = 0, _this = this, index = 0;
-            if(e.target.hasAttribute('data-baseid')) {
-                baseid = e.target.getAttribute('data-baseid');
-                index = e.target.getAttribute('data-index');
-            } else {
-                baseid = e.target.parentElement.getAttribute('data-baseid');
-                index = e.target.parentElement.getAttribute('data-index');
-            }
+        checkBaseMap(id, index) {
+            let baseid = id, _this = this;
             _this.baseIndex = index;
             this.setBaseMapMarker(this.indexData.types[index].list);
             // _this.$http.get(`/searchJd?id=${baseid}`).then( res => {
