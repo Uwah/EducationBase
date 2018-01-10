@@ -147,13 +147,21 @@ export default {
                     el: '.swiper-pagination',
                 }
             });
-            new Swiper("#base-locations", {
+            let baseLocationSwiper = new Swiper("#base-locations", {
                 slidesPerView: 4,
                 spaceBetween: 20,
                 observer:true,
+                loop: true,
+                slidesPerView: 'auto',
+                loopedSlides: 6,
                 observeParents:true,
                 onSlideChangeEnd: function(swiper) {
                     swiper.update(true)
+                },
+                on: {
+                    slideChangeTransitionEnd: function(a){
+                        // console.log(baseLocationSwiper.activeIndex)
+                    }
                 }
             });
             new Swiper("#science-swiper", {
