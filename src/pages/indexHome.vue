@@ -111,7 +111,7 @@
 </template>
 <script>
 const Swiper = require("../assets/script/util/swiper.min.js");
-const QRCode = require("../assets/script/util/qrcode.min.js");
+import QRCode from 'qrcodejs2';
 /**
  * formatTime抽取，作为一个install组件 use
  */
@@ -187,7 +187,22 @@ export default {
         }).catch(err => {
             console.error(err);
         });
-        new QRCode(document.getElementById('visi-code'), `${window.location.origin}/competitionDetail`);
+        // new QRCode(document.getElementById('visi-code'), `${window.location.origin}/competitionDetail`);
+        let fontSize = document.getElementsByTagName('html')[0].style['fontSize'].replace('px', '');
+            fontSize = parseInt(fontSize);
+        let width = 1.43*fontSize, height = 1.34*fontSize;
+        var qrcode = new QRCode('visi-code', {
+            text: `${window.location.origin}/competitionDetail`,
+            width: width,
+            height: height,
+            colorDark : '#000000',
+            colorLight : '#ffffff',
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        // 使用 API
+        qrcode.clear();
+        qrcode.makeCode(`${window.location.origin}/competitionDetail`);
     },
     methods: {
         knowledgeCheck(e) {
