@@ -153,10 +153,7 @@ export default {
 
 @import './assets/css/common.css';
 @import './assets/css/swiper/swiper.min.css';
-html,body,p,ul,li,table,strong {
-    margin: 0;
-    padding: 0;
-}
+
 ul>li {
     list-style: none;
 }
@@ -166,9 +163,10 @@ a {
 }
 #app {
     min-height: 100%;
+    margin: 0 auto;
     /* background-color: #f3f3f3; */
     /* margin-bottom: 1.34rem; */
     position: relative;
-    padding-bottom: 1.3rem;
+    padding-bottom: 1.21rem;
 }
 </style>

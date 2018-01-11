@@ -316,8 +316,7 @@ input[type="search"]::-webkit-search-cancel-button{
     margin-top: -4px;
 }
 .final-show  {
-    margin-top: .3rem;
-    margin-left: .74rem;
+    margin: .3rem auto 0;
     width: 5.6rem;
     height: 3.6rem;
     background-size: 100% 100%;
@@ -338,8 +337,7 @@ input[type="search"]::-webkit-search-cancel-button{
     height: 1.8rem;
     color: #231815;
     font-size: 0;
-    margin-top: -0.42rem;
-    margin-left: 1.12rem;
+    margin: -0.42rem auto 0;
     display: flex;
 }
 .visit-info {

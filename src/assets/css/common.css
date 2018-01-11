@@ -1,5 +1,5 @@
 @charset "UTF-8";
-html,body,div,p,h1,h2,h3,h4,h5,h6,ul,li,table {
+html,div,p,h1,h2,h3,h4,h5,h6,ul,li,table {
 	padding: 0;
 	margin: 0;
 	font-family: "Microsoft YaHei";
@@ -8,6 +8,12 @@ html,body {
 	width: 100%;
 	height: 100%;
 }
+body {
+    -webkit-tap-highlight-color: transparent;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+}
 ul {
 	list-style: none;
 }
@@ -15,9 +21,14 @@ ul {
 .footer {
     position: fixed;
     bottom: -2px;
-    left: 0;
+    /* left: 0; */
+    margin: 0 auto;
     border-top: 1px solid #dcdcdc;
+    border-left: 1px solid #dcdcdc;
+    border-right: 1px solid #dcdcdc;
+    box-sizing: border-box;
     width: 100%;
+    max-width: 800px;
     z-index: 999;
 }
 .footers {

@@ -100,7 +100,7 @@
                     </div>
                     
                 </div>
-                <img src="../assets/images/home-QRcode.png" class="visi-code" />
+                <div class="visi-code" id="visi-code"></div>
             </div>
             <div class="season-list">
                 <div class="season" @click="knowledgeCheck" :style="{backgroundImage: `url(${item.fileName})`}" :key="index" :data-season="item.id" 
@@ -111,6 +111,7 @@
 </template>
 <script>
 const Swiper = require("../assets/script/util/swiper.min.js");
+const QRCode = require("../assets/script/util/qrcode.min.js");
 /**
  * formatTime抽取，作为一个install组件 use
  */
@@ -186,6 +187,7 @@ export default {
         }).catch(err => {
             console.error(err);
         });
+        new QRCode(document.getElementById('visi-code'), `${window.location.origin}/competitionDetail`);
     },
     methods: {
         knowledgeCheck(e) {
