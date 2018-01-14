@@ -232,7 +232,16 @@ export default {
                 myGeo.getPoint(type.address, function(point){
                     if (point) {
                         map.centerAndZoom(point, 11);
-                        map.addOverlay(new BMap.Marker(point));
+                        let marker = new BMap.Marker(point);
+                        map.addOverlay(marker);
+                        marker.addEventListener("click", function(e) {
+                            console.log('click', e)
+                        });
+                        var label = new BMap.Label(type.address,{offset:new BMap.Size(20,-10)});
+                        label.addEventListener("click", function(e) {
+                            console.log('click', e)
+                        });
+	                    marker.setLabel(label)
                     }else{
                         console.log("您选择地址没有解析到结果!");
                     }

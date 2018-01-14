@@ -10,7 +10,7 @@ html,body {
 }
 body {
     -webkit-tap-highlight-color: transparent;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0;
 }
@@ -28,7 +28,7 @@ ul {
     border-right: 1px solid #dcdcdc;
     box-sizing: border-box;
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
     z-index: 999;
 }
 .footers {

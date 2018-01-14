@@ -14,7 +14,7 @@
         </div>
         <div class="base-content">
             <ul class="base-list search-result">
-                <li v-for="(item, index) in baseAddress" @click="goMap(item.address, item.id)" :key="index">
+                <!-- <li v-for="(item, index) in baseAddress" @click="goMap(item.address, item.id)" :key="index">
                     <i class="base-icon"></i>
                     <div class="base-info">
                         <h4>{{item.userName}}</h4>
@@ -24,7 +24,21 @@
                         <span class="dir-count"><span class="count">{{item.count}}</span>人次</span>
                         <i class="direction-icon"></i>
                     </div>
-                </li>
+                </li> -->
+                <!-- http://api.map.baidu.com/geocoder?address=北京市海淀区上地信息路9号奎科科技大厦&output=html&src=edubase -->
+                <li v-for="(item, index) in baseAddress" :key="index">
+                    <a :href="['http://api.map.baidu.com/geocoder?address='+item.address+ '&output=html&src=edubase']" @click="navCount(item.id)" style="display: inherit; width: 100%;">
+                        <i class="base-icon"></i>
+                        <div class="base-info">
+                            <h4>{{item.userName}}</h4>
+                            <span>{{item.address}}</span>
+                        </div>
+                        <div class="direction">
+                            <span class="dir-count"><span class="count">{{item.count}}</span>人次</span>
+                            <i class="direction-icon"></i>
+                        </div>
+                    </a>
+                </li> 
             </ul>
         </div>
     </div>
@@ -100,6 +114,10 @@ export default {
             console.log(id,'map')
             this.$http.get(`/navigation?id=${id}`).then(res => {console.log(res)}).catch(error => {console.log(error)});
             this.$router.push({name: "searchPage", params: {address: address}})
+        },
+        navCount(id) {
+            console.log(id)
+            this.$http.get(`/navigation?id=${id}`).then(res => {console.log(res)}).catch(error => {console.log(error)});
         }
     },
     components: {
