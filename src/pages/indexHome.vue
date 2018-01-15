@@ -37,11 +37,7 @@
                 <a href="javascript:;" class="jump-href"></a>
             </div>
             <div class="survey-content">
-                <p>嘉兴市科学技术协会（以下简称市科协）是由市级学会、协会、研究会、 市属企业事业单位科协和地方科协组成的科学技术工作者的群众组织，市委 领导下的人民团体，是党和政府联系科技工作者的桥梁、纽带和发展科技事业助手。</p>
-                <p>根据《关于开展嘉兴市科普教育基地申报工作的通知》（嘉兴科协[2017]9号）和《嘉兴市科普教育基地整治提升实施方案》（嘉市科协[2017]38号）文件精神，
-                    共收到59家单位的申请，其中新申报市级科普教育基地20家，整治后重新验收评审市级科普教育基地39家。(一)各类科技、教育场馆；(二)各类自然保护区、动植物园区；(三)科研机构、院校；(四)科技型企业；(五)工、农业科技园、种植养殖场；
-                    (六)其他具备向公众开展科普教育、展示和示范功能的部门和机构。
-                </p>
+                <div v-html="kx.content"></div>
             </div>
         </div>
         <div class="base-navigation">
@@ -121,6 +117,7 @@ export default {
             indexData: {},
             baseIndex: 0,
             homeSearchData: '',
+            kx: {},
             activiesData: {
                 activity: {},
                 list: []
@@ -133,6 +130,7 @@ export default {
         _this.$http.get('/index').then(res => {
             
             _this.indexData = res.data.msg;
+            _this.kx = res.data.msg.kx;
             _this.activiesData.activity = res.data.msg.activities[0];
             if(res.data.msg.activities.length >= 2) {
                 _this.activiesData.list = res.data.msg.activities.splice(0, 1);
@@ -235,11 +233,13 @@ export default {
                         let marker = new BMap.Marker(point);
                         map.addOverlay(marker);
                         marker.addEventListener("click", function(e) {
-                            console.log('click', e)
+                            window.location.href=`http://api.map.baidu.com/geocoder?address=${type.address}&output=html`;
+                            console.log('click ' + type.address)
                         });
-                        var label = new BMap.Label(type.address,{offset:new BMap.Size(20,-10)});
+                        var label = new BMap.Label(type.userName,{offset:new BMap.Size(20,-10)});
                         label.addEventListener("click", function(e) {
-                            console.log('click', e)
+                            window.location.href=`http://api.map.baidu.com/geocoder?address=${type.address}&output=html`;
+                            console.log('click ' + type.address)
                         });
 	                    marker.setLabel(label)
                     }else{

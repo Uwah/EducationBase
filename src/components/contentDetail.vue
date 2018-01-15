@@ -7,7 +7,7 @@
         <div class="profile-detail">
             <div class="detail-top">
                 <span class="detail-title">{{detailObj.address}}</span>
-                <i class="map-navigation" @click="$router.push({name: 'searchPage', params: {address: detailObj.address}})"></i>
+                <a class="map-navigation" :href="['http://api.map.baidu.com/geocoder?address='+detailObj.address+ '&output=html']"></a>
             </div>
             <div class="article-content">
                 <h4 class="article-title">{{detailObj.title}}</h4>

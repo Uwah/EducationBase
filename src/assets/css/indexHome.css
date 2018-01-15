@@ -175,7 +175,7 @@ input[type="search"]::-webkit-search-cancel-button{
     padding: .5rem .72rem .3rem;
     font-size: 0;
 }
-.survey-content>p {
+.survey-content>div {
     color: #231815;
     font-size: .22rem;
     line-height: 1.8;

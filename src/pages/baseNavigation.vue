@@ -27,7 +27,7 @@
                 </li> -->
                 <!-- http://api.map.baidu.com/geocoder?address=北京市海淀区上地信息路9号奎科科技大厦&output=html&src=edubase -->
                 <li v-for="(item, index) in baseAddress" :key="index">
-                    <a :href="['http://api.map.baidu.com/geocoder?address='+item.address+ '&output=html&src=edubase']" @click="navCount(item.id)" style="display: inherit; width: 100%;">
+                    <a :href="['http://api.map.baidu.com/geocoder?address='+item.address+ '&output=html']" @click="navCount(item.id)" style="display: inherit; width: 100%;">
                         <i class="base-icon"></i>
                         <div class="base-info">
                             <h4>{{item.userName}}</h4>

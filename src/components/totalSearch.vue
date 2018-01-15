@@ -38,7 +38,7 @@
                     <ul class="total-base-list total-search-result">
                         <li v-for="(type, tindex) in value" :key="tindex" 
                         :data-address="type.address" :data-id="type.id" :list-type="key">
-                            <a :href="['http://api.map.baidu.com/geocoder?address='+type.address+ '&output=html&src=edubase']" style="display: inherit; width: 100%;">
+                            <a :href="['http://api.map.baidu.com/geocoder?address='+type.address+ '&output=html']" style="display: inherit; width: 100%;">
                                 <i class="total-base-icon"></i>
                                 <div class="total-base-info">
                                     <h4>{{type.name}}</h4>
