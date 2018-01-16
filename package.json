@@ -12,10 +12,12 @@
     "vue": "^2.2.1"
   },
   "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
     "axios": "^0.16.0",
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
     "babel-preset-latest": "^6.0.0",
+    "clean-webpack-plugin": "^0.1.17",
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
     "extract-text-webpack-plugin": "^2.1.0",

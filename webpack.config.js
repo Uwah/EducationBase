@@ -1,7 +1,10 @@
+// import { ExtendedAPIPlugin } from './C:/Users/v_yhhliang/AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/webpack';
+
 var path = require('path')
 var vuxLoader = require("vux-loader");
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var CleanWebpackPlugin = require("clean-webpack-plugin");
 function resolve (dir) {
     return path.join(__dirname, '..', dir)
 }
@@ -11,7 +14,7 @@ const webpackConfig = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: 'js/build.js'
   },
   module: {
     rules: [
@@ -20,8 +23,14 @@ const webpackConfig = {
           loader: 'vue-loader',
           options: {
             loaders: {
-              'scss': 'vue-style-loader!css-loader!sass-loader',
-              'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+              'css': ExtractTextPlugin.extract({
+                use: ['css-loader', 'autoprefixer-loader'],
+                fallback: 'vue-style-loader'
+              }),
+              'scss': ExtractTextPlugin.extract({
+                use: ['sass-loader?indentedSyntax', 'autoprefixer-loader'],
+                fallback: 'vue-style-loader'
+              })
             }
           }
       },
@@ -33,11 +42,17 @@ const webpackConfig = {
       {   test: /iview.src.*?js$/, loader: 'babel' },
       {
           test: /\.css$/,
-          loader: 'style-loader!css-loader'
+          loader: ExtractTextPlugin.extract({
+            use: ['css-loader', 'autoprefixer-loader'],
+            fallback: 'style-loader'
+          })
       },
       {
           test: /\.less$/,
-          loader:'style-loader!css-loader!less-loader'
+          loader: ExtractTextPlugin.extract({
+            use: ['less-loader', 'autoprefixer-loader'],
+            fallback: 'style-loader'
+          })
       },
       {
           test: /\.(eot|woff|woff2|ttf)$/,
@@ -77,7 +92,13 @@ const webpackConfig = {
   performance: {
       hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins: [
+    new ExtractTextPlugin({
+      filename: 'css/[name].css'
+    }),
+    new CleanWebpackPlugin('/dist')
+  ]
   
 };
 
@@ -93,7 +114,7 @@ if (process.env.NODE_ENV === 'production') {
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
+      sourceMap: false,
       compress: {
         warnings: false
       }
