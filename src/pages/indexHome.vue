@@ -125,7 +125,7 @@ export default {
         }
     },
     mounted() {
-        document.body.scrollTop=0;
+        
         let _this = this;
         _this.$http.get('/index').then(res => {
             
@@ -182,6 +182,7 @@ export default {
                 }
                 
             }, 100);
+            document.body.scrollTop=0;
         }).catch(err => {
             console.error(err);
         });

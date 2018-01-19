@@ -31,7 +31,7 @@
         <!-- 报名弹框  -->
         <div class="sginup-bg" v-if="signUpStatus">
             <div class="sginup-frame">
-                <h4 class="sginup-title">报名</h4>
+                <h4 class="sginup-title">报名</h4><i @click="closeLogin" class="icon-close"></i>
                 <form class="sginup-form" @submit.prevent="submitForm($event)">
                     <div class="ipt-content">
                         <label for="phone-ipt">手机号</label>
@@ -113,6 +113,9 @@ export default {
                     this.prop.status = false;
                 }, 3000);
             }
+        },
+        closeLogin() {
+             this.signUpStatus = false;
         },
         submitForm(evt) {
             evt.preventDefault();
@@ -273,12 +276,6 @@ export default {
         color: #fff;
         margin-top: .3rem;
         margin-bottom: 1.47rem;
-        /* margin: 0 auto;
-        display: block;
-        position: absolute;
-        bottom: 1.48rem;
-        left: 50%;
-        transform: translateX(-50%); */
     }
     .error {
         color: #fe0000;
@@ -287,5 +284,16 @@ export default {
         line-break: 1;
         padding-top: .1rem;
         padding-left: .5rem;
+    }
+    .icon-close {
+        width: .34rem;
+        display: inline-block;
+        height: .34rem;
+        background-size: 100% 100%;
+        background-image: url(../assets/images/icon-close.png);
+        right: .2rem;
+        padding: .06rem;
+        position: absolute;
+        top: .2rem;
     }
 </style>

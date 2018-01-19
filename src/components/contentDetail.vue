@@ -13,7 +13,7 @@
                 <h4 class="article-title">{{detailObj.title}}</h4>
                 <div class="article--detail">
                     <img :src="detailObj.fileName" class="article-img" alt="">
-                    <p class="article" v-html="detailObj.indiprofile"></p>
+                    <div class="article" v-html="detailObj.indiprofile"></div>
                 </div>
             </div>
         </div>
@@ -57,6 +57,7 @@ export default {
             this.topType = params.type || 3;
             this.$http.get(`/getIndiProfile?topType=${params.type}&id=${params.id}`).then( res => {
                 this.detailObj = res.data.msg;
+                document.body.scrollTop=0;
             }).catch( err => {
                 console.log(err, "获取详情失败");
             });
@@ -72,7 +73,7 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style>
     .content-top {
         position: relative;
         height: 1.33rem;
@@ -143,8 +144,11 @@ export default {
     .article {
         text-indent: .4rem;
         font-size: .26rem;
-        color: #595757;
+        color: #4e4e4e;
         line-height: 1.5;
+    }
+    .article img {
+        max-width: 100% !important;
     }
     #app {
         background-color: #fff;
