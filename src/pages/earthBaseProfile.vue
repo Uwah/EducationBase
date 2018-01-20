@@ -42,7 +42,7 @@
                     <img :src="item.fileName" class="list-type-img" alt="">
                     <div class="list-type-content">
                         <span class="list-type-title">{{item.userName}}</span>
-                        <p>{{item.subtitle}}</p>
+                        <p>{{item.subtitle.substring(0, 99)}}</p>
                     </div>
                 </div>
             </div>

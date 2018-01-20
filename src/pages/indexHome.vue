@@ -72,7 +72,7 @@
                             <img class="banner-img" :src="item.fileName" />
                             <div class="swiper-content-info">
                                 <span class="info-title">{{item.title}}</span>
-                                <span class="info-content">{{item.subtitle}}</span>
+                                <span class="info-content">{{item.subtitle.substring(0,43)}}</span>
                             </div>
                         </div>
                     </div>

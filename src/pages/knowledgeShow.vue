@@ -11,7 +11,7 @@
                     <img :src="item.fileName" class="cell-img" alt="">
                     <div class="cell-detail">
                         <span class="cell-position">{{item.qu}}</span>
-                        <span class="cell-position-name">{{item.subtitle}}</span>
+                        <span class="cell-position-name">{{item.subtitle.substring(0, 25)}}</span>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                     <img :src="item.fileName" class="list-type-img" alt="">
                     <div class="list-type-content">
                         <span class="list-type-title">{{item.title}}</span>
-                        <p>{{item.subtitle}}</p>
+                        <p>{{item.subtitle.substring(0, 66)}}</p>
                     </div>
                 </div>
             </div>
