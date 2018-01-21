@@ -72,7 +72,7 @@
                             <img class="banner-img" :src="item.fileName" />
                             <div class="swiper-content-info">
                                 <span class="info-title">{{item.title}}</span>
-                                <span class="info-content">{{item.subtitle.substring(0,43)}}</span>
+                                <!-- <span class="info-content">{{item.subtitle.substring(0,43)}}</span> -->
                             </div>
                         </div>
                     </div>
@@ -111,6 +111,7 @@ import QRCode from 'qrcodejs2';
 /**
  * formatTime抽取，作为一个install组件 use
  */
+
 export default {
     data() {
         return {
@@ -138,7 +139,7 @@ export default {
             _this.activiesData.list.push({fileName: '/dist/home-bottom-banner-filter.png', periods: 'later', id: 'later'});
             _this.activiesData.activity.startTime = _this.formatTime(_this.activiesData.activity.startTime);
             _this.activiesData.activity.endTime = _this.formatTime(this.activiesData.activity.endTime);
-            _this.setBaseMapMarker(_this.indexData.types[0].list);
+            _this.setBaseMapMarker(_this.indexData.types[0].list, _this);
             new Swiper("#topBanner",{
                 autoplay: true,
                 observer:true,//修改swiper自己或子元素时，自动初始化swiper
@@ -215,15 +216,18 @@ export default {
         checkBaseMap(id, index) {
             let baseid = id, _this = this;
             _this.baseIndex = index;
-            this.setBaseMapMarker(this.indexData.types[index].list);
+            
+            this.setBaseMapMarker(this.indexData.types[index].list, this);
             // _this.$http.get(`/searchJd?id=${baseid}`).then( res => {
             //     console.log(res);
             // }).catch( err => {
             //     console.log(err);
             // });
         },
-        setBaseMapMarker(markerList) {
+        setBaseMapMarker(markerList, _that) {
             let map = new BMap.Map("baseMap");
+            console.log(_that)
+            let loca = JSON.parse(localStorage.getItem('loca'));
             for(let type of markerList) {
                 // 创建地址解析器实例
                 var myGeo = new BMap.Geocoder();
@@ -234,12 +238,12 @@ export default {
                         let marker = new BMap.Marker(point);
                         map.addOverlay(marker);
                         marker.addEventListener("click", function(e) {
-                            window.location.href=`http://api.map.baidu.com/geocoder?address=${type.address}&output=html`;
+                            window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${loca.point.lat},${loca.point.lng}|name:我的位置&destination=${type.address}&mode=driving&region=${loca.city}&output=html`;
                             console.log('click ' + type.address)
                         });
                         var label = new BMap.Label(type.userName,{offset:new BMap.Size(20,-10)});
                         label.addEventListener("click", function(e) {
-                            window.location.href=`http://api.map.baidu.com/geocoder?address=${type.address}&output=html`;
+                            window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${loca.point.lat},${loca.point.lng}|name:我的位置&destination=${type.address}&mode=driving&region=${loca.city}&output=html`;
                             console.log('click ' + type.address)
                         });
 	                    marker.setLabel(label)
@@ -263,6 +267,8 @@ export default {
                 this.homeSearch(e);
             }
         },
+
+        
         formatTime(second) {
             if(second) {
                 let date = new Date(second);

@@ -84,7 +84,10 @@
 }
 .cell-detail span{
     display: inline-block;
-    width: 100%;
+    white-space: nowrap;
+    width: 3rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
     line-height: 1;
     position: relative;
 }
@@ -121,21 +124,25 @@
 .list-type-content {
     flex: 1;
     padding-left:.3rem;
+    padding-bottom: .2rem;
 }
 .list-type-title {
     display: inline-block;
     padding-top: .4rem;
     color: #181818;
-    font-size: .36rem;
+    font-size: .28rem;
     line-height: 1;
-    padding-bottom: .1rem;
+    padding-bottom: .13rem;
     font-weight: bold;
+    width: 4.46rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .list-type-content p{
     color: #181818;
-    font-size: .28rem;
-    font-weight: bold;
+    font-size: .22rem;
     line-height: 1.2;
-    height: 1.3rem;
     overflow: hidden;
+    text-indent: .4rem;
 }

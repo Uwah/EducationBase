@@ -7,5 +7,6 @@ export default {
     isShowHead:true,
     userToken: "",
     fromUrl: "",
-    topType: 1
+    topType: 1,
+    locaObj: {}
 }

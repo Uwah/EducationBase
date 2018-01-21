@@ -27,7 +27,7 @@
                 </li> -->
                 <!-- http://api.map.baidu.com/geocoder?address=北京市海淀区上地信息路9号奎科科技大厦&output=html&src=edubase -->
                 <li v-for="(item, index) in baseAddress" :key="index">
-                    <a :href="['http://api.map.baidu.com/geocoder?address='+item.address+ '&output=html']" @click="navCount(item.id)" style="display: inherit; width: 100%;">
+                    <a href="javascript:;" @click="navCount(item.id, item.address)" style="display: inherit; width: 100%;">
                         <i class="base-icon"></i>
                         <div class="base-info">
                             <h4>{{item.userName}}</h4>
@@ -65,6 +65,7 @@ export default {
     mounted() {
         document.body.scrollTop=0;
         this.getBaseTypeList();
+        
         new Swiper("#search-result", {
             slidesPerView: 3,
             spaceBetween: 13,
@@ -84,8 +85,10 @@ export default {
                         console.log('返回过快，数据暂未渲染')
                     }
                 }, 100);
+                document.body.scrollTop=0;
             }).catch( err => {
                 console.log(err, 'baseNavigation');
+                document.body.scrollTop=0;
             })
         },
         searchData(data) {
@@ -115,9 +118,15 @@ export default {
             this.$http.get(`/navigation?id=${id}`).then(res => {console.log(res)}).catch(error => {console.log(error)});
             this.$router.push({name: "searchPage", params: {address: address}})
         },
-        navCount(id) {
-            console.log(id)
+        navCount(id, address) {
+            console.log(id, this.$store.getters.getLocaObj)
+            let locaObj = this.$store.getters.getLocaObj;
             this.$http.get(`/navigation?id=${id}`).then(res => {console.log(res)}).catch(error => {console.log(error)});
+            // window.location.href=`http://api.map.baidu.com/geocoder?address=${address}&output=html`;
+            
+            // window.location.href=`http://api.map.baidu.com/direction?origin=name:当前位置&destination=${address}&mode=driving&output=html`
+            // window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${locaObj.point.lat},${locaObj.point.lng}&destination=${address}&mode=driving&region=${locaObj.city}&output=html`
+            window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${locaObj.point.lat},${locaObj.point.lng}|name:我的位置&destination=${address}&mode=driving&region=${locaObj.city}&output=html`;
         }
     },
     components: {

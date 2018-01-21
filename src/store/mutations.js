@@ -65,6 +65,9 @@ const mutations = {
     },
     changeLastUrl(state, url) {
         state.fromUrl = url;
+    },
+    locationAC(state, obj) {
+        state.locaObj = obj;
     }
 };
 

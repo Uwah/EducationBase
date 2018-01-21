@@ -280,7 +280,7 @@ input[type="search"]::-webkit-search-cancel-button{
 .swiper-content-info {
     position: absolute;
     width: 100%;
-    height: 1.25rem;
+    padding-bottom: .2rem;
     font-size: 0;
     bottom: 0;
     left: 0;
@@ -295,6 +295,11 @@ input[type="search"]::-webkit-search-cancel-button{
 .info-title {
     padding-top: .22rem;
     font-size: .26rem;
+    width: 4.8rem;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .info-content {
     font-size: .24rem;

@@ -166,6 +166,10 @@
     line-height: 1;
     position: relative;
     text-align: right;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: bold;
 }
 .position-icon {
     display: inline-block;
@@ -212,6 +216,10 @@
     line-height: 1;
     font-weight: bold;
     padding-bottom: .1rem;
+    width: 4.6rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .earth-list-type .list-type-content p{
     color: #727172;

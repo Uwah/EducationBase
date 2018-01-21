@@ -25,5 +25,8 @@ export default {
     },
     getTopType: state => {
         return state.topType
+    },
+    getLocaObj: state => {
+        return state.locaObj
     }
 }

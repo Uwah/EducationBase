@@ -7,7 +7,7 @@
         <div class="profile-detail">
             <div class="detail-top">
                 <span class="detail-title">{{detailObj.address}}</span>
-                <a class="map-navigation" :href="['http://api.map.baidu.com/geocoder?address='+detailObj.address+ '&output=html']"></a>
+                <a class="map-navigation" href="javascript:;" @click="goMapNav(detailObj.address)"></a>
             </div>
             <div class="article-content">
                 <h4 class="article-title">{{detailObj.title}}</h4>
@@ -58,10 +58,16 @@ export default {
             this.$http.get(`/getIndiProfile?topType=${params.type}&id=${params.id}`).then( res => {
                 this.detailObj = res.data.msg;
                 document.body.scrollTop=0;
+                
             }).catch( err => {
                 console.log(err, "获取详情失败");
             });
+            document.body.scrollTop=0;
             this.topType == 3?this.$store.dispatch("basestate"):this.$store.dispatch("knowstate");
+        },
+        goMapNav(address) {
+            let locaObj = this.$store.getters.getLocaObj;
+            window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${locaObj.point.lat},${locaObj.point.lng}|name:我的位置&destination=${address}&mode=driving&region=${locaObj.city}&output=html`;
         }
     },
     mounted() {

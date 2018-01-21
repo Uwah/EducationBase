@@ -88,6 +88,7 @@ export default {
             this.$http.get('/getPsActivities').then( res => {
                 this.detailInfo = res.data.msg;
                 this.checkActiveAnswer(this.detailInfo.id);
+                document.body.scrollTop=0;
             }).catch( err => {
                 console.log(err, 'getPsActivities')
             });

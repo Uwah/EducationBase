@@ -42,7 +42,7 @@
                     <img :src="item.fileName" class="list-type-img" alt="">
                     <div class="list-type-content">
                         <span class="list-type-title">{{item.userName}}</span>
-                        <p>{{item.subtitle.substring(0, 99)}}</p>
+                        <p>{{item.subtitle.length>96?item.subtitle.substring(0, 96)+'...':item.subtitle}}</p>
                     </div>
                 </div>
             </div>
@@ -119,8 +119,10 @@ export default {
                     document.getElementById('profile-list-swiper').children[0].style.transform="translate3d(0px, 0px, 0px)";
                 }, 100);
                 _this.searchEarthBase(_this.banners.types[0].id)
+                document.body.scrollTop=0;
             }).catch( err => {
                 console.log(err, "获取基地概况banner失败")
+                document.body.scrollTop=0;
             })
         },
         goArticleDetail(a, id){

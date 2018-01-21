@@ -86,3 +86,6 @@ ul {
 .footer-item>p.active {
     color: #231815;
 }
+#map-seat {
+    width: 1px; height:1px; padding: 0; margin: 0; display:none;
+}

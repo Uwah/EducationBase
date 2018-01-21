@@ -11,7 +11,7 @@
                     <img :src="item.fileName" class="cell-img" alt="">
                     <div class="cell-detail">
                         <span class="cell-position">{{item.qu}}</span>
-                        <span class="cell-position-name">{{item.subtitle.substring(0, 25)}}</span>
+                        <span class="cell-position-name">{{item.title.substring(0, 25)}}</span>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                     <img :src="item.fileName" class="list-type-img" alt="">
                     <div class="list-type-content">
                         <span class="list-type-title">{{item.title}}</span>
-                        <p>{{item.subtitle.substring(0, 66)}}</p>
+                        <p>{{item.subtitle.length>63?item.subtitle.substring(0, 63)+'...':item.subtitle}}</p>
                     </div>
                 </div>
             </div>
@@ -46,6 +46,7 @@ export default {
         getScienceList() {
             this.$http.get('/notice').then( res => {
                 this.scienceList = res.data.msg;
+                document.body.scrollTop=0;
             }).catch(err => {
                 console.log(err, '科普活动')
             });
@@ -55,7 +56,7 @@ export default {
         }
     },
     mounted() {
-        document.body.scrollTop=0;
+        
         console.log('enter mounted')
         this.getScienceList();
     },
