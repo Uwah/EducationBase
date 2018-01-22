@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tencent map</title>
+	<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=SB7BZ-HFARX-QEV4D-7X5XL-BJBZH-VJFZI"></script>
+</head>
+<body>
+	
+
+	<div id="container" style="width: 300px; height: 300px; border: 1px solid #f0f0f0;"></div>
+	<a href="http://apis.map.qq.com/uri/v1/routeplan?type=drive&&to=深圳湾体育中心&policy=0&referer=educationBase">导航</a>
+	<script>
+		var geocoder, map, marker = null;
+			map = new qq.maps.Map(document.getElementById('container'), {
+				zoom: 16
+			})
+        geocoder = new qq.maps.Geocoder();
+
+        function codeAddress(address) {
+            //对指定地址进行解析
+            geocoder.getLocation(address);
+            //设置服务请求成功的回调函数
+            geocoder.setComplete(function(result) {
+            	let latLng = new qq.maps.LatLng(result.detail.location.lat, result.detail.location.lng);
+            	map.setCenter(latLng)
+            	console.log(result);
+        		let marker=new qq.maps.Marker({
+		            position: latLng,
+					animation: qq.maps.MarkerAnimation.DROP,
+		            map: map
+		        });
+		        let label = new qq.maps.Label({
+	                position: latLng,
+	                map: map,
+	                offset: new qq.maps.Size(13, -38),
+	                style: {padding: "1px 5px",borderRadius: "5px",border: "1px solid #D7290F"},
+	                content: 'address'
+            	});
+		        qq.maps.event.addListener(marker, 'click', function(e) {
+		        	console.log(e, + '----' + marker.getPosition())
+		        	window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&&tocoord=${e.e.latLng.lat},${e.latLng.lng}&policy=0&referer=educationBase`;
+		        })
+		        qq.maps.event.addListener(label, 'click', function(e) {
+		        	console.log(e, + '----' + label.getPosition())
+		        })
+            	
+
+            });
+            //若服务请求失败，则运行以下函数
+            geocoder.setError(function() {
+                alert("出错了，请输入正确的地址！！！");
+            });
+        }
+
+        function initMap(latLng) {
+        	var center = new qq.maps.LatLng(latLng.lat, latLng.lng);
+			map = new qq.maps.Map(document.getElementById('container'), {
+				center:center,
+				zooM: 14
+			})
+        }
+        codeAddress('嘉兴市南湖区广益路555号国际中港城5楼', false);
+	</script>
+</body>
+</html>
