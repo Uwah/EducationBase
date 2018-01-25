@@ -66,8 +66,10 @@ export default {
             this.topType == 3?this.$store.dispatch("basestate"):this.$store.dispatch("knowstate");
         },
         goMapNav(address) {
-            let locaObj = this.$store.getters.getLocaObj;
-            window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${locaObj.point.lat},${locaObj.point.lng}|name:我的位置&destination=${address}&mode=driving&region=${locaObj.city}&output=html`;
+            //百度地图
+            // let locaObj = this.$store.getters.getLocaObj;
+            // window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${locaObj.point.lat},${locaObj.point.lng}|name:我的位置&destination=${address}&mode=driving&region=${locaObj.city}&output=html`;
+             window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&policy=0&referer=educationBase`;
         }
     },
     mounted() {

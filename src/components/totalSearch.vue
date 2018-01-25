@@ -38,7 +38,7 @@
                     <ul class="total-base-list total-search-result">
                         <li v-for="(type, tindex) in value" :key="tindex" 
                         :data-address="type.address" :data-id="type.id" :list-type="key">
-                            <a :href="['http://api.map.baidu.com/geocoder?address='+type.address+ '&output=html']" style="display: inherit; width: 100%;">
+                            <a :href="['http://apis.map.qq.com/uri/v1/routeplan?type=drive&to='+type.address+ '&policy=0&referer=educationBase']" style="display: inherit; width: 100%;">
                                 <i class="total-base-icon"></i>
                                 <div class="total-base-info">
                                     <h4>{{type.name}}</h4>
@@ -117,13 +117,23 @@ export default {
             searchItem.type = type;
             searchItem.id = id;
             searchItem.address = address;
-            if(searchItem.type == 2 || searchItem.type == 1) {
-                this.$http.get(`/navigation?id=${searchItem.id}`).then(res => {console.log(res)}).catch(error => {console.log(error)})
-                this.$router.push({name: "searchPage", params: {address: searchItem.address}})
-            } else if(searchItem.type == 3 || searchItem.type == 5) {
-                this.$router.push({name: "articleDetail", params: {id: searchItem.id, type: parseInt(searchItem.type)}})
-            } else if(searchItem.type == 4) {
-                this.$router.push({name: 'competitionDetail'});
+            switch(searchItem.type) {
+                case "1":
+                    this.$router.push({name: 'indexHome'});
+                break;
+                case "2":
+                    this.$http.get(`/navigation?id=${searchItem.id}`).then(res => {console.log(res)}).catch(error => {console.log(error)})
+                    window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&policy=0&referer=educationBase`;
+                break;
+                case "3":
+                case "5":
+                    this.$router.push({name: "articleDetail", params: {id: searchItem.id, type: parseInt(searchItem.type)}})
+                break;
+                case "4":
+                    this.$router.push({name: 'competitionDetail'});
+                break;
+                default:
+                break;
             }
             this.setFooterStatus(parseInt(searchItem.type));
         },

@@ -60,12 +60,12 @@ export default {
     methods: {
         renderMapcontent(params) {
             console.log(params.address)
-            let map = new BMap.Map('map-area');
-            map.centerAndZoom(new BMap.Point(113.96, 22.67), 11);
-            let local = new BMap.LocalSearch(map, {
-                renderOptions: {map: map, panel: 'result-list'}
-            });
-            local.search(params.address);
+            // let map = new BMap.Map('map-area');
+            // map.centerAndZoom(new BMap.Point(113.96, 22.67), 11);
+            // let local = new BMap.LocalSearch(map, {
+            //     renderOptions: {map: map, panel: 'result-list'}
+            // });
+            // local.search(params.address);
         }
     }
 }

@@ -41,33 +41,46 @@ export default {
         commit('changeLastUrl', url)
     },
     locatoinInfo: ({commit}) => {
-        var map = new BMap.Map("allmap");          // 创建地图实例
-        var initLat = 39.916527;
-        var initLng = 116.397128;
-        var point = new BMap.Point(initLng, initLat);  // 创建点坐标  
-        map.centerAndZoom(point, 13);                 // 初始化地图，设置中心点坐标和地图级别  
-        //获取当前位置
-        var geolocation = new BMap.Geolocation();  
-        geolocation.getCurrentPosition(function(r){  
-            if(this.getStatus() == BMAP_STATUS_SUCCESS){  
-                //可拖拽
-                console.log(r.point)
-                getAddress(r.point);
-            }else {  
-                console.log('failed:'+this.getStatus());  
-            }  
-        });
-        //获取地址信息，设置地址label
-        function getAddress(point){
-            var gc = new BMap.Geocoder();
-            gc.getLocation(point, function(rs){
-                var addComp = rs.addressComponents;
-                var address =  addComp.province +  addComp.city + addComp.district + addComp.street + addComp.streetNumber;//获取地址
-                console.log(address)
-                let locations = JSON.stringify({point: point, city: addComp.city})
-                localStorage.setItem('loca', locations)
-                commit('locationAC', {point: point, city: addComp.city});
-             });
-        }
+        /****腾讯地图获取当前位置 */
+        console.log('test')
+        var geolocation = new qq.maps.Geolocation();
+        geolocation.getLocation(showPosition, showErr, {timeout: 9000});
+
+        function showPosition(position) {
+            console.log(position)
+        };
+        function showErr() {
+            console.log('获取当前定位失败')
+        };
+
+        /*************百度地图 获取当前位置 */
+        // var map = new BMap.Map("allmap");          // 创建地图实例
+        // var initLat = 39.916527;
+        // var initLng = 116.397128;
+        // var point = new BMap.Point(initLng, initLat);  // 创建点坐标  
+        // map.centerAndZoom(point, 13);                 // 初始化地图，设置中心点坐标和地图级别  
+        // //获取当前位置
+        // var geolocation = new BMap.Geolocation();  
+        // geolocation.getCurrentPosition(function(r){  
+        //     if(this.getStatus() == BMAP_STATUS_SUCCESS){  
+        //         //可拖拽
+        //         console.log(r.point)
+        //         getAddress(r.point);
+        //     }else {  
+        //         console.log('failed:'+this.getStatus());  
+        //     }  
+        // });
+        // //获取地址信息，设置地址label
+        // function getAddress(point) {
+        //     var gc = new BMap.Geocoder();
+        //     gc.getLocation(point, function(rs){
+        //         var addComp = rs.addressComponents;
+        //         var address =  addComp.province +  addComp.city + addComp.district + addComp.street + addComp.streetNumber;//获取地址
+        //         console.log(address)
+        //         let locations = JSON.stringify({point: point, city: addComp.city})
+        //         localStorage.setItem('loca', locations)
+        //         commit('locationAC', {point: point, city: addComp.city});
+        //      });
+        // }
     }
 }

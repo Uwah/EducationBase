@@ -111,7 +111,7 @@ export default {
         this.pathname = this.$route.name;
         this.showhead(this.pathname);
         this.bottomActive(this.pathname);
-        this.$store.dispatch("locatoinInfo");
+        // this.$store.dispatch("locatoinInfo");
         
     },
     components : {

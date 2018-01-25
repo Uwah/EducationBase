@@ -119,14 +119,12 @@ export default {
             this.$router.push({name: "searchPage", params: {address: address}})
         },
         navCount(id, address) {
-            console.log(id, this.$store.getters.getLocaObj)
-            let locaObj = this.$store.getters.getLocaObj;
+            console.log("baseNavigation id: "+id)
+            // let locaObj = this.$store.getters.getLocaObj;
             this.$http.get(`/navigation?id=${id}`).then(res => {console.log(res)}).catch(error => {console.log(error)});
-            // window.location.href=`http://api.map.baidu.com/geocoder?address=${address}&output=html`;
-            
-            // window.location.href=`http://api.map.baidu.com/direction?origin=name:当前位置&destination=${address}&mode=driving&output=html`
-            // window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${locaObj.point.lat},${locaObj.point.lng}&destination=${address}&mode=driving&region=${locaObj.city}&output=html`
-            window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${locaObj.point.lat},${locaObj.point.lng}|name:我的位置&destination=${address}&mode=driving&region=${locaObj.city}&output=html`;
+            //百度地图
+            // window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${locaObj.point.lat},${locaObj.point.lng}|name:我的位置&destination=${address}&mode=driving&region=${locaObj.city}&output=html`;
+            window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&policy=0&referer=educationBase`;
         }
     },
     components: {

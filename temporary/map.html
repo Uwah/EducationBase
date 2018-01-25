@@ -35,14 +35,15 @@
 	                map: map,
 	                offset: new qq.maps.Size(13, -38),
 	                style: {padding: "1px 5px",borderRadius: "5px",border: "1px solid #D7290F"},
-	                content: 'address'
+	                content: address
             	});
 		        qq.maps.event.addListener(marker, 'click', function(e) {
 		        	console.log(e, + '----' + marker.getPosition())
-		        	window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&&tocoord=${e.e.latLng.lat},${e.latLng.lng}&policy=0&referer=educationBase`;
+		        	window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&tocoord=${e.latLng.lat},${e.latLng.lng}&policy=0&referer=educationBase`;
 		        })
 		        qq.maps.event.addListener(label, 'click', function(e) {
-		        	console.log(e, + '----' + label.getPosition())
+					console.log(e, + '----' + label.getPosition())
+					window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&tocoord=${e.latLng.lat},${e.latLng.lng}&policy=0&referer=educationBase`;
 		        })
             	
 

@@ -218,44 +218,56 @@ export default {
             _this.baseIndex = index;
             
             this.setBaseMapMarker(this.indexData.types[index].list, this);
-            // _this.$http.get(`/searchJd?id=${baseid}`).then( res => {
-            //     console.log(res);
-            // }).catch( err => {
-            //     console.log(err);
-            // });
         },
         setBaseMapMarker(markerList, _that) {
-            let map = new BMap.Map("baseMap");
-            console.log(_that)
+            let map = new qq.maps.Map(document.getElementById('baseMap'), {
+                disableDefaultUI: true,
+				zoom: 12
+            });
+            var infoWin = new qq.maps.InfoWindow({  
+                map: map  
+            }); 
+            
             let loca = JSON.parse(localStorage.getItem('loca'));
             for(let type of markerList) {
-                // 创建地址解析器实例
-                var myGeo = new BMap.Geocoder();
-                // 将地址解析结果显示在地图上,并调整地图视野
-                myGeo.getPoint(type.address, function(point){
-                    if (point) {
-                        map.centerAndZoom(point, 11);
-                        let marker = new BMap.Marker(point);
-                        map.addOverlay(marker);
-                        marker.addEventListener("click", function(e) {
-                            window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${loca.point.lat},${loca.point.lng}|name:我的位置&destination=${type.address}&mode=driving&region=${loca.city}&output=html`;
-                            console.log('click ' + type.address)
+                (function(address, name) {
+                    let geocoder = new qq.maps.Geocoder();
+                    geocoder.getLocation(address);
+                    //设置服务请求成功的回调函数
+                    geocoder.setComplete(function(result) {
+                        let latLng = new qq.maps.LatLng(result.detail.location.lat, result.detail.location.lng);
+                        map.setCenter(latLng)
+                        
+                        let marker=new qq.maps.Marker({
+                            position: latLng,
+                            animation: qq.maps.MarkerAnimation.DROP,
+                            map: map
                         });
-                        var label = new BMap.Label(type.userName,{offset:new BMap.Size(20,-10)});
-                        label.addEventListener("click", function(e) {
-                            window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${loca.point.lat},${loca.point.lng}|name:我的位置&destination=${type.address}&mode=driving&region=${loca.city}&output=html`;
-                            console.log('click ' + type.address)
+                        let label = new qq.maps.Label({
+                            position: latLng,
+                            map: map,
+                            offset: new qq.maps.Size(13, -38),
+                            style: {padding: "1px 5px",borderRadius: "5px",border: "1px solid #D7290F", zIndex: 99},
+                            content: name
                         });
-	                    marker.setLabel(label)
-                    }else{
-                        console.log("您选择地址没有解析到结果!");
-                    }
-                }, type.city);
-                
-                
+                        qq.maps.event.addListener(marker, 'click', function(e) {
+                            console.log(e, + '----' + marker.getPosition())
+                            window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&policy=0&referer=educationBase`;
+                        })
+                        qq.maps.event.addListener(label, 'click', function(e) {
+                            console.log(e, + '----' + label.getPosition())
+                            window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&policy=0&referer=educationBase`;
+                        })
+                        
+
+                    });
+                    //若服务请求失败，则运行以下函数
+                    geocoder.setError(function() {
+                        console.log("出错了，请输入正确的地址！！！");
+                    });
+                })(type.address, type.userName);
+                // codeAddress(type.address, type.userName);
             }
-            // var point = new BMap.Point(markerList[0].x, markerList[0].y);  // 创建点坐标  
-            // map.centerAndZoom(point, 15);
         },
         homeSearch(e) {
             console.log('home search: ', this.homeSearchData)
