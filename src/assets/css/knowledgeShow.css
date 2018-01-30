@@ -95,13 +95,15 @@
     font-size: 0;
 }
 .info-detail {
-    padding: 1.3rem .8rem 0;
+    padding: 1rem .7rem 0;
 }
 .konwledge-detail p {
     font-size: .24rem;
     line-height: 1.2;
-    text-indent: .4rem;
     padding-bottom: 2px;
+}
+.konwledge-detail img {
+    max-width: 100% !important;
 }
 .knowledge-unit {
     color: #3e3a39;

@@ -89,10 +89,9 @@
                 <div class="visit-info">
                     <span class="info-text">第{{activiesData.activity.periods}}期知识竞赛</span>
                     <span class="info-text" style="display: block;">活动时间：{{activiesData.activity.startTime}}-{{activiesData.activity.endTime}}</span>
-                    <span class="info-text">报名方式：</span>
+                    <span class="info-text">报名电话：</span>
                     <div class="type-list">
-                        <span class="types">{{activiesData.activity.email}}(email)</span>
-                        <span class="types">{{activiesData.activity.mobile}}(手机)</span>
+                        <span class="types">{{activiesData.activity.mobile}}</span>
                     </div>
                     
                 </div>
@@ -279,12 +278,23 @@ export default {
                 this.homeSearch(e);
             }
         },
-
+        dealWithTime(t) {
+            if(t) {
+                return t < 10 ? '0'+t : t;
+            } else {
+                return "";
+            }
+        },
         
         formatTime(second) {
             if(second) {
-                let date = new Date(second);
-                return date.getFullYear()+'.'+date.getMonth()+'.'+date.getDate();
+                let date = new Date(second), dateStr = '';
+                
+                return date.getFullYear() +
+                        '.'+this.dealWithTime(date.getMonth()+1) +
+                        '.'+this.dealWithTime(date.getDate()) + 
+                        ' ' + this.dealWithTime(date.getHours()) + 
+                        ':' + this.dealWithTime(date.getMinutes());
             }
         }
     },
