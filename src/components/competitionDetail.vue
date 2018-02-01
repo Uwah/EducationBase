@@ -7,25 +7,11 @@
         <div class="knowledge-content">
             <div class="konwledge-bg" :style="{backgroundImage: `url(${detailInfo.fileName})`}"></div>
             <div class="konwledge-detail info-detail">
-                <div v-html="detailInfo.indiProfile"></div>
-                <!-- <div class="knowledge-unit">
-                    <ul class="unit-list">
-                        <li>主办单位:<span class="unit-name">***教育局</span><span class="unit-name">***科技协会</span></li>
-                        <li>承办单位:<span class="unit-name">***有限公司(**分公司)</span></li>
-                        <li>赞助单位:<span class="unit-name">***有限公司</span></li>
-                    </ul>
-                    <span class="show-info">竞赛时间:<span class="show-time">2017年10月1日-2017年11月1日</span></span>
-                    <span class="sign-up-method">报名方式: 点击页面下方“立即参与”</span>
-                    <div class="prizes">
-                        <span>奖项设立:</span>
-                        <ul class="prizes-list">
-                            <li>一等奖:</li>
-                            <li>二等奖:</li>
-                            <li>三等奖:</li>
-                        </ul>
-                    </div>
-                </div> -->
-                <button class="partake" @click="goSignUp">立即参与</button>
+                <div>
+                    <div v-html="detailInfo.indiProfile"></div>
+                    <button class="partake" @click="goSignUp">立即参与</button>
+                </div>
+                
             </div>
         </div>
         <!-- 报名弹框  -->
@@ -200,7 +186,6 @@ export default {
         background-size: 100% 100%;
     }
     .konwledge-detail {
-        max-height: 12.14rem;
         background-image: url(../assets/images/know-bg.png);
         background-size: 100% 100%;
         overflow-x: hidden;
@@ -212,7 +197,7 @@ export default {
         height: auto;
     }
     .info-detail {
-        padding: 1.3rem .8rem 0;
+        padding: 1rem .7rem 0;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -220,9 +205,11 @@ export default {
     .konwledge-detail div {
         font-size: .24rem;
         line-height: 1.2;
-        text-indent: .4rem;
         padding-bottom: 2px;
         flex: 1;
+    }
+    .konwledge-detail img {
+        max-width: 100% !important;
     }
     .knowledge-unit {
         color: #3e3a39;
