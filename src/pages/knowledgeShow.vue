@@ -32,7 +32,7 @@ import goBack from '../components/goBack';
 export default {
     data() {
         return {
-            showType: 'list',
+            showType: 'cell',
             scienceList: [],
             topType: 5
         }
