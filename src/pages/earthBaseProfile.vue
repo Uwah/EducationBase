@@ -17,13 +17,11 @@
             </div>
             <div class="title-list-out">
                 <div class="profile-title-list">
-                    <div class="swiper-container" id="profile-list-swiper">
-                        <div class="swiper-wrapper">
-                            <div @click="baseTypeChange(item.id, index)" :class="['swiper-slide',typeIndex==index?'active':'']" 
-                            v-for="(item, index) in banners.types" :key="index" :data-id="item.id">{{item.typeName}}</div>
-                        </div>
+                    <div id="profile-list-swiper">
+                        <div @click="baseTypeChange(item.id, index)" :class="['title-slide',typeIndex==index?'active':'']" 
+                        v-for="(item, index) in banners.types" :key="index" :data-id="item.id">{{item.typeName}}</div>
+                        <i :class="['content-type',contentType]" @click="profileChange"></i>
                     </div>
-                    <i :class="['content-type',contentType]" @click="profileChange"></i>
                 </div>
             </div>
             <div class="profile-list" v-show="contentType == 'list'">
@@ -110,14 +108,14 @@ export default {
             let _this = this;
             this.$http.get('/getBaseSummary').then( res => {
                 _this.banners = res.data.msg;
-                new Swiper("#profile-list-swiper", {
-                    observer:true,
-                    slidesPerView: 4,
-                    spaceBetween: 20
-                });
-                setTimeout(() => {
-                    document.getElementById('profile-list-swiper').children[0].style.transform="translate3d(0px, 0px, 0px)";
-                }, 100);
+                // new Swiper("#profile-list-swiper", {
+                //     observer:true,
+                //     slidesPerView: 4,
+                //     spaceBetween: 20
+                // });
+                // setTimeout(() => {
+                //     document.getElementById('profile-list-swiper').children[0].style.transform="translate3d(0px, 0px, 0px)";
+                // }, 100);
                 _this.searchEarthBase(_this.banners.types[0].id)
                 document.body.scrollTop=0;
             }).catch( err => {

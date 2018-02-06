@@ -66,11 +66,11 @@ export default {
         document.body.scrollTop=0;
         this.getBaseTypeList();
         
-        new Swiper("#search-result", {
-            slidesPerView: 3,
-            spaceBetween: 13,
-            observer:true
-        });
+        // new Swiper("#search-result", {
+        //     slidesPerView: 3,
+        //     spaceBetween: 13,
+        //     observer:true
+        // });
         
     },
     methods: {
@@ -78,13 +78,13 @@ export default {
             this.$http.get('/searchType?searchType=1').then( res => {
                 this.baseTypeList = res.data.msg;
                 this.getBaseNav(this.baseTypeList[0].id);
-                setTimeout(() => {
-                    try {
-                        document.getElementById('search-result').children[0].style.transform="translate3d(0px, 0px, 0px)";
-                    } catch (error) {
-                        console.log('返回过快，数据暂未渲染')
-                    }
-                }, 100);
+                // setTimeout(() => {
+                //     try {
+                //         document.getElementById('search-result').children[0].style.transform="translate3d(0px, 0px, 0px)";
+                //     } catch (error) {
+                //         console.log('返回过快，数据暂未渲染')
+                //     }
+                // }, 100);
                 document.body.scrollTop=0;
             }).catch( err => {
                 console.log(err, 'baseNavigation');
