@@ -7,7 +7,7 @@
         <div class="profile-detail">
             <div class="detail-top">
                 <span class="detail-title">{{detailObj.address}}</span>
-                <a class="map-navigation" href="javascript:;" @click="goMapNav(detailObj.address)"></a>
+                <a class="map-navigation" href="javascript:;" @click="goMapNav(detailObj.address, detailObj.x, detailObj.y)"></a>
             </div>
             <div class="article-content">
                 <h4 class="article-title">{{detailObj.title}}</h4>
@@ -65,11 +65,11 @@ export default {
             document.body.scrollTop=0;
             this.topType == 3?this.$store.dispatch("basestate"):this.$store.dispatch("knowstate");
         },
-        goMapNav(address) {
+        goMapNav(address, lat, lng) {
             //百度地图
             // let locaObj = this.$store.getters.getLocaObj;
             // window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${locaObj.point.lat},${locaObj.point.lng}|name:我的位置&destination=${address}&mode=driving&region=${locaObj.city}&output=html`;
-             window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&policy=0&referer=educationBase`;
+             window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&tocoord=${lat},${lng}&policy=0&referer=educationBase`;
         }
     },
     mounted() {

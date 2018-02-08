@@ -27,7 +27,7 @@
                 </li> -->
                 <!-- http://api.map.baidu.com/geocoder?address=北京市海淀区上地信息路9号奎科科技大厦&output=html&src=edubase -->
                 <li v-for="(item, index) in baseAddress" :key="index">
-                    <a href="javascript:;" @click="navCount(item.id, item.address)" style="display: inherit; width: 100%;">
+                    <a href="javascript:;" @click="navCount(item.id, item.address, item.x, item.y)" style="display: inherit; width: 100%;">
                         <i class="base-icon"></i>
                         <div class="base-info">
                             <h4>{{item.userName}}</h4>
@@ -118,13 +118,13 @@ export default {
             this.$http.get(`/navigation?id=${id}`).then(res => {console.log(res)}).catch(error => {console.log(error)});
             this.$router.push({name: "searchPage", params: {address: address}})
         },
-        navCount(id, address) {
-            console.log("baseNavigation id: "+id)
+        navCount(id, address, lat, lng) {
+            console.log("baseNavigation id: "+id);
             // let locaObj = this.$store.getters.getLocaObj;
             this.$http.get(`/navigation?id=${id}`).then(res => {console.log(res)}).catch(error => {console.log(error)});
             //百度地图
             // window.location.href=`http://api.map.baidu.com/direction?origin=latlng:${locaObj.point.lat},${locaObj.point.lng}|name:我的位置&destination=${address}&mode=driving&region=${locaObj.city}&output=html`;
-            window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&policy=0&referer=educationBase`;
+            window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&tocoord=${lat},${lng}&policy=0&referer=educationBase`;
         }
     },
     components: {

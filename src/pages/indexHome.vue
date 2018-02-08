@@ -226,10 +226,10 @@ export default {
             var infoWin = new qq.maps.InfoWindow({  
                 map: map  
             }); 
-            
+            console.log(111)
             let loca = JSON.parse(localStorage.getItem('loca'));
             for(let type of markerList) {
-                (function(address, name) {
+                (function(address, name, lat, lng) {
                     let geocoder = new qq.maps.Geocoder();
                     geocoder.getLocation(address);
                     //设置服务请求成功的回调函数
@@ -251,11 +251,11 @@ export default {
                         });
                         qq.maps.event.addListener(marker, 'click', function(e) {
                             console.log(e, + '----' + marker.getPosition())
-                            window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&policy=0&referer=educationBase`;
+                            window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&tocoord=${lat},${lng}&policy=0&referer=educationBase`;
                         })
                         qq.maps.event.addListener(label, 'click', function(e) {
                             console.log(e, + '----' + label.getPosition())
-                            window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&policy=0&referer=educationBase`;
+                            window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&tocoord=${lat},${lng}&policy=0&referer=educationBase`;
                         })
                         
 
@@ -264,7 +264,7 @@ export default {
                     geocoder.setError(function() {
                         console.log("出错了，请输入正确的地址！！！");
                     });
-                })(type.address, type.userName);
+                })(type.address, type.userName, type.x, type.y);
                 // codeAddress(type.address, type.userName);
             }
         },

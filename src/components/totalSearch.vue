@@ -27,7 +27,7 @@
                 <div class="search-type-area" v-for="(value, key) in searchList" :key="key" v-if="topType != 2">
                     <span v-if="topType == 1 && value.length > 0" class="type-name">{{key ==2 ?'基地导航': key ==3?'基地概况':key ==4?'知识竞赛':key ==5?'科普活动':''}}</span>
                     <ul class="total-search-history">
-                        <li v-for="(type, tindex) in value"  @click="searchDetail(type.id, key, type.address)" :key="tindex" :data-address="type.address" 
+                        <li v-for="(type, tindex) in value"  @click="searchDetail(type.id, key, type.address, type.x, type.y)" :key="tindex" :data-address="type.address" 
                         :data-id="type.id" :list-type="key" >
                             <i class="total-history-search-icon"></i>
                             <span class="total-history-search-name">{{type.name}}</span>
@@ -38,7 +38,7 @@
                     <ul class="total-base-list total-search-result">
                         <li v-for="(type, tindex) in value" :key="tindex" 
                         :data-address="type.address" :data-id="type.id" :list-type="key">
-                            <a :href="['http://apis.map.qq.com/uri/v1/routeplan?type=drive&to='+type.address+ '&policy=0&referer=educationBase']" style="display: inherit; width: 100%;">
+                            <a :href="['http://apis.map.qq.com/uri/v1/routeplan?type=drive&to='+type.address+ '&tocoord='+type.x+','+type.y+'&policy=0&referer=educationBase']" style="display: inherit; width: 100%;">
                                 <i class="total-base-icon"></i>
                                 <div class="total-base-info">
                                     <h4>{{type.name}}</h4>
@@ -112,7 +112,7 @@ export default {
                     console.log(err, 'search');
                 });
         },
-        searchDetail(id, type, address) {
+        searchDetail(id, type, address, lat, lng) {
             let searchItem = {};
             searchItem.type = type;
             searchItem.id = id;
@@ -123,7 +123,7 @@ export default {
                 break;
                 case "2":
                     this.$http.get(`/navigation?id=${searchItem.id}`).then(res => {console.log(res)}).catch(error => {console.log(error)})
-                    window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&policy=0&referer=educationBase`;
+                    window.location.href=`http://apis.map.qq.com/uri/v1/routeplan?type=drive&to=${address}&tocoord=${lat},${lng}&policy=0&referer=educationBase`;
                 break;
                 case "3":
                 case "5":
