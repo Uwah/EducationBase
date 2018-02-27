@@ -150,18 +150,8 @@ export default {
                 slidesPerView: 4,
                 spaceBetween: 20,
                 observer:true,
-                loop: true,
-                slidesPerView: 'auto',
-                loopedSlides: 6,
-                observeParents:true,
-                onSlideChangeEnd: function(swiper) {
-                    swiper.update(true)
-                },
-                on: {
-                    slideChangeTransitionEnd: function(a){
-                        // console.log(baseLocationSwiper.activeIndex)
-                    }
-                }
+                observeParents:true
+                
             });
             new Swiper("#science-swiper", {
                 slidesPerView: 'auto',
