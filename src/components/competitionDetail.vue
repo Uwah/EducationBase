@@ -115,7 +115,7 @@ export default {
                         mobile: user.phone,
                         userName: user.name
                     },
-                    transformRequest: [function (data) {
+                    transformRequest: [function (data) {//数据发送到服务器之前key,value处理并用‘&’隔开，ps:数组中最后一个函数必须返回一个字符串
                         let ret = ''
                         for (let it in data) {
                             ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
