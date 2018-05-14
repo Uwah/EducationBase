@@ -6,10 +6,12 @@ Vue.use(VueRouter);
 const routes = [
     {path:'/', component: indexHome,name:"indexHome"},
     {path: '/indexHome', component: indexHome,name:"indexHome"},
-    {path: '/earthBaseProfile', component: resolve => require(["../pages/earthBaseProfile"],  resolve),name:"earthBaseProfile"},
-    {path: '/baseNavigation', component: resolve => require(["../pages/baseNavigation"],  resolve),name:"baseNavigation"},
-    {path: '/scienceActive', component: resolve => require(["../pages/scienceActive"],  resolve),name:"scienceActive"},
-    {path: '/knowledgeShow', component: resolve => require(["../pages/knowledgeShow"],  resolve),name:"knowledgeShow"},
+    {path: '/earthBaseProfile', component: resolve => require(["../pages/earthBaseProfile"],  resolve), name:"earthBaseProfile"},
+    {path: '/baseNavigation', component: resolve => require(["../pages/baseNavigation"],  resolve), name:"baseNavigation"},
+    {path: '/scienceActive', component: resolve => require(["../pages/scienceActive"],  resolve), name:"scienceActive"},
+    {path: '/knowledgeShow', component: resolve => require(["../pages/knowledgeShow"],  resolve), name:"knowledgeShow"},
+
+    {path: '/baseMap', component: resolve => require(['../pages/locationMap'], resolve), name: 'baseMap'},
 
     {path:'/articleDetail', component: resolve => require(['../components/contentDetail'], resolve), name:"articleDetail"},
     {path:'/competitionList', component: resolve => require(['../components/competitionList'], resolve), name:"competitionList"},

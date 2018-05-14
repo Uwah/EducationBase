@@ -215,9 +215,8 @@ export default {
             });
             var infoWin = new qq.maps.InfoWindow({  
                 map: map  
-            }); 
-            console.log(111)
-            let loca = JSON.parse(localStorage.getItem('loca'));
+            });
+            // let loca = JSON.parse(localStorage.getItem('loca'));
             for(let type of markerList) {
                 (function(address, name, lat, lng) {
                     let geocoder = new qq.maps.Geocoder();
