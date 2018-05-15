@@ -1,5 +1,5 @@
 <template>
-    <div class="competitionDetail">
+    <div class="competitionDetail" @mousewheel="pageScroll">
         <div class="knowledge-top">
             <h3 class="title-tip seasion-count">知识竞赛</h3>
             <go-back :topType="topType"></go-back>
@@ -9,9 +9,17 @@
             <div class="konwledge-detail info-detail">
                 <div>
                     <div v-html="detailInfo.indiProfile"></div>
-                    <button class="partake" @click="goSignUp">立即参与</button>
+                    <button class="partake" @click="answer">立即参与</button>
                 </div>
                 
+            </div>
+        </div>
+        <!-- 抽奖提示弹框 -->
+        <div class="tip-alert" v-if="tipSataus">
+            <div class="tip-content">
+                <h2 class="tip-title">提示</h2>
+                <span class="tip-info">答完三道题后可以被抽取为幸运用户获得免费参与科普基地。</span>
+                <button class="tip-confirm" @click="goSignUp">确定</button>
             </div>
         </div>
         <!-- 报名弹框  -->
@@ -59,7 +67,8 @@ export default {
                 text: ''
             },
             detailInfo: {},
-            partakeInfo: {}
+            partakeInfo: {},
+            tipSataus: false
         }
     },
     components: {
@@ -79,10 +88,14 @@ export default {
                 console.log(err, 'getPsActivities')
             });
         },
+        answer() {
+            this.tipSataus = !this.tipSataus
+        },
         goSignUp(e) {
             //根据getPsActivities 返回id用knowledgeCompetition查当前按钮点击情况
             // this.signUpStatus = true;
             console.log('goSignUp')
+            this.tipSataus = !this.tipSataus;
             if(this.partakeInfo.code == 200) {
                 this.$router.push({name: "answerList", params:{id: this.detailInfo.id}});
             } else if(this.partakeInfo.code == 1) {
@@ -159,6 +172,11 @@ export default {
             }).catch(err => {
                 console.log(err);
             })
+        },
+        pageScroll(e) {
+            // e.preventDefault()
+            console.log(e)
+
         }
     }
 }
@@ -284,5 +302,50 @@ export default {
         padding: .06rem;
         position: absolute;
         top: .2rem;
+    }
+    .tip-alert {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        background-color: rgba(0, 0, 0, .6);
+    }
+    .tip-content {
+        background-color: #fff;
+        color: #4e4e4e;
+        width: 5.7rem;
+        height: 3.86rem;
+        border-radius: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 0;
+    }
+    .tip-title {
+        font-size: .56rem;
+        line-height: 1;
+        text-align: center;
+        padding: .4rem 0;
+    }
+    .tip-info {
+        font-size: .32rem;
+        line-height: 1.2;
+        display: inline-block;
+        padding: 0 .8rem;
+        text-align: left;
+        padding-bottom: .3rem;
+    }
+    .tip-confirm {
+        border: 0;
+        color: #fff;
+        border-radius: 5px;
+        width: 1.5rem;
+        height: .5rem;
+        display: inline-block;
+        background-color: #0068b7;
     }
 </style>
