@@ -1,7 +1,7 @@
 
 <template>
 <!-- 弹框组件 -->
-    <div class="sginup-bg" v-if="showStatus">
+    <div class="sginup-bg" v-if="showStatus" @mousewheel="pageScroll">
         <div class="commit-success">{{propText}}</div>
     </div>
 </template>
@@ -17,6 +17,11 @@ export default {
             type: String,
             require: true,
             default: ''
+        }
+    },
+    methods: {
+        pageScroll(e) {
+            e.preventDefault()
         }
     }
 }

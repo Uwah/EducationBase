@@ -1,5 +1,5 @@
 <template>
-    <div class="competitionDetail" @mousewheel="pageScroll">
+    <div class="competitionDetail">
         <div class="knowledge-top">
             <h3 class="title-tip seasion-count">知识竞赛</h3>
             <go-back :topType="topType"></go-back>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <!-- 抽奖提示弹框 -->
-        <div class="tip-alert" v-if="tipSataus">
+        <div class="tip-alert" v-if="tipSataus" @mousewheel="pageScroll">
             <div class="tip-content">
                 <h2 class="tip-title">提示</h2>
                 <span class="tip-info">答完三道题后可以被抽取为幸运用户获得免费参与科普基地。</span>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <!-- 报名弹框  -->
-        <div class="sginup-bg" v-if="signUpStatus">
+        <div class="sginup-bg" v-if="signUpStatus" @mousewheel="pageScroll">
             <div class="sginup-frame">
                 <h4 class="sginup-title">报名</h4><i @click="closeLogin" class="icon-close"></i>
                 <form class="sginup-form" @submit.prevent="submitForm($event)">
@@ -174,9 +174,7 @@ export default {
             })
         },
         pageScroll(e) {
-            // e.preventDefault()
-            console.log(e)
-
+            e.preventDefault()
         }
     }
 }

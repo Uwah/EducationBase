@@ -299,22 +299,19 @@
     border: 2px solid #bbbbbc;
 }
 .sgin-commit {
-    border: 2px solid #6167b6;
-    color: #6167b6;
-    font-size: .40rem;
+    border: 0;
+    color: #fff;
+    font-size: .32rem;
     letter-spacing: 5px;   
     text-align: center;
     height: .72rem;
     width: 2.5rem;
     letter-spacing: 3px;
-    border-top-left-radius: .36rem;
-    border-top-right-radius: .36rem;
-    border-bottom-left-radius: .36rem;
-    border-bottom-right-radius: .36rem;
     padding: 0;
-    background-color: transparent;
+    background-color: #0068b7;
     position: absolute;
     bottom: .25rem;
+    border-radius: 5px;
     left: 50%;
     transform: translateX(-50%);
     display: block;

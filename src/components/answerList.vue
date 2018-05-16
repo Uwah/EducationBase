@@ -17,6 +17,23 @@
                     :key="aindex">{{answ.titleLetter}}、{{answ.titleChinese}}</li>
                 </ul>
             </div>
+            <!-- 二期答题需求 -->
+            <div class="answer-totast">
+                <div class="answer-totast-head">
+                    <i class="clock"></i>
+                    <span class="answer-time">60s</span>
+                </div>
+                <div class="answer-totast-item">
+                    <span class="totast-item-title">1、噪声对人体哪个系统有害</span>
+                    <ul class="totast-item-list">
+                        <li>A、心血管系统</li>
+                        <li class="confirm confirm-right">B、消化系统</li>
+                        <li class="confirm confirm-fault">C、呼吸系统</li>
+                    </ul>
+                    <button class="answer-confirm answer-grey">下一题</button>
+                </div>
+            </div>
+            <!-- 二期答题需求 -->
             <button class="answer-commit" v-if="!correctStatus" @click="commitAnswer">提交</button>
             <!-- 弹框后期可做成公共组件 -->
             <prop-model :showStatus="prop.status" :propText="prop.text"></prop-model>
