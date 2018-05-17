@@ -47,6 +47,7 @@
 
 import goBack from './goBack';
 import propModel from './propModel';
+import { clearTimeout } from 'timers';
 //判断登录状态 Vuex
 export default {
     data() {
@@ -76,7 +77,7 @@ export default {
         propModel
     },
     mounted() {
-        this.scienceInfo();  
+        this.scienceInfo();
     },
     methods: {
         scienceInfo() {

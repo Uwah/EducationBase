@@ -1,5 +1,5 @@
 <template>
-    <div class="answerList-content">
+    <div class="answerList-content" @mousewheel="notWheel">
         <div class="knowledge-top">
             <h3 class="answer-title-tip seasion-count">{{anwserObj.title}}</h3>
             <go-back :topType="topType"></go-back>
@@ -21,20 +21,20 @@
             <div class="answer-totast">
                 <div class="answer-totast-head">
                     <i class="clock"></i>
-                    <span class="answer-time">60s</span>
+                    <span class="answer-time">{{answerTime}}s</span>
                 </div>
                 <div class="answer-totast-item">
                     <span class="totast-item-title">1、噪声对人体哪个系统有害</span>
                     <ul class="totast-item-list">
-                        <li>A、心血管系统</li>
+                        <li>A、心血管系统 </li>
                         <li class="confirm confirm-right">B、消化系统</li>
                         <li class="confirm confirm-fault">C、呼吸系统</li>
                     </ul>
-                    <button class="answer-confirm answer-grey">下一题</button>
+                    <button class="answer-btn answer-btn-confirm">下一题</button>
                 </div>
             </div>
             <!-- 二期答题需求 -->
-            <button class="answer-commit" v-if="!correctStatus" @click="commitAnswer">提交</button>
+            <!-- <button class="answer-commit" v-if="!correctStatus" @click="commitAnswer">提交</button> -->
             <!-- 弹框后期可做成公共组件 -->
             <prop-model :showStatus="prop.status" :propText="prop.text"></prop-model>
         </div>
@@ -46,6 +46,8 @@ let allAnswer = {};
 import goBack from './goBack';
 import search from './search';
 import propModel from './propModel';
+import { setTimeout, clearTimeout } from 'timers';
+let count = 60
 export default {
     data() {
         return {
@@ -64,11 +66,13 @@ export default {
             },
             isShowSearch: true,
             isShowSearchForm: false,
-            isShowSearchIcon: true
+            isShowSearchIcon: true,
+            answerTime: 60
         }
     },
     mounted(){
         this.getAnswers()
+        this.countDown()
     },
     methods: {
         getAnswers() {
@@ -169,6 +173,23 @@ export default {
         },
         searchData(data) {
             console.log(data)
+        },
+        countDown() {
+            const that = this
+            const timer = setTimeout(() => {
+                console.log(1)
+                if(count !== 0) {
+                    --count
+                    that.answerTime = count < 10 ? '0' + count : count
+                    that.countDown()
+                } else {
+                    clearTimeout(timer)
+                    return
+                }
+            }, 1000)
+        },
+        notWheel(e) {
+             e.preventDefault()
         }
     },
     components: {
@@ -283,5 +304,130 @@ export default {
         font-size: inherit;
         line-height: inherit;
         color: #e60012;
+    }
+    .answer-totast {
+        background-color: #fff;
+        margin: 0 auto;
+        border-radius: 10px;
+        height: 7.5rem;
+        width: 6.9rem;
+        font-size: 0;
+        position: absolute;
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%); 
+    }
+    .answer-totast-head {
+        height: 1.14rem;
+        border-bottom: 1px dotted #b2b2b2;
+        position: relative;
+        text-align: right;
+    }
+    .clock {
+        display: inline-block;
+        width: .53rem;
+        height: .54rem;
+        background-image: url(../assets/images/clock.png);
+        background-size: cover;
+        margin-top: .28rem;
+        margin-right: .14rem;
+        vertical-align: top;
+    }
+    .answer-time {
+        display: inline-block;
+        color: #0098c0;
+        font-size: .32rem;
+        line-height: 1;
+        padding-top: .4rem;
+        margin-right: .34rem;
+    }
+    .answer-totast-head:before {
+        content: "";
+        width: .4rem;
+        height: .4rem;
+        border-radius: 50%;
+        position: absolute;
+        bottom: -.2rem;
+        left: -.2rem;
+        background-color: #ebebeb;
+        z-index: 99;
+    }
+    .answer-totast-head:after {
+        content: "";
+        width: .4rem;
+        height: .4rem;
+        border-radius: 50%;
+        position: absolute;
+        bottom: -.2rem;
+        right: -.2rem;
+        background-color: #ebebeb;
+        z-index: 99;
+    }
+    .answer-totast-item {
+        padding: 0 .56rem;
+        font-size: 0;
+    }
+    .totast-item-title {
+        display: inline-block;
+        padding: .5rem 0;
+        color: #231815;
+        font-size: .32rem;
+        line-height: 1.2;
+    }
+    .totast-item-list {
+        font-size: 0;
+    }
+    .totast-item-list>li {
+        font-size: .28rem;
+        color: #575555;
+        line-height: 1;
+        background-color: #f1f8fd;
+        margin-bottom: .32rem;
+        padding: .28rem 0 .28rem .26rem;
+        position: relative;
+    }
+    .totast-item-list>li:last-child {
+        margin-bottom: 0;
+    }
+    .answer-btn {
+        width: 1.68rem;
+        font-size: .22rem;
+        color: #fff;
+        line-height: 1;
+        padding: .16rem 0;
+        text-align: center;
+        border: 0;
+        border-radius: 4px;
+        background-color: #b5b5b5;
+        display: block;
+        margin: .6rem auto 0;
+    }
+    .answer-btn-confirm {
+        background-color: #0068b7;
+    }
+    li.confirm-right, li.confirm-fault {
+        background-color: #87b3db;
+    }
+    li.confirm-right:after {
+        content: "";
+        width: .59rem;
+        height: .42rem;
+        background-image: url(../assets/images/right.png);
+        background-size: cover;
+        position: absolute;
+        right: .26rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    li.confirm-fault:after {
+        content: "";
+        width: .65rem;
+        height: .5rem;
+        background-image: url(../assets/images/fault.png);
+        background-size: cover;
+        position: absolute;
+        right: .26rem;
+        top: 50%;
+        transform: translateY(-50%);
     }
 </style>
