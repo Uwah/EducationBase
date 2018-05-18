@@ -10,13 +10,15 @@
             <div class="answer-head" v-if="correctStatus">
                 恭喜您，共答对<span class="right-answer">{{correctObj.correct}}</span>题，共<span class="total-answer">{{correctObj.total}}</span>题
             </div>
-            <div class="answer-item" v-for="(item, index) in anwserObj.questions" :key="index">
+            <!-- 一期答题 -->
+            <!-- <div class="answer-item" v-for="(item, index) in anwserObj.questions" :key="index">
                 <h4 class="answer-title" :answer-title-id="item.id"><span class="answer-count">{{index+1}}、</span>{{item.title}}<span v-show="correctStatus" :id="'r'+item.id" class="right-answer"></span></h4>
                 <ul class="answer-list" :data-answerId="item.id">
-                    <li v-for="(answ, aindex) in item.qids"  @click="anwserActive(answ.titleLetter, item.id, aindex, $event)" :data-letter="answ.titleLetter" 
+                    <li v-for="(answ, aindex) in item.qids" 
+                     @click="anwserActive(answ.titleLetter, item.id, aindex, $event)" :data-letter="answ.titleLetter" 
                     :key="aindex">{{answ.titleLetter}}、{{answ.titleChinese}}</li>
                 </ul>
-            </div>
+            </div> -->
             <!-- 二期答题需求 -->
             <div class="answer-totast">
                 <div class="answer-totast-head">
@@ -24,13 +26,15 @@
                     <span class="answer-time">{{answerTime}}s</span>
                 </div>
                 <div class="answer-totast-item">
-                    <span class="totast-item-title">1、噪声对人体哪个系统有害</span>
+                    <span class="totast-item-title">{{answerIndex+1 + '、' +testAnswers[answerIndex].que}}</span>
                     <ul class="totast-item-list">
-                        <li>A、心血管系统 </li>
-                        <li class="confirm confirm-right">B、消化系统</li>
-                        <li class="confirm confirm-fault">C、呼吸系统</li>
+                        <li v-for="(item, index) in testAnswers[answerIndex].answerList" @click="anwserActive2(index, $event)"
+                        :key="index">{{item.key + '、' + item.answer}} </li>
                     </ul>
-                    <button class="answer-btn answer-btn-confirm">下一题</button>
+                    <!-- 最后一题button text为提交 -->
+                    <button @click="nextAnswer" :class="['answer-btn', nextStatus ? 'answer-btn-confirm': '']">
+                        {{answerIndex !== testAnswers.length - 1 ? '下一题':'提交'}}
+                    </button>
                 </div>
             </div>
             <!-- 二期答题需求 -->
@@ -67,7 +71,36 @@ export default {
             isShowSearch: true,
             isShowSearchForm: false,
             isShowSearchIcon: true,
-            answerTime: 60
+            answerTime: 60,
+            testAnswers: [
+                {
+                    que: '噪声对人体哪个系统有害1',
+                    answerList: [
+                        {key: 'A', answer: '1心血管系统test1'},
+                        {key: 'B', answer: '1消化系统test2'},
+                        {key: 'C', answer: '1呼吸系统test3'}
+                    ]
+                },
+                {
+                    que: '噪声对人体哪个系统有害2',
+                    answerList: [
+                        {key: 'A', answer: '2心血管系统test1'},
+                        {key: 'B', answer: '2消化系统test2'},
+                        {key: 'C', answer: '2呼吸系统test3'}
+                    ]
+                },
+                {
+                    que: '噪声对人体哪个系统有害3',
+                    answerList: [
+                        {key: 'A', answer: '3心血管系统test1'},
+                        {key: 'B', answer: '3消化系统test2'},
+                        {key: 'C', answer: '3呼吸系统test3'}
+                    ]
+                }
+                
+            ],
+            nextStatus: false,
+            answerIndex: 0
         }
     },
     mounted(){
@@ -177,7 +210,6 @@ export default {
         countDown() {
             const that = this
             const timer = setTimeout(() => {
-                console.log(1)
                 if(count !== 0) {
                     --count
                     that.answerTime = count < 10 ? '0' + count : count
@@ -189,7 +221,31 @@ export default {
             }, 1000)
         },
         notWheel(e) {
-             e.preventDefault()
+            e.preventDefault()
+        },
+        anwserActive2(index, evt) {
+            if(!this.nextStatus) {
+                let allList = evt.target.parentNode.children;
+                for(let i = 0; i < allList.length; i++) {
+                    allList[i].setAttribute('class', '');
+                }
+                allList[index].setAttribute('class', 'confirm-right');
+                this.nextStatus = true
+            }
+        },
+        nextAnswer() {
+            if(this.nextStatus) {
+                if(this.answerIndex !== this.testAnswers.length - 1) {
+                    const liList = document.getElementsByClassName('totast-item-list')[0].children
+                    for(let i = 0; i < liList.length; i++) {
+                        liList[i].setAttribute('class', '');
+                    }
+                    this.answerIndex = this.answerIndex + 1
+                    this.nextStatus = false
+                } else {
+                    //TODO commit 
+                }
+            }
         }
     },
     components: {
@@ -410,7 +466,7 @@ export default {
     }
     li.confirm-right:after {
         content: "";
-        width: .59rem;
+        width: .58rem;
         height: .42rem;
         background-image: url(../assets/images/right.png);
         background-size: cover;
