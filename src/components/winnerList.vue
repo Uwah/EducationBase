@@ -13,13 +13,14 @@
                 </div>
             </div>
             <div class="prize-group">
-                <h4 class="prize-name">获奖名单</h4>
+                <!-- <h4 class="prize-name">获奖名单</h4>
                 <div class="student-group">
                     <ul class="student name-list">
                         <li v-for="(item, index) in winner.list" :key="index">{{item}}</li>
                     </ul>
-                </div>
-                
+                </div> -->
+                <div class="nav-bar" @click="$router.push({name: 'luckyUsers'})">幸运用户</div>
+                <div class="nav-bar">基地详情</div>
             </div>
         </div>
     </div>
@@ -190,5 +191,15 @@ export default {
     }
     .seasion-title {
         padding-left: 2.6rem;
+    }
+    .nav-bar {
+        font-size: .24rem;
+        line-height: 1;
+        padding: .38rem 0 .38rem .68rem;
+        background-color: rgba(255, 255, 255, .4);
+        color: #00061a;
+    }
+    .nav-bar:last-child {
+        margin-top: .48rem;
     }
 </style>
