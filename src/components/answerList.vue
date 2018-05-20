@@ -3,43 +3,28 @@
         <div class="knowledge-top">
             <h3 class="answer-title-tip seasion-count">{{anwserObj.title}}</h3>
             <go-back :topType="topType"></go-back>
-            <!-- <search :actionUrl="actionUrl" :topType="topType" @search-data="searchData" :isShowSearch="isShowSearch" 
-            :isShowSearchForm="isShowSearchForm" :isShowSearchIcon="isShowSearchIcon"></search> -->
         </div>
         <div class="answer-content">
-            <div class="answer-head" v-if="correctStatus">
-                恭喜您，共答对<span class="right-answer">{{correctObj.correct}}</span>题，共<span class="total-answer">{{correctObj.total}}</span>题
-            </div>
-            <!-- 一期答题 -->
-            <!-- <div class="answer-item" v-for="(item, index) in anwserObj.questions" :key="index">
-                <h4 class="answer-title" :answer-title-id="item.id"><span class="answer-count">{{index+1}}、</span>{{item.title}}<span v-show="correctStatus" :id="'r'+item.id" class="right-answer"></span></h4>
-                <ul class="answer-list" :data-answerId="item.id">
-                    <li v-for="(answ, aindex) in item.qids" 
-                     @click="anwserActive(answ.titleLetter, item.id, aindex, $event)" :data-letter="answ.titleLetter" 
-                    :key="aindex">{{answ.titleLetter}}、{{answ.titleChinese}}</li>
-                </ul>
-            </div> -->
-            <!-- 二期答题需求 -->
-            <div class="answer-totast">
+            <!-- 二期答题需求start -->
+            <div class="answer-totast" v-if="anwserObj.questions">
                 <div class="answer-totast-head">
                     <i class="clock"></i>
                     <span class="answer-time">{{answerTime}}s</span>
                 </div>
                 <div class="answer-totast-item">
-                    <span class="totast-item-title">{{answerIndex+1 + '、' +testAnswers[answerIndex].que}}</span>
+                    <span class="totast-item-title">{{answerIndex+1 + '、' +anwserObj.questions[answerIndex].title}}</span>
                     <ul class="totast-item-list">
-                        <li v-for="(item, index) in testAnswers[answerIndex].answerList" @click="anwserActive2(index, $event)"
-                        :key="index">{{item.key + '、' + item.answer}} </li>
+                        <li v-for="(item, index) in anwserObj.questions[answerIndex].qids" 
+                        @click="anwserActive2(anwserObj.questions[answerIndex].answer, item.titleLetter, index, anwserObj.questions[answerIndex].id, $event)"
+                        :key="index">{{item.titleLetter + '、' + item.titleChinese}} </li>
                     </ul>
                     <!-- 最后一题button text为提交 -->
                     <button @click="nextAnswer" :class="['answer-btn', nextStatus ? 'answer-btn-confirm': '']">
-                        {{answerIndex !== testAnswers.length - 1 ? '下一题':'提交'}}
+                        {{answerIndex !== anwserObj.questions.length - 1 ? '下一题':'提交'}}
                     </button>
                 </div>
             </div>
-            <!-- 二期答题需求 -->
-            <!-- <button class="answer-commit" v-if="!correctStatus" @click="commitAnswer">提交</button> -->
-            <!-- 弹框后期可做成公共组件 -->
+            <!-- 二期答题需求end -->
             <prop-model :showStatus="prop.status" :propText="prop.text"></prop-model>
         </div>
     </div>
@@ -61,7 +46,6 @@ export default {
                 status: false,
                 text: ''
             },
-            correctStatus: false,
             topType: 4,
             actionUrl: "",
             correctObj: {
@@ -71,41 +55,13 @@ export default {
             isShowSearch: true,
             isShowSearchForm: false,
             isShowSearchIcon: true,
-            answerTime: 60,
-            testAnswers: [
-                {
-                    que: '噪声对人体哪个系统有害1',
-                    answerList: [
-                        {key: 'A', answer: '1心血管系统test1'},
-                        {key: 'B', answer: '1消化系统test2'},
-                        {key: 'C', answer: '1呼吸系统test3'}
-                    ]
-                },
-                {
-                    que: '噪声对人体哪个系统有害2',
-                    answerList: [
-                        {key: 'A', answer: '2心血管系统test1'},
-                        {key: 'B', answer: '2消化系统test2'},
-                        {key: 'C', answer: '2呼吸系统test3'}
-                    ]
-                },
-                {
-                    que: '噪声对人体哪个系统有害3',
-                    answerList: [
-                        {key: 'A', answer: '3心血管系统test1'},
-                        {key: 'B', answer: '3消化系统test2'},
-                        {key: 'C', answer: '3呼吸系统test3'}
-                    ]
-                }
-                
-            ],
+            answerTime: count,
             nextStatus: false,
             answerIndex: 0
         }
     },
     mounted(){
         this.getAnswers()
-        this.countDown()
     },
     methods: {
         getAnswers() {
@@ -137,6 +93,7 @@ export default {
                 this.anwserObj = res.data.msg;
                 if(res.data.code == 200) {
                     this.correctObj.total = this.anwserObj.questions.length
+                     this.countDown()
                 } else {
                     this.prop.status = true;
                     this.prop.text = res.data.msg;
@@ -160,7 +117,8 @@ export default {
                 method: 'post',
                 data: {
                     answers: anwser,
-                    id: _this.anwserObj.id
+                    id: _this.anwserObj.id,
+                    answerTime: _this.answerTime
                 },
                 transformRequest: [function (data) {
                     let ret = ''
@@ -183,7 +141,6 @@ export default {
                 for(let i = 0; i< rightList.length; i++) {
                     document.getElementById('r'+ rightList[i].id).innerText = '正确答案：' + rightList[i].answer; 
                 }
-                _this.correctStatus = true;
                 _this.prop.status = true;
                 this.correctObj.correct = res.data.msg.score;
                 setTimeout(() => {
@@ -194,18 +151,6 @@ export default {
                 console.log(err, "login");
             });
         },
-        anwserActive(letter, itemId, index, evt) {
-            let allList = evt.target.parentNode.children;
-            for(let i = 0; i < allList.length; i++) {
-                allList[i].setAttribute('class', '');
-            }
-            allList[index].setAttribute('class', 'active');
-            allAnswer[itemId]=letter;
-            console.log(allAnswer);
-        },
-        searchData(data) {
-            console.log(data)
-        },
         countDown() {
             const that = this
             const timer = setTimeout(() => {
@@ -215,6 +160,7 @@ export default {
                     that.countDown()
                 } else {
                     clearTimeout(timer)
+                    //答题时间到进一步处理
                     return
                 }
             }, 1000)
@@ -222,19 +168,20 @@ export default {
         notWheel(e) {
             e.preventDefault()
         },
-        anwserActive2(index, evt) {
+        anwserActive2(answer, checkAnswer, index, id, evt) {
             if(!this.nextStatus) {
                 let allList = evt.target.parentNode.children;
                 for(let i = 0; i < allList.length; i++) {
                     allList[i].setAttribute('class', '');
                 }
-                allList[index].setAttribute('class', 'confirm-right');
+                answer.toLowerCase() === checkAnswer.toLowerCase() ? allList[index].setAttribute('class', 'confirm-right'): allList[index].setAttribute('class', 'confirm-fault')
                 this.nextStatus = true
+                allAnswer[id]=answer;
             }
         },
         nextAnswer() {
             if(this.nextStatus) {
-                if(this.answerIndex !== this.testAnswers.length - 1) {
+                if(this.answerIndex !== this.anwserObj.questions.length - 1) {
                     const liList = document.getElementsByClassName('totast-item-list')[0].children
                     for(let i = 0; i < liList.length; i++) {
                         liList[i].setAttribute('class', '');
@@ -243,6 +190,7 @@ export default {
                     this.nextStatus = false
                 } else {
                     //TODO commit 
+                    this.commitAnswer()
                 }
             }
         }
@@ -269,72 +217,6 @@ export default {
         position: relative;
         background-color: #ebebeb;
     }
-    .answer-item {
-        padding: .4rem 1.1rem 0;
-        font-size: 0;
-    }
-    .answer-item:last-child {
-        padding-bottom: .5rem;
-    }
-    .answer-title {
-        color: #231815;
-        font-size: .28rem;
-        line-height: 1.1;
-        font-weight: 500;
-        padding-bottom: .3rem;
-    }
-    .answer-head {
-        height: 1.86rem;
-        color: #fff;
-        line-height: 1.7rem;
-        background-color: #a2aac4;
-        padding-left: .5rem;
-        font-size: .32rem;
-        font-weight: bold;
-    }
-    .right-answer {
-        font-size: .46rem;
-        line-height: 1;
-    }
-    .answer-count {
-        font-size: .3rem;
-        line-height: 1;
-    }
-    .error-answer {
-        color: #e60012;
-    }
-    .answer-list li {
-        font-size: .28rem;
-        line-height: 1;
-        color: #231815;
-        padding: .32rem 0 .32rem .36rem; 
-        background-color: rgba(182, 216, 244, .4);
-        border-bottom: 1px solid #9c9ac7;
-    }
-    .answer-list li:last-child {
-        border-bottom: 0;
-    }
-    .answer-list li.active {
-        color: #fff;
-        background-color: #8ba8d4;
-    }
-    .answer-commit {
-        width: 5.3rem;
-        height: 1.06rem;
-        line-height: 1.06rem;
-        font-size: .54rem;
-        letter-spacing: 5px;
-        text-align: center;
-        background-color: rgba(59, 87, 155, .7);
-        border: 0;
-        border-top-left-radius: 0.503rem;
-        border-top-right-radius: 0.503rem;
-        border-bottom-left-radius: 0.503rem;
-        border-bottom-right-radius: 0.503rem;
-        color: #fff;
-        margin: .5rem auto .3rem;
-        display: block;
-    }
     .knowledge-top {
         position: relative;
         height: 1.33rem;
@@ -353,12 +235,6 @@ export default {
         display: inline-block;
         margin-top: .18rem;
         background-image: url(../assets/images/title-bg.png);
-    }
-    .right-answer {
-        padding-left: .12rem;
-        font-size: inherit;
-        line-height: inherit;
-        color: #e60012;
     }
     .answer-totast {
         background-color: #fff;
