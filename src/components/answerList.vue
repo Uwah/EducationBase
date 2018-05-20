@@ -144,7 +144,6 @@ export default {
                         this.prop.status = false;
                     }, 3000);
                 }
-                
             }).catch(err => {
                 console.log(err, "答题列表");
             })

@@ -3,8 +3,8 @@
     <div class="lucky-out">
         <div class="lucky-content">
             <div class="lucky-head">
-                <go-back></go-back>
-                <div class="last-phase">上一期</div>
+                <i class="goHistory"><</i>
+                <div class="last-phase"><<上一期</div>
             </div>
             <div class="lucky-content-list">
                 <ul class="luckyList">
@@ -23,7 +23,6 @@
     </div>
 </template>
 <script>
-import goBack from '../components/goBack'
 export default {
     name: 'luckyUserList',
     data: () => ({
@@ -38,9 +37,7 @@ export default {
         visiTime: '5月30日',
         museumName: '城市博物馆'
     }),
-    components: {
-        goBack
-    },
+    components: {},
     filter: {
 
     }
@@ -55,37 +52,57 @@ export default {
     #bottomNav {
         display: none;
     }
-    .lucky-content {
+    .lucky-out {
         width: 100%;
         height: 100%;
-        background-image: url(../assets/images/lucky-user.png);
-        background-size: cover;
+        background: linear-gradient( #5288e2, #00adb2);
         font-size: 0;
         overflow-y: auto;
-        position: relative
+        position: relative;
+        margin: 0;
+    }
+    .lucky-content {
+        min-height: 100%;
+        margin-bottom: -1rem;
     }
     .lucky-head {
-        height: 2.05rem;
+        height: 3.25rem;
         width: 100%;
+        font-size: 0;
+        position: relative;
+        background-image: url(../assets/images/lucky-user-top.png);
+        background-size: cover;
+    }
+    .goHistory {
+        margin: .3rem 0 0 .4rem;
+        width: .32rem;
+        height: .32rem;
+        display: inline-block;
+        border-top: 2px solid #4e4e4e;
+        border-left: 2px solid #4e4e4e;
+        transform: rotate(-45deg);
     }
     .last-phase {
-        width: 1.6rem;
-        height: .6rem;
-        background-color: #004eb6;
         color: #fff;
         line-height: 1;
+        padding-top: .92rem;
         font-size: .3rem;
-        padding: .15rem 0 .15rem .06rem;
-        border-top-right-radius: .3rem;
-        border-bottom-right-radius: .3rem;
     }
     .lucky-content-list {
         font-size: 0;
-        padding-top: 2.68rem;
+        background-image: url(../assets/images/lucky-user-bottom.png);
+        background-size: cover;
+        padding: 0.82rem .44rem 1rem;
     }
     .luckyList {
         font-size: 0;
-        padding: 0 .74rem;
+        background-color: #fff;
+        border: .06rem solid #1072c4;
+        border-radius: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-top: 0;
+        padding: .7rem .24rem 0.1rem;
     }
     .lucky-user {
         font-size: 0;
@@ -107,10 +124,10 @@ export default {
     }
     .lucky-footer {
         font-size: 0;
-        position: absolute;
         left: 0;
+        height: 1rem;
+        margin-top: -1rem;
         bottom: 0;
-        margin-bottom: .42rem;
     }
     .lucky-tip {
         color: #0e375b;
