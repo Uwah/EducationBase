@@ -137,14 +137,10 @@ export default {
                 } else {
                     _this.prop.text = res.data.msg;
                 }
-                let rightList = res.data.msg.list;
-                for(let i = 0; i< rightList.length; i++) {
-                    document.getElementById('r'+ rightList[i].id).innerText = '正确答案：' + rightList[i].answer; 
-                }
                 _this.prop.status = true;
-                this.correctObj.correct = res.data.msg.score;
                 setTimeout(() => {
                     _this.prop.status = false;
+                    _this.backRoute()
                 }, 3000);
 
             }).catch(err => {
@@ -161,12 +157,34 @@ export default {
                 } else {
                     clearTimeout(timer)
                     //答题时间到进一步处理
+                    this.backIndex()
                     return
                 }
             }, 1000)
         },
         notWheel(e) {
             e.preventDefault()
+        },
+        backIndex() {
+            this.prop.text = '答题时间到';
+            this.prop.status = true;
+            const indexTimer = setTimeout( item => {
+                this.$router.push({name: 'indexHome'})     
+            }, 3000)
+        },
+        backRoute() {
+            let formUrl = this.$store.getters.getFromUrl;
+            if(formUrl === 'winnerList') {
+                if(window.location.hash.indexOf('competitionList') < 0) {
+                    this.$router.push({name: "competitionList", params: {seasonId: 'later', title: '往期'}});
+                } else {
+                    this.$router.push({name: 'competitionDetail'})
+                }
+                
+                this.$store.dispatch('sciencestate'); 
+            } else {
+                this.$router.push({name: formUrl})
+            }
         },
         anwserActive2(answer, checkAnswer, index, id, evt) {
             if(!this.nextStatus) {

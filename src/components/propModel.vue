@@ -34,6 +34,7 @@ export default {
         left: 0;
         background-color: rgba(255, 255, 255, .6);
         position: fixed;
+        z-index: 999;
     }
     .commit-success {
         color: #3e3a39;
