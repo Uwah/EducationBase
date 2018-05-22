@@ -27,17 +27,22 @@ export default {
     name: 'luckyUserList',
     data: () => ({
         luckyList: [
-            {name: '小明', phone: '13434344343'},
-            {name: '小明', phone: '13434344343'},
-            {name: '小明', phone: '13434344343'},
-            {name: '小明', phone: '13434344343'},
-            {name: '小明', phone: '13434344343'},
-            {name: '小明', phone: '13434344343'}
+            
         ],
         visiTime: '5月30日',
         museumName: '城市博物馆'
     }),
+    mounted() {
+        this.getluckyUserList()
+    },
     components: {},
+    methods: {
+        // async getluckyUserList() {
+        //     const aid = this.$route.params.aid
+        //     const list = await this.$http.get(`/listLuckeyUser?aid=${aid}`)
+        //     console.log(list)
+        // }
+    },
     filter: {
 
     }

@@ -19,7 +19,7 @@
                         <li v-for="(item, index) in winner.list" :key="index">{{item}}</li>
                     </ul>
                 </div> -->
-                <div class="nav-bar" @click="$router.push({name: 'luckyUsers'})">幸运用户</div>
+                <div class="nav-bar" @click="$router.push({name: 'luckyUsers', params: {aid: id}})">幸运用户</div>
                 <div class="nav-bar">基地详情</div>
             </div>
         </div>
@@ -43,7 +43,8 @@ export default {
                 list: [],
                 count: 0
             },
-            title: ''
+            title: '',
+            id: ''
         }
     },
     components: {
@@ -53,6 +54,7 @@ export default {
     mounted() {
         console.log(this.$route.params.id)
         let params = this.$route.params;
+        this.id = params.id
         this.title = params.title;
         this.getWinnerList(params.id);
     },

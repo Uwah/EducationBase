@@ -84,7 +84,7 @@ const webpackConfig = {
         {
             context: ['/index', '/psActivities', '/searchType','/searchJd','/topSeach',
             '/winners' ,'/notice', '/getBaseSummary', '/navigation', '/banners', '/login', 
-            '/knowledgeCompetition', '/getIndiProfile', '/addAnswer', '/getPsActivities'],
+            '/knowledgeCompetition', '/getIndiProfile', '/addAnswer', '/getPsActivities', '/listLuckeyUser'],
             target: 'http://193.112.184.24:8083',
             changeOrigin: true,
             secure: false
