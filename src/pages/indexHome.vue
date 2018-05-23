@@ -128,7 +128,6 @@ export default {
         
         let _this = this;
         _this.$http.get('/index').then(res => {
-            debugger
             _this.indexData = res.data.msg;
             _this.kx = res.data.msg.kx;
             _this.activiesData.activity = res.data.msg.activities[0];
