@@ -128,11 +128,13 @@ export default {
         
         let _this = this;
         _this.$http.get('/index').then(res => {
-            
+            debugger
             _this.indexData = res.data.msg;
             _this.kx = res.data.msg.kx;
             _this.activiesData.activity = res.data.msg.activities[0];
+            
             if(res.data.msg.activities.length >= 2) {
+                
                 _this.activiesData.list = res.data.msg.activities.splice(0, 1);
             }
             _this.activiesData.list.push({fileName: '/dist/home-bottom-banner-filter.png', periods: 'later', id: 'later'});

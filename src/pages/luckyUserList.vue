@@ -9,15 +9,15 @@
             <div class="lucky-content-list">
                 <ul class="luckyList">
                     <li class="lucky-user" v-for="(item, index) in luckyList" :key="index">
-                        <span class="lucky-user-info">{{item.name}}</span>
-                        <span class="lucky-user-info">{{item.phone}}</span>
+                        <span class="lucky-user-info">{{item.realName}}</span>
+                        <span class="lucky-user-info">{{item.mobileNum | phoneFormat}}</span>
                     </li>
                 </ul>
             </div>
         </div>
         <!-- flex 弹性盒子贴底 -->
         <div class="lucky-footer">
-            <span class="lucky-tip">请以上幸运用户在{{visiTime}}前前往{{museumName}}扫码免费参观</span>
+            <span class="lucky-tip" v-if="luckyList.length > 0">请以上幸运用户在{{luckyList[0].visitTime | formatVisiTime}}前前往{{luckyList[0].jdName}}扫码免费参观</span>
             <span class="copy-right">本活动最终解释权由嘉兴科普教育基地所有</span>
         </div>
     </div>
@@ -26,9 +26,7 @@
 export default {
     name: 'luckyUserList',
     data: () => ({
-        luckyList: [
-            
-        ],
+        luckyList: [],
         visiTime: '5月30日',
         museumName: '城市博物馆'
     }),
@@ -36,15 +34,42 @@ export default {
         this.getluckyUserList()
     },
     components: {},
-    methods: {
-        // async getluckyUserList() {
-        //     const aid = this.$route.params.aid
-        //     const list = await this.$http.get(`/listLuckeyUser?aid=${aid}`)
-        //     console.log(list)
-        // }
+    beforeRouteEnter(to, from, next) {
+        if(from.params.id) {
+            next()
+        } else {
+            next(vm => {
+                vm.$router.push({name: 'indexHome'})
+            })
+        }
     },
-    filter: {
-
+    methods: {
+        async getluckyUserList() {
+            debugger
+            const aid = this.$route.params.aid
+            const list = await this.$http.get(`/listLuckeyUser?aid=${aid}`)
+            if(list.data.code === '200') {
+                this.luckyList = list.data.msg
+            }
+        }
+    },
+    filters: {
+        formatVisiTime(timeSecond) {
+            var time = ''
+            if(timeSecond) {
+                var date = new Date(timeSecond)
+                time = date.getMonth() + 1 + '月' + date.getDate() + '日'
+            }
+            return time
+        },
+        phoneFormat(phoneNum) {
+            var phone = ''
+            if(phoneNum) {
+                const reg = /^(\d{3})\d*(\d{4})$/g
+                phone = phoneNum.replace(reg, '$1****$2')
+            }
+            return phone
+        }
     }
 }
 </script>
