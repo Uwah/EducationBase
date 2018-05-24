@@ -19,7 +19,7 @@
                         <li v-for="(item, index) in winner.list" :key="index">{{item}}</li>
                     </ul>
                 </div> -->
-                <div class="nav-bar" @click="$router.push({name: 'luckyUsers', params: {aid: id}})">幸运用户</div>
+                <div class="nav-bar" @click="$router.push({name: 'luckyUsers', params: {aid: id, title: title}})">幸运用户</div>
                 <div class="nav-bar">基地详情</div>
             </div>
         </div>

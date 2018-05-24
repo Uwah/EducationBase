@@ -3,7 +3,7 @@
     <div class="lucky-out">
         <div class="lucky-content">
             <div class="lucky-head">
-                <i class="goHistory"><</i>
+                <i class="goHistory" @click="$router.push({name: lastRouteInfo.title, id: lastRouteInfo.id})"><</i>
                 <div class="last-phase"><<上一期</div>
             </div>
             <div class="lucky-content-list">
@@ -28,10 +28,19 @@ export default {
     data: () => ({
         luckyList: [],
         visiTime: '5月30日',
-        museumName: '城市博物馆'
+        museumName: '城市博物馆',
+        lastRouteInfo: {
+            title: '',
+            id: ''
+        }
     }),
     mounted() {
         this.getluckyUserList()
+        const params = this.$route.params
+        if(Object.keys(params).length > 0) {
+            this.lastRouteInfo = {title: params.title, id: params.aid}
+        }
+        
     },
     components: {},
     beforeRouteEnter(to, from, next) {
@@ -45,7 +54,6 @@ export default {
     },
     methods: {
         async getluckyUserList() {
-            debugger
             const aid = this.$route.params.aid
             const list = await this.$http.get(`/listLuckeyUser?aid=${aid}`)
             if(list.data.code === '200') {
