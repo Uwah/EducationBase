@@ -2,9 +2,8 @@
   <div id="app">
       <keep-alive>
           <router-view></router-view>
-          <bottom-nav></bottom-nav>
       </keep-alive>
-      
+      <bottom-nav></bottom-nav>
   </div>
 </template>
 
