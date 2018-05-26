@@ -93,7 +93,7 @@ export default {
     .lucky-out {
         width: 100%;
         height: 100%;
-        background: linear-gradient( #5288e2, #00adb2);
+        background: linear-gradient(#3790d1 84%, #00adb2);
         font-size: 0;
         overflow-y: auto;
         position: relative;
