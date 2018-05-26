@@ -84,7 +84,8 @@
                 <div class="knowledge-title">知识竞赛<span class="under-line"></span></div>
                 <a href="javascript:;" class="jump-href"></a>
             </div>
-            <div class="final-show" :style="{backgroundImage: `url(${activiesData.activity.fileName})`}" @click="$router.push({name: 'winnerList', params: {id: activiesData.activity.id, title: `第${activiesData.activity.periods}期`}})"></div>
+            <div class="final-show" :style="{backgroundImage: `url(${activiesData.activity.fileName})`}" 
+            @click="$router.push({name: 'winnerList', params: {id: activiesData.activity.id, title: `第${activiesData.activity.periods}期`}})"></div>
             <div class="QRcode-visit">
                 <div class="visit-info">
                     <span class="info-text">第{{activiesData.activity.periods}}期知识竞赛</span>
@@ -131,11 +132,14 @@ export default {
             _this.indexData = res.data.msg;
             _this.kx = res.data.msg.kx;
             _this.activiesData.activity = res.data.msg.activities[0];
-            
             if(res.data.msg.activities.length >= 2) {
-                
-                _this.activiesData.list = res.data.msg.activities.splice(0, 1);
+                res.data.msg.activities.splice(0, 1);
+                _this.activiesData.list = res.data.msg.activities
             }
+            if(_this.activiesData.list.length > 2) {
+                _this.activiesData.list.length = 2
+            }
+            
             _this.activiesData.list.push({fileName: '/dist/home-bottom-banner-filter.png', periods: 'later', id: 'later'});
             _this.activiesData.activity.startTime = _this.formatTime(_this.activiesData.activity.startTime);
             _this.activiesData.activity.endTime = _this.formatTime(this.activiesData.activity.endTime);

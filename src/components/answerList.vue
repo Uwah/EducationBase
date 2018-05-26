@@ -61,7 +61,9 @@ export default {
         }
     },
     mounted(){
-        this.getAnswers()
+        count = 60;
+        this.answerTime = 60;
+        this.getAnswers();
     },
     methods: {
         getAnswers() {
@@ -98,6 +100,7 @@ export default {
                     this.prop.status = true;
                     this.prop.text = res.data.msg;
                     setTimeout(() => {
+                        this.$router.push({name: 'indexHome'})
                         this.prop.status = false;
                     }, 3000);
                 }

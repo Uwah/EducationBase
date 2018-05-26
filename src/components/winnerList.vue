@@ -13,14 +13,8 @@
                 </div>
             </div>
             <div class="prize-group">
-                <!-- <h4 class="prize-name">获奖名单</h4>
-                <div class="student-group">
-                    <ul class="student name-list">
-                        <li v-for="(item, index) in winner.list" :key="index">{{item}}</li>
-                    </ul>
-                </div> -->
-                <div class="nav-bar" @click="$router.push({name: 'luckyUsers', params: {aid: id, title: title}})">幸运用户</div>
-                <div class="nav-bar">基地详情</div>
+                <div class="nav-bar" @click="$router.push({name: 'luckyUsers', params: {aid: id, title: title}})">幸运用户<span class="bm-border"></span></div>
+                <div class="nav-bar" @click="$router.push({name: 'articleDetail', params: {id: winner.jdId, type: 3}})">基地详情<span class="bm-border"></span></div>
             </div>
         </div>
     </div>
@@ -44,7 +38,8 @@ export default {
                 count: 0
             },
             title: '',
-            id: ''
+            id: '',
+            baseId: ''
         }
     },
     components: {
@@ -113,7 +108,6 @@ export default {
         display: inline-block;
         width: 2.28rem;
         height: 3.4rem;
-        transform: rotate(-2deg);
         margin-left: 1.1rem;
         z-index: 9;
         position: absolute;
@@ -147,6 +141,7 @@ export default {
     .prize-group {
         font-size: 0;
         position: relative;
+        margin-top: .4rem;
     }
     .prize-name {
         font-size: .38rem;
@@ -195,13 +190,49 @@ export default {
         padding-left: 2.6rem;
     }
     .nav-bar {
-        font-size: .24rem;
+        font-size: .26rem;
         line-height: 1;
         padding: .38rem 0 .38rem .68rem;
-        background-color: rgba(255, 255, 255, .4);
+        background-color: rgba(255, 255, 255, .7);
         color: #00061a;
+        position: relative;
+        z-index: 99;
+        /* background-image: url('../assets/images/bar-title-bg.png'); */
+        /* background-repeat: no-repeat; */
     }
     .nav-bar:last-child {
         margin-top: .48rem;
+    }
+    .nav-bar:after {
+        content: "";
+        width: .18rem;
+        height: .18rem;
+        border-top: 1px solid #00061a;
+        border-right: 1px solid #00061a;
+        transform: rotate(45deg);
+        position: absolute;
+        margin-top: 2px;
+        margin-left: 2px;
+    }
+    .bm-border {
+        display: inline-block;
+        position: absolute;
+        left: .68rem;
+        z-index: -1;
+        top: 0;
+        width: 1rem;
+        height: 0.9rem;
+        background-image: url('../assets/images/bar-title-bg.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .bm-border:after {
+        content: "";
+        width: .46rem;
+        height: 0;
+        border-bottom: 2px solid #99999d;
+        display: inline-block;
+        position: absolute;
+        bottom: .1rem;
     }
 </style>
