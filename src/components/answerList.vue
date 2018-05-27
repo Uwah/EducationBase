@@ -16,7 +16,7 @@
                     <ul class="totast-item-list">
                         <li v-for="(item, index) in anwserObj.questions[answerIndex].qids" 
                         @click="anwserActive2(anwserObj.questions[answerIndex].answer, item.titleLetter, index, anwserObj.questions[answerIndex].id, $event)"
-                        :key="index" :id="r-anwserObj.questions[answerIndex].answer">{{item.titleLetter + '、' + item.titleChinese}} </li>
+                        :key="index" :id="'r-' + anwserObj.questions[answerIndex].answer">{{item.titleLetter + '、' + item.titleChinese}} </li>
                     </ul>
                     <!-- 最后一题button text为提交 -->
                     <button @click="nextAnswer" :class="['answer-btn', nextStatus ? 'answer-btn-confirm': '']">
