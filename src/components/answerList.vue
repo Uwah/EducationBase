@@ -121,13 +121,14 @@ export default {
                 anwserArr.push(a+'-'+allAnswer[a]);
             }
             anwser = anwserArr.join(',');
+            var answerTime = parseInt(_this.answerTime)
             _this.$http({
                 url: '/addAnswer',
                 method: 'post',
                 data: {
                     answers: anwser,
                     id: _this.anwserObj.id,
-                    answerTime: _this.answerTime
+                    answerTime: answerTime === 0 ? 60 : answerTime
                 },
                 transformRequest: [function (data) {
                     let ret = ''
