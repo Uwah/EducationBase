@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-      <keep-alive>
+      <!-- <keep-alive>
           <router-view></router-view>
-      </keep-alive>
+      </keep-alive> -->
+      <router-view></router-view>
       <bottom-nav></bottom-nav>
   </div>
 </template>
@@ -170,6 +171,6 @@ a {
     /* background-color: #f3f3f3; */
     /* margin-bottom: 1.34rem; */
     position: relative;
-    padding-bottom: 1.21rem;
+    /* padding-bottom: 1.21rem; */
 }
 </style>

@@ -4,7 +4,7 @@
         <div class="lucky-content">
             <div class="lucky-head">
                 <i class="goHistory" @click="$router.push({name: lastRouteInfo.title, id: lastRouteInfo.id})"><</i>
-                <div class="last-phase"><<上一期</div>
+                <div class="last-phase" ><<上一期</div>
             </div>
             <div class="lucky-content-list">
                 <ul class="luckyList">
@@ -84,11 +84,8 @@ export default {
 <style>
     #app {
         height: 100%;
-        padding: 0;
-        margin: 0;
-    }
-    #bottomNav {
-        display: none;
+        /* padding: 0; */
+        margin-bottom: 0;
     }
     .lucky-out {
         width: 100%;
@@ -98,6 +95,7 @@ export default {
         overflow-y: auto;
         position: relative;
         margin: 0;
+        z-index: 9999;
     }
     .lucky-content {
         min-height: 100%;

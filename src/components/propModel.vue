@@ -38,10 +38,9 @@ export default {
     }
     .commit-success {
         color: #3e3a39;
-        font-size: .54rem;
-        line-height: 1.52rem;
-        letter-spacing: 2px;    
-        height: 1.52rem;
+        font-size: .34rem;
+        line-height: 1.2rem;
+        letter-spacing: 2px; 
         max-width: 80%;
         min-width: 6rem;
         text-align: center;

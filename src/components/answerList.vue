@@ -16,7 +16,7 @@
                     <ul class="totast-item-list">
                         <li v-for="(item, index) in anwserObj.questions[answerIndex].qids" 
                         @click="anwserActive2(anwserObj.questions[answerIndex].answer, item.titleLetter, index, anwserObj.questions[answerIndex].id, $event)"
-                        :key="index">{{item.titleLetter + '、' + item.titleChinese}} </li>
+                        :key="index" :id="r-anwserObj.questions[answerIndex].answer">{{item.titleLetter + '、' + item.titleChinese}} </li>
                     </ul>
                     <!-- 最后一题button text为提交 -->
                     <button @click="nextAnswer" :class="['answer-btn', nextStatus ? 'answer-btn-confirm': '']">
@@ -36,6 +36,7 @@ import goBack from './goBack';
 import search from './search';
 import propModel from './propModel';
 import { setTimeout, clearTimeout } from 'timers';
+import { debug } from 'util';
 let count = 60
 export default {
     data() {
@@ -67,6 +68,7 @@ export default {
     },
     methods: {
         getAnswers() {
+            console.log('答题页面')
             let params = this.$route.params;
             if(Object.keys(params).length === 0) {
                 switch(this.$store.getters.getTopType) {
@@ -94,8 +96,12 @@ export default {
                 console.log(res)
                 this.anwserObj = res.data.msg;
                 if(res.data.code == 200) {
-                    this.correctObj.total = this.anwserObj.questions.length
-                     this.countDown()
+                    if(this.anwserObj.questions.length > 0) {
+                        this.correctObj.total = this.anwserObj.questions.length
+                        this.countDown()
+                    } else {
+
+                    }
                 } else {
                     this.prop.status = true;
                     this.prop.text = res.data.msg;
@@ -169,8 +175,9 @@ export default {
             e.preventDefault()
         },
         backIndex() {
-            this.prop.text = '答题时间到';
+            this.prop.text = '答题时间到,即将返回首页';
             this.prop.status = true;
+            this.commitAnswer();
             const indexTimer = setTimeout( item => {
                 this.$router.push({name: 'indexHome'})     
             }, 3000)
@@ -192,10 +199,16 @@ export default {
         anwserActive2(answer, checkAnswer, index, id, evt) {
             if(!this.nextStatus) {
                 let allList = evt.target.parentNode.children;
+                let rightLi = document.getElementById('r-' + answer)
                 for(let i = 0; i < allList.length; i++) {
                     allList[i].setAttribute('class', '');
                 }
-                answer.toLowerCase() === checkAnswer.toLowerCase() ? allList[index].setAttribute('class', 'confirm-right'): allList[index].setAttribute('class', 'confirm-fault')
+                if(answer.toLowerCase() === checkAnswer.toLowerCase()) {
+                    allList[index].setAttribute('class', 'confirm-right')
+                } else {
+                    allList[index].setAttribute('class', 'confirm-fault')
+                    rightLi.setAttribute('class', 'confirm-right')
+                } 
                 this.nextStatus = true
                 allAnswer[id]=answer;
             }
@@ -261,8 +274,9 @@ export default {
         background-color: #fff;
         margin: 0 auto;
         border-radius: 10px;
-        height: 7.5rem;
+        height: auto;
         width: 6.9rem;
+        padding-bottom: .3rem;
         font-size: 0;
         position: absolute;
         top: 1rem;
@@ -352,7 +366,7 @@ export default {
         border-radius: 4px;
         background-color: #b5b5b5;
         display: block;
-        margin: .6rem auto 0;
+        margin: .3rem auto 0;
     }
     .answer-btn-confirm {
         background-color: #0068b7;
