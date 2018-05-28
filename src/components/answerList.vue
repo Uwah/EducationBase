@@ -96,11 +96,10 @@ export default {
                 console.log(res)
                 this.anwserObj = res.data.msg;
                 if(res.data.code == 200) {
+                    
                     if(this.anwserObj.questions.length > 0) {
                         this.correctObj.total = this.anwserObj.questions.length
                         this.countDown()
-                    } else {
-
                     }
                 } else {
                     this.prop.status = true;

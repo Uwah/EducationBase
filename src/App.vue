@@ -169,8 +169,8 @@ a {
     min-height: 100%;
     margin: 0 auto;
     /* background-color: #f3f3f3; */
-    /* margin-bottom: 1.34rem; */
+    margin-bottom: 1.2rem;
     position: relative;
-    /* padding-bottom: 1.21rem; */
+    /* padding-bottom: 1.2rem; */
 }
 </style>

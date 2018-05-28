@@ -34,7 +34,7 @@
                         <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" v-model="user.phone" placeholder="请输入手机号" class="sginup-ipt" id="phone-ipt" name="phone">
                     </div>
                     <div class="ipt-content">
-                        <input type="number" oninput="if(value.length>6)value=value.slice(0,6)" v-model="user.vfCode" placeholder="请输入验证码" class="sginup-ipt" id="vfcode-ipt" name="vfcode">
+                        <input type="text" oninput="if(value.length>6)value=value.slice(0,6)" v-model="user.vfCode" placeholder="请输入验证码" class="sginup-ipt" id="vfcode-ipt" name="vfcode">
                         <span @click="sendVfcode" class="send-vfcode">{{vfCodeText}}</span>
                     </div>
                     <span class="error" v-if="errorTip">{{errorTipText}}</span>
@@ -153,10 +153,20 @@ export default {
                     console.log(res);
                     // debugger;
                     if(res.data.code == 200) {
-                        localStorage.setItem('userId', res.data.msg.id)
-                        _this.signUpStatus = false;
-                        _this.answerStatus = false;
-                        _this.$router.push({name: "answerList", params:{id: _this.detailInfo.id}});
+                        if(_this.endTime - new Date().getTIme() < 61) {
+                            _this.prop.status = true;
+                            _this.prop.text = '距离答题结束时间太近了，你无法参与答题，请关注下场活动';
+                            _this.$http.get(`/addLuckeyUser?aid=${_this.detailInfo.id}`).then(res => {console.log('end time')})
+                            setTimeout(() => {
+                                _this.$router.push({name: 'indexHome'})
+                                _this.prop.status = false;
+                            }, 3000);
+                        } else {
+                            localStorage.setItem('userId', res.data.msg.id)
+                            _this.signUpStatus = false;
+                            _this.answerStatus = false;
+                            _this.$router.push({name: "answerList", params:{id: _this.detailInfo.id}});
+                        }
                     } else if(res.data.code == 1) {
                         _this.prop.status = true;
                         _this.signUpStatus = false;
@@ -409,7 +419,6 @@ export default {
         display: inline-block;
         padding: 0 1rem;
         text-align: left;
-        padding-bottom: .3rem;
     }
     .tip-confirm {
         border: 0;
@@ -417,7 +426,7 @@ export default {
         border-radius: 5px;
         width: 1.5rem;
         height: .5rem;
-        margin-top: .1rem;
+        margin-top: .2rem;
         display: inline-block;
         background-color: #0068b7;
     }
