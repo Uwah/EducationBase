@@ -282,6 +282,7 @@
 }
 .ipt-content {
     padding: .2rem .5rem 0;
+    position: relative;
 }
 .sginup-form .ipt-content:nth-child(2) {
     padding: .2rem .5rem 0;

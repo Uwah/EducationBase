@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="prize-group">
-                <div class="nav-bar" @click="$router.push({name: 'luckyUsers', params: {aid: id, title: title}})">幸运用户<span class="bm-border"></span></div>
+                <div class="nav-bar" @click="checkLuckyUsers">幸运用户<span class="bm-border"></span></div>
                 <div class="nav-bar" @click="$router.push({name: 'articleDetail', params: {id: winner.jdId, type: 3}})">基地详情<span class="bm-border"></span></div>
             </div>
         </div>
@@ -63,7 +63,16 @@ export default {
             }).catch( err => {
                 console.log(err);
             });
+        },
+        checkLuckyUsers() {
+            if(this.winner.quesstionEndTime > new Date().getTime()) {
+                this.$router.push({path: '/competitionDetail'})
+            } else {
+                this.$router.push({name: 'luckyUsers', params: {aid: this.id, title: this.title}})
+            }
+            
         }
+        
     }
 }
 </script>

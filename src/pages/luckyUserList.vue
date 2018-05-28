@@ -3,8 +3,8 @@
     <div class="lucky-out">
         <div class="lucky-content">
             <div class="lucky-head">
-                <i class="goHistory" @click="$router.push({name: lastRouteInfo.title, id: lastRouteInfo.id})"><</i>
-                <div class="last-phase" ><<上一期</div>
+                <i class="goHistory" @click="$router.push({name: 'winnerList', params: {title: lastRouteInfo.title, id: lastRouteInfo.id}})"><</i>
+                <div class="last-phase" @click="$router.push({name: 'competitionList', params: {seasonId: 'later', title: '往期'}})"><<往期</div>
             </div>
             <div class="lucky-content-list">
                 <ul class="luckyList">
@@ -35,8 +35,8 @@ export default {
         }
     }),
     mounted() {
-        this.getluckyUserList()
-        const params = this.$route.params
+        this.getluckyUserList();
+        const params = this.$route.params;
         if(Object.keys(params).length > 0) {
             this.lastRouteInfo = {title: params.title, id: params.aid}
         }

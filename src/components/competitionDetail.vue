@@ -18,7 +18,7 @@
         <div class="tip-alert" v-if="tipSataus" @mousewheel="pageScroll">
             <div class="tip-content">
                 <h2 class="tip-title">提示</h2>
-                <span class="tip-info">答完三道题后可以被抽取为幸运用户获得免费参与科普基地。</span>
+                <span class="tip-info">参与答题有机会成为幸运用户，免费游览科普教育基地。距离活动答题结束时间还有{{endTime}}。</span>
                 <button class="tip-confirm" @click="goSignUp">确定</button>
             </div>
         </div>
@@ -28,14 +28,16 @@
                 <h4 class="sginup-title">报名</h4><i @click="closeLogin" class="icon-close"></i>
                 <form class="sginup-form" @submit.prevent="submitForm($event)">
                     <div class="ipt-content">
-                        <label for="phone-ipt">手机号</label>
+                        <input type="text" v-model="user.name" placeholder="请输入姓名" class="sginup-ipt" id="name-ipt" name="name">
+                    </div>
+                    <div class="ipt-content">
                         <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" v-model="user.phone" placeholder="请输入手机号" class="sginup-ipt" id="phone-ipt" name="phone">
                     </div>
                     <div class="ipt-content">
-                        <label for="phone-ipt">姓名</label>
-                        <input type="text" v-model="user.name" placeholder="请输入姓名" class="sginup-ipt" id="name-ipt" name="name">
+                        <input type="number" oninput="if(value.length>6)value=value.slice(0,6)" v-model="user.vfCode" placeholder="请输入验证码" class="sginup-ipt" id="vfcode-ipt" name="vfcode">
+                        <span @click="sendVfcode" class="send-vfcode">{{vfCodeText}}</span>
                     </div>
-                    <span class="error" v-if="errorTip">手机号或姓名输入有误</span>
+                    <span class="error" v-if="errorTip">{{errorTipText}}</span>
                     <button type="submit" class="sgin-commit">提交</button>
                 </form>
             </div>
@@ -47,8 +49,9 @@
 
 import goBack from './goBack';
 import propModel from './propModel';
-import { clearTimeout } from 'timers';
+import { clearTimeout, setTimeout, setInterval, clearInterval } from 'timers';
 //判断登录状态 Vuex
+var vfCount = 60;
 export default {
     data() {
         return {
@@ -59,9 +62,11 @@ export default {
             topType: 4,
             user: {
                 phone: '',
-                name: ''
+                name: '',
+                vfCode: ''
             },
             errorTip: false,
+            errorTipText: '',
             answerStatus: false,
             prop: {
                 status: false,
@@ -69,7 +74,10 @@ export default {
             },
             detailInfo: {},
             partakeInfo: {},
-            tipSataus: false
+            tipSataus: false,
+            vfCodeText: '发送验证码',
+            vfCodeStatus: true,
+            endTime: 0
         }
     },
     components: {
@@ -83,6 +91,7 @@ export default {
         scienceInfo() {
             this.$http.get('/getPsActivities').then( res => {
                 this.detailInfo = res.data.msg;
+                this.endTime = this.formatDate(this.detailInfo.endTime)
                 this.checkActiveAnswer(this.detailInfo.id);
                 document.body.scrollTop=0;
             }).catch( err => {
@@ -121,13 +130,14 @@ export default {
         submitForm(evt) {
             evt.preventDefault();
             let user = this.user, _this = this;
-            if(user.phone.trim() !== '' && /^1(3|4|5|7|8)\d{9}$/.test(user.phone) && user.name.trim() !=='' && /[\u4e00-\u9fa5]/.test(user.name)) {
+            if(user.phone.trim() !== '' && /^1(3|4|5|7|8)\d{9}$/.test(user.phone) && user.name.trim() !=='' && /[\u4e00-\u9fa5]/.test(user.name) && user.vfCode.trim().length > 0) {
                 _this.$http({
                     url: '/login',
                     method: 'post',
                     data: {
                         mobile: user.phone,
-                        userName: user.name
+                        userName: user.name,
+                        codeStr: user.vfCode
                     },
                     transformRequest: [function (data) {//数据发送到服务器之前key,value处理并用‘&’隔开，ps:数组中最后一个函数必须返回一个字符串
                         let ret = ''
@@ -162,6 +172,7 @@ export default {
                 _this.errorTip = true;
                 let timer = setTimeout(() => {
                     _this.errorTip = false;
+                    _this.errorTipText = '手机号或姓名有误';
                     return false;
                 }, 3000);
             }
@@ -176,6 +187,68 @@ export default {
         },
         pageScroll(e) {
             e.preventDefault()
+        },
+        sendVfcode() {
+            const that = this
+            const user = that.user
+            if(that.vfCodeStatus) {
+                if(user.phone.trim() !== '' && /^1(3|4|5|7|8)\d{9}$/.test(user.phone)) {
+                    that.vfCodeStatus = false;
+                    that.$http({
+                        url: '/codeMobile',
+                        method: 'post',
+                        data: {
+                            mobile: user.phone
+                        },
+                        transformRequest: [function (data) {//数据发送到服务器之前key,value处理并用‘&’隔开，ps:数组中最后一个函数必须返回一个字符串
+                            let ret = ''
+                            for (let it in data) {
+                                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+                            }
+                            return ret
+                        }],
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(res => {
+
+                    })
+                    var timer = setInterval(() => {
+                        vfCount--
+                        if(vfCount > 0) {
+                            that.vfCodeText = vfCount + '秒后重新发送'
+                        } else {
+                            clearInterval(timer)
+                            vfCount = 60
+                            that.vfCodeText = '重新发送'
+                            that.vfCodeStatus = true
+                        }
+                    }, 1000)
+                } else {
+                    that.errorTip = true;
+                    let timer = setTimeout(() => {
+                        that.errorTip = false;
+                        that.errorTipText = '手机号格式不对'
+                        return false;
+                    }, 3000);
+                }
+            }
+        },
+        formatDate(seconds) {
+            var timeStr = '';
+            if(seconds) {
+                var nd = new Date().getTime(),
+                    distTime = seconds - nd, dDate = '', dHour = '', dMin ='';
+                dDate = Math.floor(distTime/86400000)
+                distTime -= dDate*86400000;
+                dHour = Math.floor(distTime/3600000);
+                distTime -= dHour*3600000;
+                dMin = Math.floor(distTime/60000);
+                dHour = dHour < 10 ? '0' + dHour : dHour;
+                dMin = dMin < 10 ? '0' + dMin : dMin;
+                timeStr = dDate + '天' + dHour + '时' + dMin + '分';
+            }
+            return timeStr;
         }
     }
 }
@@ -314,7 +387,7 @@ export default {
     .tip-content {
         background-color: #fff;
         color: #4e4e4e;
-        width: 5.7rem;
+        width: 5.6rem;
         height: 3.86rem;
         border-radius: 20px;
         position: absolute;
@@ -334,7 +407,7 @@ export default {
         font-size: .32rem;
         line-height: 1.2;
         display: inline-block;
-        padding: 0 .8rem;
+        padding: 0 1rem;
         text-align: left;
         padding-bottom: .3rem;
     }
@@ -344,7 +417,25 @@ export default {
         border-radius: 5px;
         width: 1.5rem;
         height: .5rem;
+        margin-top: .1rem;
         display: inline-block;
         background-color: #0068b7;
+    }
+    .sginup-form {
+        margin-top: .1rem;
+    }
+    .send-vfcode {
+        border: 0;
+        color: #0068b7;
+        font-size: .22rem;
+        line-height: 1;
+        text-align: center;
+        display: inline-block;
+        background-color: transparent;
+        border-left: 1px solid #3d3d3d;
+        position: absolute;
+        padding: .12rem .28rem;
+        top: .4rem;
+        right: .6rem;
     }
 </style>
