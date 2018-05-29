@@ -37,7 +37,7 @@ import search from './search';
 import propModel from './propModel';
 import { setTimeout, clearTimeout } from 'timers';
 import { debug } from 'util';
-let count = 60
+let count = 60, score = 0
 export default {
     data() {
         return {
@@ -65,6 +65,7 @@ export default {
         count = 60;
         this.answerTime = 60;
         this.getAnswers();
+        score = 0
     },
     methods: {
         getAnswers() {
@@ -135,6 +136,7 @@ export default {
                 data: {
                     answers: anwser,
                     id: _this.anwserObj.id,
+                    score: score,
                     answerTime: answerTime === 0 ? 60 : answerTime
                 },
                 transformRequest: [function (data) {
@@ -213,6 +215,7 @@ export default {
                 }
                 if(answer.toLowerCase() === checkAnswer.toLowerCase()) {
                     allList[index].setAttribute('class', 'confirm-right')
+                    score = score + 1
                 } else {
                     allList[index].setAttribute('class', 'confirm-fault')
                     rightLi.setAttribute('class', 'confirm-right')

@@ -98,7 +98,7 @@ export default {
                 _this.detailInfo = res.data.msg;
                 // debugger
                 if(!(_this.$route.params && _this.$route.params.endTime)) {
-                    _this.endTime = _this.formatDate(th_thisis.detailInfo.endTime)
+                    _this.endTime = _this.formatDate(_this.detailInfo.endTime)
                 }
                 _this.checkActiveAnswer(_this.detailInfo.id);
                 document.body.scrollTop=0;
@@ -107,10 +107,11 @@ export default {
             });
         },
         answer() {
-            debugger
+            // debugger
             if((new Date().getTime() - 60000) > this.detailInfo.endTime) {
                 this.$router.push({name: 'winnerList', params: {title: `第${this.detailInfo.periods}期`, id: this.detailInfo.id}})
             } else {
+                this.endTime = this.formatDate(this.detailInfo.endTime)
                 this.tipSataus = !this.tipSataus
             }
         },

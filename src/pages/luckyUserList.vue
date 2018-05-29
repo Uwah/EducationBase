@@ -101,12 +101,12 @@ export default {
         margin-bottom: -1rem;
     }
     .lucky-head {
-        height: 3.25rem;
+        height: 4.35rem;
         width: 100%;
         font-size: 0;
         position: relative;
         background-image: url(../assets/images/lucky-user-top.png);
-        background-size: cover;
+        background-size: 100% 100%;
     }
     .goHistory {
         margin: .3rem 0 0 .4rem;
@@ -120,14 +120,14 @@ export default {
     .last-phase {
         color: #fff;
         line-height: 1;
-        padding-top: .92rem;
+        padding-top: 1.52rem;
         font-size: .3rem;
     }
     .lucky-content-list {
         font-size: 0;
         background-image: url(../assets/images/lucky-user-bottom.png);
         background-size: cover;
-        padding: 0.82rem .44rem 1rem;
+        padding: 0.82rem .6rem 1rem;
     }
     .luckyList {
         font-size: 0;
@@ -137,7 +137,8 @@ export default {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         border-top: 0;
-        padding: .7rem .24rem 0.1rem;
+        margin-top: 0.2rem;
+        padding: .7rem .1rem 0.1rem;
     }
     .lucky-user {
         font-size: 0;
