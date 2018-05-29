@@ -96,7 +96,15 @@ export default {
                 console.log(res)
                 this.anwserObj = res.data.msg;
                 if(res.data.code == 200) {
-                    
+                    // if(this.anwserObj.endTime - new Date().getTIme() < 61) {
+                        // this.prop.status = true;
+                        // this.prop.text = '距离答题结束时间太近了，你无法参与答题，请关注下场活动';
+                        // this.$http.get(`/addLuckeyUser?aid=${params.id}`).then(res => {})
+                        // setTimeout(() => {
+                        //     this.$router.push({name: 'indexHome'})
+                        //     this.prop.status = false;
+                        // }, 3000);
+                    // }
                     if(this.anwserObj.questions.length > 0) {
                         this.correctObj.total = this.anwserObj.questions.length
                         this.countDown()

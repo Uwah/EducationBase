@@ -135,6 +135,7 @@ export default {
         },
         submitForm(evt) {
             evt.preventDefault();
+            console.log('------------')
             let user = this.user, _this = this;
             if(user.phone.trim() !== '' && /^1(3|4|5|7|8)\d{9}$/.test(user.phone) && user.name.trim() !=='' && /[\u4e00-\u9fa5]/.test(user.name) && user.vfCode.trim().length > 0) {
                 _this.$http({
@@ -157,22 +158,26 @@ export default {
                     }
                 }).then( res => {
                     console.log(res);
-                    // debugger;
+                    debugger;
                     if(res.data.code == 200) {
-                        if(_this.endTime - new Date().getTIme() < 61*1000) {
-                            _this.prop.status = true;
-                            _this.prop.text = '距离答题结束时间太近了，你无法参与答题，请关注下场活动';
-                            _this.$http.get(`/addLuckeyUser?aid=${_this.detailInfo.id}`).then(res => {console.log('end time')})
-                            setTimeout(() => {
-                                _this.$router.push({name: 'indexHome'})
-                                _this.prop.status = false;
-                            }, 3000);
-                        } else {
-                            localStorage.setItem('userId', res.data.msg.id)
-                            _this.signUpStatus = false;
-                            _this.answerStatus = false;
-                            _this.$router.push({name: "answerList", params:{id: _this.detailInfo.id}});
-                        }
+                        // if(_this.detailInfo.endTime - new Date().getTIme() < 61*1000) {
+                        //     _this.prop.status = true;
+                        //     _this.prop.text = '距离答题结束时间太近了，你无法参与答题，请关注下场活动';
+                        //     _this.$http.get(`/addLuckeyUser?aid=${_this.detailInfo.id}`).then(res => {console.log('end time')})
+                        //     setTimeout(() => {
+                        //         _this.$router.push({name: 'indexHome'})
+                        //         _this.prop.status = false;
+                        //     }, 3000);
+                        // } else {
+                        //     localStorage.setItem('userId', res.data.msg.id)
+                        //     _this.signUpStatus = false;
+                        //     _this.answerStatus = false;
+                        //     _this.$router.push({name: "answerList", params:{id: _this.detailInfo.id}});
+                        // }
+                         localStorage.setItem('userId', res.data.msg.id)
+                        _this.signUpStatus = false;
+                        _this.answerStatus = false;
+                        _this.$router.push({name: "answerList", params:{id: _this.detailInfo.id}});
                     } else if(res.data.code == 1) {
                         _this.prop.status = true;
                         _this.signUpStatus = false;
