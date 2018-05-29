@@ -15,7 +15,6 @@
                 </ul>
             </div>
         </div>
-        <!-- flex 弹性盒子贴底 -->
         <div class="lucky-footer">
             <span class="lucky-tip" v-if="luckyList.length > 0">请以上幸运用户在{{luckyList[0].visitTime | formatVisiTime}}前前往{{luckyList[0].jdName}}扫码免费参观</span>
             <span class="copy-right">本活动最终解释权由嘉兴科普教育基地所有</span>
