@@ -66,7 +66,7 @@ export default {
         },
         checkLuckyUsers() {
             if(this.winner.quesstionEndTime > new Date().getTime()) {
-                this.$router.push({path: '/competitionDetail'})
+                this.$router.push({path: '/competitionDetail', params: {endTime: this.winner.quesstionEndTime}})
             } else {
                 this.$router.push({name: 'luckyUsers', params: {aid: this.id, title: this.title}})
             }

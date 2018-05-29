@@ -86,12 +86,18 @@ export default {
     },
     mounted() {
         this.scienceInfo();
+        const params = this.$route.params;
+        if(params && params.endTime) {
+            this.endTime = this.formatDate(params.endTime)
+        }
     },
     methods: {
         scienceInfo() {
             this.$http.get('/getPsActivities').then( res => {
                 this.detailInfo = res.data.msg;
-                this.endTime = this.formatDate(this.detailInfo.endTime)
+                if(!(this.$route.params && this.$route.params.endTime)) {
+                    this.endTime = this.formatDate(this.detailInfo.endTime)
+                }
                 this.checkActiveAnswer(this.detailInfo.id);
                 document.body.scrollTop=0;
             }).catch( err => {
@@ -153,7 +159,7 @@ export default {
                     console.log(res);
                     // debugger;
                     if(res.data.code == 200) {
-                        if(_this.endTime - new Date().getTIme() < 61) {
+                        if(_this.endTime - new Date().getTIme() < 61*1000) {
                             _this.prop.status = true;
                             _this.prop.text = '距离答题结束时间太近了，你无法参与答题，请关注下场活动';
                             _this.$http.get(`/addLuckeyUser?aid=${_this.detailInfo.id}`).then(res => {console.log('end time')})
