@@ -1,4 +1,4 @@
-// import { ExtendedAPIPlugin } from './C:/Users/v_yhhliang/AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/webpack';
+
 
 var path = require('path')
 var vuxLoader = require("vux-loader");
