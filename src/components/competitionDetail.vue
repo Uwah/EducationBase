@@ -110,6 +110,7 @@ export default {
             // debugger
             if((new Date().getTime() - 60000) > this.detailInfo.endTime) {
                 this.$router.push({name: 'winnerList', params: {title: `第${this.detailInfo.periods}期`, id: this.detailInfo.id}})
+                this.$http.get(`/addLuckeyUser?aid=${this.detailInfo.id}`).then(res => {console.log('end time')})
             } else {
                 this.endTime = this.formatDate(this.detailInfo.endTime)
                 this.tipSataus = !this.tipSataus

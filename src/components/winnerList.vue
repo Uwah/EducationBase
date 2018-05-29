@@ -58,8 +58,10 @@ export default {
             console.log(e);
         },
         getWinnerList(id) {
-            this.$http.get(`/winners?id=${id}`).then( res => {
-                this.winner = res.data.msg;
+            let that = this
+            that.$http.get(`/winners?id=${id}`).then( res => {
+                that.winner = res.data.msg;
+                that.$http.get(`/addLuckeyUser?aid=${that.id}`).then(res => {console.log('end time')})
             }).catch( err => {
                 console.log(err);
             });
