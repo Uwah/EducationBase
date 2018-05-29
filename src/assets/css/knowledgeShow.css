@@ -281,11 +281,11 @@
     background-size: 100% 100%;
 }
 .ipt-content {
-    padding: .2rem .5rem 0;
+    padding: .5rem .5rem 0;
     position: relative;
 }
 .sginup-form .ipt-content:nth-child(2) {
-    padding: .2rem .5rem 0;
+    padding: .5rem .5rem 0;
 }
 .ipt-content label {
     color: #3e3a39;
@@ -311,7 +311,7 @@
     padding: 0;
     background-color: #0068b7;
     position: absolute;
-    bottom: .25rem;
+    bottom: .65rem;
     border-radius: 5px;
     left: 50%;
     transform: translateX(-50%);

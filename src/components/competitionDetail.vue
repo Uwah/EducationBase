@@ -33,10 +33,10 @@
                     <div class="ipt-content">
                         <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" v-model="user.phone" placeholder="请输入手机号" class="sginup-ipt" id="phone-ipt" name="phone">
                     </div>
-                    <div class="ipt-content">
+                    <!-- <div class="ipt-content">
                         <input type="text" oninput="if(value.length>6)value=value.slice(0,6)" v-model="user.vfCode" placeholder="请输入验证码" class="sginup-ipt" id="vfcode-ipt" name="vfcode">
                         <span @click="sendVfcode" class="send-vfcode">{{vfCodeText}}</span>
-                    </div>
+                    </div> -->
                     <span class="error" v-if="errorTip">{{errorTipText}}</span>
                     <button type="submit" class="sgin-commit">提交</button>
                 </form>
@@ -93,19 +93,26 @@ export default {
     },
     methods: {
         scienceInfo() {
-            this.$http.get('/getPsActivities').then( res => {
-                this.detailInfo = res.data.msg;
-                if(!(this.$route.params && this.$route.params.endTime)) {
-                    this.endTime = this.formatDate(this.detailInfo.endTime)
+            const _this = this
+            _this.$http.get('/getPsActivities').then( res => {
+                _this.detailInfo = res.data.msg;
+                // debugger
+                if(!(_this.$route.params && _this.$route.params.endTime)) {
+                    _this.endTime = _this.formatDate(th_thisis.detailInfo.endTime)
                 }
-                this.checkActiveAnswer(this.detailInfo.id);
+                _this.checkActiveAnswer(_this.detailInfo.id);
                 document.body.scrollTop=0;
             }).catch( err => {
                 console.log(err, 'getPsActivities')
             });
         },
         answer() {
-            this.tipSataus = !this.tipSataus
+            debugger
+            if((new Date().getTime() - 60000) > this.detailInfo.endTime) {
+                this.$router.push({name: 'winnerList', params: {title: `第${this.detailInfo.periods}期`, id: this.detailInfo.id}})
+            } else {
+                this.tipSataus = !this.tipSataus
+            }
         },
         goSignUp(e) {
             //根据getPsActivities 返回id用knowledgeCompetition查当前按钮点击情况
@@ -137,14 +144,14 @@ export default {
             evt.preventDefault();
             console.log('------------')
             let user = this.user, _this = this;
-            if(user.phone.trim() !== '' && /^1(3|4|5|7|8)\d{9}$/.test(user.phone) && user.name.trim() !=='' && /[\u4e00-\u9fa5]/.test(user.name) && user.vfCode.trim().length > 0) {
+            if(user.phone.trim() !== '' && /^1(3|4|5|7|8)\d{9}$/.test(user.phone) && user.name.trim() !=='' && /[\u4e00-\u9fa5]/.test(user.name)) {
                 _this.$http({
                     url: '/login',
                     method: 'post',
                     data: {
                         mobile: user.phone,
-                        userName: user.name,
-                        codeStr: user.vfCode
+                        userName: user.name
+                        // codeStr: user.vfCode
                     },
                     transformRequest: [function (data) {//数据发送到服务器之前key,value处理并用‘&’隔开，ps:数组中最后一个函数必须返回一个字符串
                         let ret = ''
@@ -160,24 +167,20 @@ export default {
                     console.log(res);
                     debugger;
                     if(res.data.code == 200) {
-                        // if(_this.detailInfo.endTime - new Date().getTIme() < 61*1000) {
-                        //     _this.prop.status = true;
-                        //     _this.prop.text = '距离答题结束时间太近了，你无法参与答题，请关注下场活动';
-                        //     _this.$http.get(`/addLuckeyUser?aid=${_this.detailInfo.id}`).then(res => {console.log('end time')})
-                        //     setTimeout(() => {
-                        //         _this.$router.push({name: 'indexHome'})
-                        //         _this.prop.status = false;
-                        //     }, 3000);
-                        // } else {
-                        //     localStorage.setItem('userId', res.data.msg.id)
-                        //     _this.signUpStatus = false;
-                        //     _this.answerStatus = false;
-                        //     _this.$router.push({name: "answerList", params:{id: _this.detailInfo.id}});
-                        // }
-                         localStorage.setItem('userId', res.data.msg.id)
-                        _this.signUpStatus = false;
-                        _this.answerStatus = false;
-                        _this.$router.push({name: "answerList", params:{id: _this.detailInfo.id}});
+                        if(_this.detailInfo.endTime - new Date().getTime() < 61*1000) {
+                            _this.prop.status = true;
+                            _this.prop.text = '距离答题结束时间太近了，你无法参与答题，请关注下场活动';
+                            _this.$http.get(`/addLuckeyUser?aid=${_this.detailInfo.id}`).then(res => {console.log('end time')})
+                            setTimeout(() => {
+                                _this.$router.push({name: 'indexHome'})
+                                _this.prop.status = false;
+                            }, 3000);
+                        } else {
+                            localStorage.setItem('userId', res.data.msg.id)
+                            _this.signUpStatus = false;
+                            _this.answerStatus = false;
+                            _this.$router.push({name: "answerList", params:{id: _this.detailInfo.id}});
+                        }
                     } else if(res.data.code == 1) {
                         _this.prop.status = true;
                         _this.signUpStatus = false;
@@ -265,9 +268,18 @@ export default {
                 dHour = Math.floor(distTime/3600000);
                 distTime -= dHour*3600000;
                 dMin = Math.floor(distTime/60000);
+                dDate = dDate < 10 ? '0' + dDate : dDate;
                 dHour = dHour < 10 ? '0' + dHour : dHour;
                 dMin = dMin < 10 ? '0' + dMin : dMin;
-                timeStr = dDate + '天' + dHour + '时' + dMin + '分';
+                if (parseInt(dDate) > 0) {
+                    timeStr += dDate + '天';
+                }
+                if(parseInt(dHour) > 0) {
+                    timeStr += dHour + '时';
+                }
+                if(parseInt(dMin) > 0) {
+                    timeStr += dMin + '分';
+                }
             }
             return timeStr;
         }
