@@ -126,8 +126,8 @@ export default {
     .lucky-content-list {
         font-size: 0;
         background-image: url(../assets/images/lucky-user-bottom.png);
-        background-size: cover;
-        padding: 0.82rem .6rem 1rem;
+        background-size: 100% 100%;
+        padding: 0.82rem .48rem 1rem;
     }
     .luckyList {
         font-size: 0;
@@ -137,7 +137,7 @@ export default {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         border-top: 0;
-        margin-top: 0.2rem;
+        margin-top: 0.42rem;
         padding: .7rem .1rem 0.1rem;
     }
     .lucky-user {
@@ -180,6 +180,7 @@ export default {
         display: inline-block;
         width: 100%;
         text-align: center;
+        padding-bottom: .1rem;
         color: #155996;
     }
 </style>
