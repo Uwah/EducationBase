@@ -13,6 +13,7 @@ const routes = [
 
     {path: '/baseMap', component: resolve => require(['../pages/locationMap'], resolve), name: 'baseMap'},
     {path: '/luckyUsers', component: resolve => require(['../pages/luckyUserList'], resolve), name: 'luckyUsers'},
+    {path: '/luckyDraw', component: resolve => require(['../pages/luckyDraw'], resolve), name: 'luckyDraw'},
 
     {path:'/articleDetail', component: resolve => require(['../components/contentDetail'], resolve), name:"articleDetail"},
     {path:'/competitionList', component: resolve => require(['../components/competitionList'], resolve), name:"competitionList"},
