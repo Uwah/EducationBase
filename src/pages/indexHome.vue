@@ -127,6 +127,17 @@ export default {
     },
     mounted() {
         console.log('test deploy')
+        if(location.search === "") {
+            location.replace('https://jxast.net/getWechatToken')
+        } else {
+            // alert(localStorage.getItem('openId'))
+            if(!localStorage.getItem('openId')) {
+                var str = location.search.substr(1).split("&")[0];
+                // alert(str.split('=')[1])
+                localStorage.setItem('openId', str.split('=')[1])
+            }
+        }
+        
         let _this = this;
         _this.$http.get('/index').then(res => {
             _this.indexData = res.data.msg;
@@ -178,6 +189,8 @@ export default {
                 
             }, 100);
             document.body.scrollTop=0;
+            //调取授权
+            // location.replace('/getWechatToken?sourceurl=' + encodeURIComponent(location.href))
         }).catch(err => {
             console.error(err);
         });
@@ -198,9 +211,11 @@ export default {
         qrcode.clear();
         qrcode.makeCode(`${window.location.origin}/competitionDetail`);
         //调取授权
-        _this.$http.get('/getWechatToken').then( res => {
-            console.log(res)
+        _this.$http.get('/getWechatToken?sourceurl=' + encodeURIComponent(location.href)).then( res => {
+            // console.log(res)
+            // alert(res)
         })
+        
     },
     methods: {
         knowledgeCheck(e) {
