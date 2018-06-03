@@ -126,7 +126,7 @@ export default {
         }
     },
     mounted() {
-        
+        console.log('test deploy')
         let _this = this;
         _this.$http.get('/index').then(res => {
             _this.indexData = res.data.msg;
@@ -197,6 +197,10 @@ export default {
         // 使用 API
         qrcode.clear();
         qrcode.makeCode(`${window.location.origin}/competitionDetail`);
+        //调取授权
+        _this.$http.get('/getWechatToken').then( res => {
+            console.log(res)
+        })
     },
     methods: {
         knowledgeCheck(e) {
