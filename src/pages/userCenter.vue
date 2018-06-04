@@ -14,7 +14,7 @@
         <div class="user-info-list">
             <div class="user-info-item">
                 <span class="item-name">真实姓名</span>
-                <span class="item-val user-real-name">小美</span>
+                <span class="item-val user-real-name" @click="updateOtherInfo('userName', '小美')">小美</span>
             </div>
             <div class="user-info-item">
                 <span class="item-name">性别</span>
@@ -22,7 +22,7 @@
             </div>
             <div class="user-info-item">
                 <span class="item-name">手机号</span>
-                <span class="item-val user-phone">13412345678</span>
+                <span class="item-val user-phone" @click="updateOtherInfo('mobile', '13412345678')">13412345678</span>
             </div>
             <div class="user-info-item">
                 <span class="item-name">所在区域</span>
@@ -96,20 +96,38 @@
                 </div>
             </div>
         </div>
+        <div class="update-other" v-if="otherStatus">
+            <div class="update-other-content">
+                <label for="uoid">{{info.typeName}}：</label><input type="text" id="uoid" v-model="info.val">
+                <div class="uo-btns">
+                    <button class="uo-confirm" @click="confirmUpdate">确定</button>
+                    <button class="uo-cancel" @click="otherStatus = !otherStatus">取消</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
 import goBack from '../components/goBack';
 //个人中心
+const qs = require('qs')
+// oJXIhwDq3zLUfbt30A29RLwBoTPs
 export default {
   name: 'userCenter',
   data: () => ({
       areaStatus: false,
       activePopStatus: false,
+      otherStatus: false,
+      info: {
+          typeName: '姓名',
+          type: 'userName',
+          val: ''
+      },
       arealist:[]
   }),
   mounted() {
       this.getAreaList()
+      this.getUserInfo()
   },
   methods: {
     async getAreaList() {
@@ -117,12 +135,51 @@ export default {
         const { data } = await that.$http.get('/searchType?searchType=1')
         that.arealist = data.msg
     },
+    async getUserInfo() {
+        const that = this
+        // that.$http({
+        //     url: '/queryUserInfo',
+        //     method: 'post',
+        //     data: JSON.parse(JSON.stringify({wechatId: 'oJXIhwDq3zLUfbt30A29RLwBoTPs'})),
+        //     headers: {
+        //         'Content-Type': 'application/x-www-form-urlencoded'
+        //     },
+        //     transformRequest: [function (data) {
+        //         let ret = ''
+        //         for (let it in data) {
+        //         ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+        //         }
+        //         return ret
+        //     }]
+        //     }).then(res => {
+        //         console.log(res)
+        //     })
+        const { data } = await that.$http.post('/queryUserInfo', qs.stringify({
+                wechatId: 'oJXIhwDq3zLUfbt30A29RLwBoTPs'
+                }),{
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+        console.log(data)
+    },
     checkArea(area) {
         console.log(area)
         this.areaStatus = false
     },
-    closePop() {
-
+    updateOtherInfo(type, val) {
+        this.otherStatus = !this.otherStatus
+        this.info = {
+            type: type,
+            typeName: type === 'userName'?'姓名':'手机号',
+            val: val
+        }
+        console.log(type)
+    },
+    confirmUpdate() {
+        console.log(1111)
+        console.log(this.info.val)
+        this.otherStatus = !this.otherStatus
     }
   },
   components: {
@@ -212,6 +269,19 @@ export default {
     color: #7c7c7b;
     padding-right: .2rem;
 }
+.user-real-name, .user-phone {
+    padding-right: .3rem;
+}
+.user-real-name:after, .user-phone:after {
+    content: "";
+    width: .16rem;
+    height: .16rem;
+    border-top: 1px solid #4e4e4e;
+    border-right: 1px solid #4e4e4e;
+    position: absolute;
+    transform: rotate(45deg);
+    margin-top: 4px;
+}
 .gray-bar {
     height: .2rem;
     background-color: #f8f8f7;
@@ -279,7 +349,7 @@ export default {
     margin-right: .2rem;
     margin-top: .12rem;
 }
-.user-active-content {
+.user-active-content,.update-other {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -424,5 +494,46 @@ export default {
     padding: 2px;
     top: .18rem;
     position: absolute;
+}
+.update-other-content {
+    background-color: #fff;
+    width: 80%;
+    padding: .5rem .3rem .3rem;
+    font-size: 0;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 4px;
+}
+.update-other-content label {
+    font-size: .32rem;
+    line-height: 1;
+    color: #4e4e4e;
+}
+.update-other-content input {
+    padding: .1rem;
+    font-size: .28rem;
+    width: 72%;
+    color: #4e4e4e;
+    border: 0;
+    border-bottom: 1px solid #4e4e4e;
+}
+.uo-btns {
+    margin-top: .5rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.uo-btns button {
+    border: 0;
+    font-size: .28rem;
+    line-height: 1;
+    padding: .14rem .34rem;
+    border-radius: 4px;
+}
+.uo-confirm {
+    background-color: #39f;
+    color: #fff;
 }
 </style>

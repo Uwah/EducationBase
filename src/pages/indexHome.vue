@@ -137,7 +137,7 @@ export default {
                 localStorage.setItem('openId', str.split('=')[1])
             }
         }
-        
+        // alert(location.search)
         let _this = this;
         _this.$http.get('/index').then(res => {
             _this.indexData = res.data.msg;

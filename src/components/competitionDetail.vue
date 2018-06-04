@@ -167,7 +167,6 @@ export default {
                     }
                 }).then( res => {
                     console.log(res);
-                    debugger;
                     if(res.data.code == 200) {
                         if(_this.detailInfo.endTime - new Date().getTime() < 61*1000) {
                             _this.prop.status = true;
