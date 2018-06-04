@@ -35,16 +35,16 @@
         </div>
         <div class="gray-bar"></div>
         <div class="user-active-info">
-            <div class="active-item">
+            <div class="active-item" @click="activePopStatus = !activePopStatus">
                 <span class="active-name">活动记录</span>
             </div>
-            <div class="active-item">
+            <div class="active-item" @click="activePopStatus = !activePopStatus">
                 <span class="active-name">红包记录</span>
             </div>
         </div>
-        <div class="user-active-content">
+        <div class="user-active-content" v-if="activePopStatus">
             <div class="user-update">
-                <h4 class="update-title">标题</h4>
+                <h4 class="update-title">标题</h4><i @click="activePopStatus = !activePopStatus" class="icon-close"></i>
                 <div class="update-info-head">
                     <div class="update-left">
                         <span class="left-title">现金收益(元)</span>
@@ -105,6 +105,7 @@ export default {
   name: 'userCenter',
   data: () => ({
       areaStatus: false,
+      activePopStatus: false,
       arealist:[]
   }),
   mounted() {
@@ -119,6 +120,9 @@ export default {
     checkArea(area) {
         console.log(area)
         this.areaStatus = false
+    },
+    closePop() {
+
     }
   },
   components: {
@@ -409,5 +413,16 @@ export default {
 }
 .star-active {
     background-image: url('../assets/images/star2.png');
+}
+.icon-close {
+    width: .34rem;
+    display: inline-block;
+    height: .34rem;
+    background-size: 100% 100%;
+    background-image: url(../assets/images/icon-close.png);
+    right: .2rem;
+    padding: 2px;
+    top: .18rem;
+    position: absolute;
 }
 </style>
