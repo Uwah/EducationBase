@@ -15,6 +15,7 @@ const routes = [
     {path: '/luckyUsers', component: resolve => require(['../pages/luckyUserList'], resolve), name: 'luckyUsers'},
     {path: '/luckyDraw', component: resolve => require(['../pages/luckyDraw'], resolve), name: 'luckyDraw'},
     {path: '/userCenter', component: resolve => require(['../pages/userCenter'], resolve), name: 'userCenter'},
+    {path: '/signIn', component: resolve => require(['../pages/signIn'], resolve), name: 'signIn'},
 
     {path:'/articleDetail', component: resolve => require(['../components/contentDetail'], resolve), name:"articleDetail"},
     {path:'/competitionList', component: resolve => require(['../components/competitionList'], resolve), name:"competitionList"},

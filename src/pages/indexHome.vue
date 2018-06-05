@@ -128,7 +128,7 @@ export default {
     mounted() {
         console.log('test deploy')
         if(location.search === "") {
-            location.replace('https://jxast.net/getWechatToken')
+            // location.replace('https://jxast.net/getWechatToken')
         } else {
             // alert(localStorage.getItem('openId'))
             if(!localStorage.getItem('openId')) {

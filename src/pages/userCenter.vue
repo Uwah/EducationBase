@@ -5,28 +5,28 @@
             <!-- <go-back :topType="topType"></go-back> -->
         </div>
         <div class="user-info-head">
-            <img src="" alt="avatar" class="avatar-img">
+            <img :src="user.headimgurl" alt="avatar" class="avatar-img">
             <div class="user-name-info">
-                <span class="user-name">经年</span>
-                <span class="user-wechat-name">微信号：啊啊的十大</span>
+                <!-- <span class="user-name">{{user.nickName}}</span> -->
+                <span class="user-wechat-name">{{user.nickName}}</span>
             </div>
         </div>
         <div class="user-info-list">
             <div class="user-info-item">
                 <span class="item-name">真实姓名</span>
-                <span class="item-val user-real-name" @click="updateOtherInfo('userName', '小美')">小美</span>
+                <span class="item-val user-real-name" @click="updateOtherInfo('userName', user.userName)">{{user.userName}}</span>
             </div>
             <div class="user-info-item">
                 <span class="item-name">性别</span>
-                <span class="item-val user-gender">女</span>
+                <span class="item-val user-gender">{{user.sex == 0 ? '女':'男'}}</span>
             </div>
             <div class="user-info-item">
                 <span class="item-name">手机号</span>
-                <span class="item-val user-phone" @click="updateOtherInfo('mobile', '13412345678')">13412345678</span>
+                <span class="item-val user-phone" @click="updateOtherInfo('mobile', user.mobile)">{{user.mobile}}</span>
             </div>
             <div class="user-info-item">
                 <span class="item-name">所在区域</span>
-                <span class="item-val user-area" @click="areaStatus = !areaStatus">点击设置区域</span>
+                <span class="item-val user-area" @click="areaStatus = !areaStatus">{{user.area == ''?'点击设置区域':user.area}}</span>
             </div>
             <div class="area-list" v-if="areaStatus">
                 <i class="arrow-top"></i>
@@ -99,8 +99,9 @@
         <div class="update-other" v-if="otherStatus">
             <div class="update-other-content">
                 <label for="uoid">{{info.typeName}}：</label><input type="text" id="uoid" v-model="info.val">
+                <span v-if="info.status" class="warn-tip">手机号不正确</span>
                 <div class="uo-btns">
-                    <button class="uo-confirm" @click="confirmUpdate">确定</button>
+                    <button class="uo-confirm" @click="confirmUpdate(info.type)">确定</button>
                     <button class="uo-cancel" @click="otherStatus = !otherStatus">取消</button>
                 </div>
             </div>
@@ -112,6 +113,8 @@ import goBack from '../components/goBack';
 //个人中心
 const qs = require('qs')
 // oJXIhwDq3zLUfbt30A29RLwBoTPs
+//getUserAnswerList活动记录 wechatId
+// 、、updateUser 修改信息 wechatId area 区域   userName 姓名   mobile 手机号
 export default {
   name: 'userCenter',
   data: () => ({
@@ -121,7 +124,18 @@ export default {
       info: {
           typeName: '姓名',
           type: 'userName',
-          val: ''
+          val: '',
+          status: false
+      },
+      user:{
+          headimgurl: '',
+          nickName: '',
+          sex: '1',
+          area: '',
+          mobile: '',
+          name: '',
+          wechatId: '',
+          userName: ''
       },
       arealist:[]
   }),
@@ -137,49 +151,78 @@ export default {
     },
     async getUserInfo() {
         const that = this
-        // that.$http({
-        //     url: '/queryUserInfo',
-        //     method: 'post',
-        //     data: JSON.parse(JSON.stringify({wechatId: 'oJXIhwDq3zLUfbt30A29RLwBoTPs'})),
-        //     headers: {
-        //         'Content-Type': 'application/x-www-form-urlencoded'
-        //     },
-        //     transformRequest: [function (data) {
-        //         let ret = ''
-        //         for (let it in data) {
-        //         ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-        //         }
-        //         return ret
-        //     }]
-        //     }).then(res => {
-        //         console.log(res)
-        //     })
         const { data } = await that.$http.post('/queryUserInfo', qs.stringify({
-                wechatId: 'oJXIhwDq3zLUfbt30A29RLwBoTPs'
-                }),{
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-  })
+                    wechatId: 'oJXlhwDq3zLUfbt30A29RLwBoTPs'
+                }),{ headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+        if(data.code === "200") {
+            ['headimgurl', 'area', 'mobile', 'name', 'nickName', 'sex', 'wechatId', 'userName'].forEach(item => {
+                this.user[item] = data.user[item]
+            })
+        }
         console.log(data)
     },
     checkArea(area) {
         console.log(area)
         this.areaStatus = false
+        this.otherStatus = false
+        this.info.val = area
+        this.user.area = area
+        this.confirmUpdate('area')
     },
     updateOtherInfo(type, val) {
         this.otherStatus = !this.otherStatus
         this.info = {
             type: type,
-            typeName: type === 'userName'?'姓名':'手机号',
-            val: val
+            typeName: type === 'userName'?'姓名':'手机号'
+        }
+        if(type === 'mobile') {
+            if(val) {
+                if( /^1(3|4|5|7|8)\d{9}$/.test(val)) {
+                    this.info.val = val
+                } else {
+                    this.info.status = true
+                }
+            }
+        } else {
+            this.info.status = false
         }
         console.log(type)
     },
-    confirmUpdate() {
-        console.log(1111)
-        console.log(this.info.val)
-        this.otherStatus = !this.otherStatus
+    confirmUpdate(type) {
+        if(this.info.status === true) {
+            return
+        } else {
+            this.otherStatus = !this.otherStatus
+            this.user[type] = this.info.val
+            // 请求代码仍需优化
+            
+            if(type === 'userName') {
+                this.$http.post('/updateUser', qs.stringify({
+                    userName : this.info.val,
+                    wechatId: this.user.wechatId
+                    }),{ headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
+                }).then( res => {
+                    console.log(res)
+                })
+            } else if(type === 'mobile') {
+                this.$http.post('/updateUser', qs.stringify({
+                    mobile : this.info.val,
+                    wechatId: this.user.wechatId
+                    }),{ headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
+                }).then( res => {
+                    console.log(res)
+                })
+            } else {
+                this.$http.post('/updateUser', qs.stringify({
+                    area : this.info.val,
+                    wechatId: this.user.wechatId
+                    }),{ headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
+                }).then( res => {
+                    console.log(res)
+                })
+            }
+        }
     }
   },
   components: {
@@ -240,7 +283,7 @@ export default {
 }
 .user-wechat-name {
     font-size: .32rem;
-    padding-top: .2rem;
+    padding-top: 1rem;
 }
 .user-info-list {
     padding-top: .6rem;
@@ -394,6 +437,13 @@ export default {
     font-size: .46rem;
     color: #ee2521;
     padding-top: .1rem;
+}
+.warn-tip {
+    font-size: .24rem;
+    line-height: 1;
+    color: #ee2521;
+    display: inline-block;
+    padding-top: .2rem;
 }
 .update-right {
     flex: 1;
