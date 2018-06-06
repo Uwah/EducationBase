@@ -48,19 +48,31 @@
                 <div class="update-info-head">
                     <div class="update-left">
                         <span class="left-title">现金收益(元)</span>
-                        <span class="left-title">3.8</span>
+                        <span class="left-title">0</span>
                     </div>
                     <div class="update-right">
-                        <span class="update-right-text">共参加1次活动</span>
-                        <span class="update-right-text">共抽奖1次</span>
-                        <span class="update-right-text">共抽到幸运用户1次</span>
+                        <span class="update-right-text">共参加{{activeList.length}}次活动</span>
+                        <!-- <span class="update-right-text">共抽奖1次</span> -->
+                        <span class="update-right-text">共抽到幸运用户0次</span>
                     </div>
                 </div>
                 <div class="gray-bar-active"></div>
                 <div class="active-list">
                     <h4>橙色五星代表幸运用户，实心则代表到达现场签到。</h4>
-                    <ul class="active-list-info">
-                        <li class="list-info-item">
+                    <ul class="active-list-info" v-if="activeList.length > 0">
+                        <li class="list-info-item" v-for="(item, i) in activeList" :key="i">
+                            <!-- 后台数据暂未定 -->
+                            <!-- <div class="list-count">
+                                <span class="count">1</span>
+                                <span class="active-date">2018-05-05</span>
+                            </div>
+                            <div class="list-active-info">
+                                <span class="active-count-name">第1期<span>梅花洲科普</span></span>
+                                <span class="active-redbag">抽到现金红包0.5元</span>
+                                <i class="lucyk-star"></i>
+                            </div> -->
+                        </li>
+                        <!-- <li class="list-info-item">
                             <div class="list-count">
                                 <span class="count">1</span>
                                 <span class="active-date">2018-05-05</span>
@@ -91,8 +103,9 @@
                                 <span class="active-count-name">第1期<span>梅花洲科普</span></span>
                                 <span class="active-redbag">抽到现金红包0.5元</span>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
+                    <div v-else>暂无数据</div>
                 </div>
             </div>
         </div>
@@ -137,6 +150,7 @@ export default {
           wechatId: '',
           userName: ''
       },
+      activeList: [],
       arealist:[]
   }),
   mounted() {
