@@ -77,6 +77,12 @@ ul {
 .konw-active {
     background-image: url(../images/konw-active.png);
 }
+.user-icon {
+    background-image: url(../images/user_1.png);
+}
+.user-icon-active {
+    background-image: url(../images/user.png);
+}
 .footer-item>p {
     color: #929292;
     padding-top: .14rem;

@@ -22,13 +22,13 @@
                 <i class="base-small-icon"></i>
                 <p class="small-icon-text">基地导航</p>
             </div>
-            <div class="base-item" @click="$router.push({path: '/knowledgeShow'})">
-                <i class="base-small-icon"></i>
-                <p class="small-icon-text">科普活动</p>
-            </div>
             <div class="base-item" @click="$router.push({path: '/competitionDetail'})">
                 <i class="base-small-icon"></i>
                 <p class="small-icon-text">知识竞赛</p>
+            </div>
+            <div class="base-item" @click="$router.push({path: '/knowledgeShow'})">
+                <i class="base-small-icon"></i>
+                <p class="small-icon-text">科普活动</p>
             </div>
         </div>
         <div class="base-survey">
@@ -127,14 +127,35 @@ export default {
     },
     mounted() {
         console.log('test deploy')
-        if(location.search === "") {
-            // location.replace('https://jxast.net/getWechatToken')
+        if(location.search.length === 0 && localStorage.getItem('openId') === null) {
+            // location.replace('https://jxast.net/getWechatToken')//调取授权
         } else {
             // alert(localStorage.getItem('openId'))
-            if(!localStorage.getItem('openId')) {
-                var str = location.search.substr(1).split("&")[0];
-                // alert(str.split('=')[1])
-                localStorage.setItem('openId', str.split('=')[1])
+            if(localStorage.getItem('openId') === null) {
+                var info = location.search;
+                if(info.length > 0) {
+                    info =info.substring(1);
+                    var result = info.split("&");
+                    var key,value;
+                    var data = {};
+                    for(var i=0;i<result.length;i++){
+                        var result2 = result[i].split("=");
+                        key = result2[0];
+                        value = result2[1];
+                        data[key] = value;
+                    }
+                    // return data
+                    //防止出错两个都判断
+                    if(data['wechatId']) {
+                        localStorage.setItem('openId', data['wechatId'])
+                    } else if(data['openId']){
+                        localStorage.setItem('openId', data['openId'])
+                    }
+                    
+                }
+                // var str = location.search.substr(1).split("&")[0];
+                // // alert(str.split('=')[1])
+                // localStorage.setItem('openId', str.split('=')[1])
             }
         }
         // alert(location.search)
@@ -189,8 +210,6 @@ export default {
                 
             }, 100);
             document.body.scrollTop=0;
-            //调取授权
-            // location.replace('/getWechatToken?sourceurl=' + encodeURIComponent(location.href))
         }).catch(err => {
             console.error(err);
         });
@@ -210,11 +229,6 @@ export default {
         // 使用 API
         qrcode.clear();
         qrcode.makeCode(`${window.location.origin}/competitionDetail`);
-        //调取授权
-        _this.$http.get('/getWechatToken?sourceurl=' + encodeURIComponent(location.href)).then( res => {
-            // console.log(res)
-            // alert(res)
-        })
         
     },
     methods: {

@@ -15,6 +15,9 @@ export default {
     sciencestate:({commit}) => {
     	commit(types['SCIENCESTATE']);
     },
+    userstate:({commit}) => {
+    	commit('userActive');
+    },
     knowstate:({commit}) => {
     	commit(types['KNOWSTATE']);
     },

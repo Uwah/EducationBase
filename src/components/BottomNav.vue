@@ -13,13 +13,13 @@
                 <i :class="[icon,navActive?'location-active':'location']"></i>
                 <p :class="[navActive?'active':'']">基地导航</p>
             </router-link>
-            <router-link to="/knowledgeShow" class="footer-item">
-                <i :class="[icon,knowActive?'kepuhuodong-active':'kepuhuodong']"></i>
-                <p :class="[knowActive?'active':'']">科普活动</p>
-            </router-link>
             <router-link to="/competitionDetail" class="footer-item">
                 <i :class="[icon,scienceActive?'konw-active':'konw']"></i>
                 <p :class="[scienceActive?'active':'']">知识竞赛</p>
+            </router-link>
+            <router-link to="/userCenter" class="footer-item">
+                <i :class="[icon,userActive?'user-icon-active':'user-icon']"></i>
+                <p :class="[userActive?'active':'']">个人中心</p>
             </router-link>
         </div>
     </footer>
@@ -35,7 +35,7 @@ export default {
     },
     mounted(){
     },
-    computed:mapGetters(['homeActive', 'baseActive', 'navActive', 'scienceActive', 'knowActive'])
+    computed:mapGetters(['homeActive', 'baseActive', 'navActive', 'scienceActive', 'knowActive', 'userActive'])
 }
 </script>
 

@@ -24,9 +24,9 @@
                 <span class="item-name">手机号</span>
                 <span class="item-val user-phone" @click="updateOtherInfo('mobile', user.mobile)">{{user.mobile}}</span>
             </div>
-            <div class="user-info-item">
+            <div class="user-info-item" @click="areaStatus = !areaStatus">
                 <span class="item-name">所在区域</span>
-                <span class="item-val user-area" @click="areaStatus = !areaStatus">{{user.area == ''?'点击设置区域':user.area}}</span>
+                <span class="item-val user-area" >{{user.area == null?'点击设置区域':user.area}}</span>
             </div>
             <div class="area-list" v-if="areaStatus">
                 <i class="arrow-top"></i>
@@ -35,12 +35,12 @@
         </div>
         <div class="gray-bar"></div>
         <div class="user-active-info">
-            <div class="active-item" @click="activePopStatus = !activePopStatus">
+            <div class="active-item" @click="activeRecord">
                 <span class="active-name">活动记录</span>
             </div>
-            <div class="active-item" @click="activePopStatus = !activePopStatus">
+            <!-- <div class="active-item" @click="activePopStatus = !activePopStatus">
                 <span class="active-name">红包记录</span>
-            </div>
+            </div> -->
         </div>
         <div class="user-active-content" v-if="activePopStatus">
             <div class="user-update">
@@ -112,7 +112,7 @@
 import goBack from '../components/goBack';
 //个人中心
 const qs = require('qs')
-// oJXIhwDq3zLUfbt30A29RLwBoTPs
+// oJXlhwDq3zLUfbt30A29RLwBoTPs
 //getUserAnswerList活动记录 wechatId
 // 、、updateUser 修改信息 wechatId area 区域   userName 姓名   mobile 手机号
 export default {
@@ -152,7 +152,7 @@ export default {
     async getUserInfo() {
         const that = this
         const { data } = await that.$http.post('/queryUserInfo', qs.stringify({
-                    wechatId: 'oJXlhwDq3zLUfbt30A29RLwBoTPs'
+                    wechatId: localStorage.getItem('openId')
                 }),{ headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
             })
         if(data.code === "200") {
@@ -168,7 +168,13 @@ export default {
         this.otherStatus = false
         this.info.val = area
         this.user.area = area
-        this.confirmUpdate('area')
+        this.$http.post('/updateUser', qs.stringify({
+            area : area,
+            wechatId: this.user.wechatId
+            }),{ headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then( res => {
+            console.log(res)
+        })
     },
     updateOtherInfo(type, val) {
         this.otherStatus = !this.otherStatus
@@ -213,16 +219,15 @@ export default {
                 }).then( res => {
                     console.log(res)
                 })
-            } else {
-                this.$http.post('/updateUser', qs.stringify({
-                    area : this.info.val,
-                    wechatId: this.user.wechatId
-                    }),{ headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
-                }).then( res => {
-                    console.log(res)
-                })
             }
         }
+    },
+    async activeRecord() {
+        const { data } = await this.$http.post('/getUserAnswerList', qs.stringify({
+            wechatId: this.user.wechatId
+            }),{ headers: { 'Content-Type': 'application/x-www-form-urlencoded'}})
+        console.log(data)    
+
     }
   },
   components: {
@@ -235,6 +240,7 @@ export default {
     overflow: hidden;
     font-size: 0;
     line-height: 1;
+    min-height: 600px;
     position: relative;
 }
 .user-top {

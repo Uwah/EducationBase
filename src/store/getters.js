@@ -14,6 +14,9 @@ export default {
     knowActive:state => {
     	return state.knowStatus;
     },
+    userActive:state => {
+        return state.userStatus;
+    },
     isShowHead:state => {
     	return state.isShowHead;
     },

@@ -1,55 +1,113 @@
 <template>
-   <div class="sign-content">
-       <div class="sign-qrcode"></div>
+   <div :class="['sign-content', qrcodeStatus?'sign-bg':'']">
+       <img src="../assets/images/signQRcode.png" v-if="qrcodeStatus" class="sign-qrcode" />
        <div class="sign-result">
-           <div class="sign-success" >
-                <img src="" class="sign-img wechat-avatar" alt="">
-                <span class="wechat-name">xxx</span>
+           <div class="sign-success" v-if="signStatus == 'success'">
+                <img :src="user.headimgurl" class="sign-img wechat-avatar" alt="">
+                <span class="wechat-name">{{user.nickName}}</span>
                 <span class="sign-success-text">恭喜您，验证成功</span>
-                <button class="sign-btn" @click="$router.push({name: 'indexHome'})">确定</button>
+                <button class="sign-btn" @click="indexHome">确定</button>
            </div>
-           <div class="sign-fail" >
+           <div class="sign-fail" v-if="signStatus == 'failed'">
                <img src="../assets/images/sign-fail.jpg" class="sign-img" alt="">
                <span class="sign-fail-tip">验证失败</span>
                <span class="sign-fail-text">您可能不是幸运用户</span>
-               <a href="/indexHome" class="back">返回</a>
+               <a href="javascript:;" @click="indexHome" class="back">返回</a>
            </div>
        </div>
    </div> 
 </template>
 <script>
+const qs = require('qs')
 export default {
     name: 'signIn',
     data() {
         return {
             qrcodeStatus: true,
-            signStatus: false
+            signStatus: '',
+            user: {
+                nickName: '',
+                headimgurl: ''
+            }
         }
     },
-
+    mounted() {
+        const search = this.searchHandle()
+        if(Object.prototype.toString.call(search) === '[object Object]') {
+            if(search.status === 'success') {
+                this.getUserInfo(search.wechatId)
+            }
+            this.signStatus = search.status
+            this.qrcodeStatus = false
+        }
+        
+    },
+    methods: {
+        indexHome() {
+            location.replace('http://localhost:8083')
+        },
+        async getUserInfo(wechatId) {
+            const that = this
+            const { data } = await that.$http.post('/queryUserInfo', qs.stringify({
+                        wechatId: wechatId
+                    }),{ headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
+                })
+            if(data.code == '200') {
+                ['headimgurl', 'nickName'].forEach(item => {
+                    this.user[item] = data.user[item]
+                })
+            }
+        },
+        searchHandle() {
+            var info = location.search;
+            if(info.length > 0) {
+                info =info.substring(1);
+                var result = info.split("&");
+                var key,value;
+                var data = {};
+                for(var i=0;i<result.length;i++){
+                    var result2 = result[i].split("=");
+                    key = result2[0];
+                    value = result2[1];
+                    data[key] = value;
+                }
+                return data
+            } else {
+                return '';
+            }
+        }
+    }
 }
 </script>
-<style scoped>
+<style>
+#app {
+    margin-bottom: 0;
+    height: 100%;
+}
+#bottomNav {
+    display: none;
+}
 .sign-content {
     font-size: 0;
     line-height: 1;
+    height: 100%;
     overflow: hidden;
     text-align: center;
+}
+.sign-bg {
+    background-image: url('../assets/images/know-bg.png');
+    background-size: 100% 100%;
 }
 .sign-qrcode {
     width: 4rem;
     height: 4rem;
     margin-top: 4rem;
     display: inline-block;
-    display: none;
     background-color: #fcbadd;
 }
 .sign-result {
     font-size: 0;
     text-align: center;
-}
-.sign-success {
-display: none;
 }
 .sign-img {
     width: 3rem;

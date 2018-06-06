@@ -15,6 +15,7 @@ const mutations = {
         state.navStatus = false;
         state.scienceStatus = false;
         state.knowStatus = false;
+        state.userStatus = false;
         state.topType = 1;
     },
     [BASESTATE](state) {
@@ -23,6 +24,7 @@ const mutations = {
         state.navStatus = false;
         state.scienceStatus = false;
         state.knowStatus = false;
+        state.userStatus = false;
         state.topType = 3;
     },
     [NAVSTATE](state) {
@@ -31,6 +33,7 @@ const mutations = {
         state.navStatus = true;
         state.scienceStatus = false;
         state.knowStatus = false;
+        state.userStatus = false;
         state.topType = 2;
     },
     [SCIENCESTATE](state) {
@@ -39,15 +42,25 @@ const mutations = {
         state.navStatus = false;
         state.scienceStatus = true;
         state.knowStatus = false;
+        state.userStatus = false;
+        state.topType = 5;
+    },
+    userActive(state) {
+        state.homeStatus = false;
+        state.baseStatus = false;
+        state.navStatus = false;
+        state.userStatus = true;
+        state.knowStatus = false;
         state.topType = 4;
     },
     [KNOWSTATE](state) {
-        state.homeStatus = false;
+        state.homeStatus = true;
         state.baseStatus = false;
         state.navStatus = false;
         state.scienceStatus = false;
         state.knowStatus = true;
-        state.topType = 5;
+        state.userStatus = false;
+        state.topType = 1;
     },
     headActive(state) {
         state.isShowHead = true;

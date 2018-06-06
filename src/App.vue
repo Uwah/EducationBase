@@ -37,17 +37,20 @@ export default {
             switch(pathname) {
                 case "indexHome":
                     this.$store.dispatch('homestate');
-                break;
+                    break;
                 case "earthBaseProfile":
                 case "articleDetail":
                     this.$store.dispatch("basestate");
-                break;
+                    break;
                 case "baseNavigation":
                     this.$store.dispatch("navstate");
-                break;
+                    break;
                 case "knowledgeShow":
                     this.$store.dispatch("knowstate");
-                break;
+                    break;
+                case "userCenter":
+                    this.$store.dispatch("userstate");
+                    break;
                 case "scienceActive":
                 case "competitionList":
                 case "competitionDetail":
@@ -72,7 +75,8 @@ export default {
                     this.$router.push({name: 'earthBaseProfile'})
                     break;
                 case 4:
-                    this.$router.push({name: 'competitionDetail'})
+                    // this.$router.push({name: 'competitionDetail'})
+                    this.$router.push({name: 'userCenter'})
                     break;
                 case 5:
                     this.$router.push({name: 'knowledgeShow'})
@@ -98,7 +102,7 @@ export default {
                     sName = "knowstate";
                 break;
                 case 4:
-                    sName = "sciencestate";
+                    sName = "userstate";
                 break;
                 default:
                     sName = 'homestate'; //默认进首页
@@ -128,7 +132,7 @@ export default {
             let topType = this.$store.getters.getTopType;
             if(to.name === 'totalSearch') {
                 if(from.name !== 'indexHome' && from.name !== 'earthBaseProfile' && from.name !== 'baseNavigation' 
-                    && from.name !== 'scienceActive' && from.name !== 'knowledgeShow' && from.name !== 'competitionList') {
+                    && from.name !== 'scienceActive' && from.name !== 'userstate' && from.name !== 'knowledgeShow' && from.name !== 'competitionList') {
                     console.log(topType)
                     this.mapNav(topType);
                 } else {
