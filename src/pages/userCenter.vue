@@ -53,7 +53,7 @@
                     <div class="update-right">
                         <span class="update-right-text">共参加{{activeList.length}}次活动</span>
                         <!-- <span class="update-right-text">共抽奖1次</span> -->
-                        <span class="update-right-text">共抽到幸运用户0次</span>
+                        <!-- <span class="update-right-text">共抽到幸运用户0次</span> -->
                     </div>
                 </div>
                 <div class="gray-bar-active"></div>
@@ -62,15 +62,15 @@
                     <ul class="active-list-info" v-if="activeList.length > 0">
                         <li class="list-info-item" v-for="(item, i) in activeList" :key="i">
                             <!-- 后台数据暂未定 -->
-                            <!-- <div class="list-count">
-                                <span class="count">1</span>
-                                <span class="active-date">2018-05-05</span>
+                            <div class="list-count">
+                                <span class="count">{{i + 1}}</span>
+                                <span class="active-date">{{item.userBase.createTime | formatDate}}</span>
                             </div>
                             <div class="list-active-info">
-                                <span class="active-count-name">第1期<span>梅花洲科普</span></span>
-                                <span class="active-redbag">抽到现金红包0.5元</span>
-                                <i class="lucyk-star"></i>
-                            </div> -->
+                                <span class="active-count-name">第{{i+1}}期<span>{{item.userBase.userName}}</span></span>
+                                <!-- <span class="active-redbag">抽到现金红包0.5元</span> -->
+                                <!-- <i class="lucyk-star"></i> -->
+                            </div>
                         </li>
                         <!-- <li class="list-info-item">
                             <div class="list-count">
@@ -243,6 +243,16 @@ export default {
         console.log(data)    
 
     }
+  },
+  filters:{
+      formatDate(seconds) {
+          if(seconds) {
+              const date = new Date(seconds)
+              return date.getFullYear() +'-'+date.getMonth + 1 +'-' + date.getDate()
+          } else {
+              return ''
+          }
+      }
   },
   components: {
       goBack
