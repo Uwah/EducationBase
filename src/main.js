@@ -8,6 +8,7 @@ import router from './router/';
 
 
 //	全局挂载axios，在其他页面使用axios的时候直接this.$http就可以了
+axios.defaults.withCredentials = true 
 Vue.prototype.$http = axios;
 Vue.prototype.HOST = '/';
 new Vue({

@@ -51,9 +51,9 @@
                         <span class="left-title">0</span>
                     </div>
                     <div class="update-right">
-                        <span class="update-right-text">共参加{{activeList.length}}次活动</span>
+                        <span class="update-right-text">共参加{{activeTopInfo.activeTime}}次活动</span>
                         <!-- <span class="update-right-text">共抽奖1次</span> -->
-                        <!-- <span class="update-right-text">共抽到幸运用户0次</span> -->
+                        <span class="update-right-text">共抽到幸运用户{{activeTopInfo.luckyTime}}次</span>
                     </div>
                 </div>
                 <div class="gray-bar-active"></div>
@@ -64,12 +64,14 @@
                             <!-- 后台数据暂未定 -->
                             <div class="list-count">
                                 <span class="count">{{i + 1}}</span>
-                                <span class="active-date">{{item.userBase.createTime | formatDate}}</span>
+                                <span class="active-date">{{item.createAnswerDate | formatDate}}</span>
                             </div>
                             <div class="list-active-info">
-                                <span class="active-count-name">第{{i+1}}期<span>{{item.userBase.userName}}</span></span>
+                                <span class="active-count-name">第{{item.activityNum}}期<span>{{item.activityName}}</span></span>
                                 <!-- <span class="active-redbag">抽到现金红包0.5元</span> -->
-                                <!-- <i class="lucyk-star"></i> -->
+                                <i class="star-active" v-if="item.isluck == 1&&item.signStatus == 1"></i>
+                                <i class="lucky-star" v-else-if="item.isluck == 1&&item.signStatus == 0"></i>
+                                <i class="star-active" v-else-if="item.isluck == 0&&item.signStatus == 1"></i>
                             </div>
                         </li>
                         <!-- <li class="list-info-item">
@@ -80,7 +82,7 @@
                             <div class="list-active-info">
                                 <span class="active-count-name">第1期<span>梅花洲科普</span></span>
                                 <span class="active-redbag">抽到现金红包0.5元</span>
-                                <i class="lucyk-star"></i>
+                                <i class="lucky-star"></i>
                             </div>
                         </li>
                         <li class="list-info-item">
@@ -91,7 +93,7 @@
                             <div class="list-active-info">
                                 <span class="active-count-name">第1期<span>梅花洲科普</span></span>
                                 <span class="active-redbag">抽到现金红包0.5元</span>
-                                <i class="lucyk-star star-active"></i>
+                                <i class="lucky-star star-active"></i>
                             </div>
                         </li>
                         <li class="list-info-item">
@@ -151,6 +153,10 @@ export default {
           userName: ''
       },
       activeList: [],
+      activeTopInfo:{
+          activeTime: 0,
+          luckyTime: 0
+      },
       arealist:[]
   }),
   mounted() {
@@ -237,11 +243,17 @@ export default {
         }
     },
     async activeRecord() {
-        const { data } = await this.$http.post('/getUserAnswerList', qs.stringify({
+        const { data } = await this.$http.post('/queryAnswerList', qs.stringify({
             wechatId: this.user.wechatId
             }),{ headers: { 'Content-Type': 'application/x-www-form-urlencoded'}})
-        console.log(data)    
-
+        console.log(data)
+        // alert(this.user.wechatId)
+        // alert(data.code)
+        if(data.resultData.activityList.length > 0) {
+            this.activeTopInfo.activeTime = data.resultData.activitytime
+            this.activeTopInfo.luckyTime = data.resultData.lucktime
+            this.activeList = data.resultData.activityList
+        }
     }
   },
   filters:{
@@ -553,7 +565,7 @@ export default {
     font-size: .24rem;
     line-height: 1;
 }
-.lucyk-star {
+.lucky-star,.star-active {
     width: .34rem;
     height: .34rem;
     display: inline-block;

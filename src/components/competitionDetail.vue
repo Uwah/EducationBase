@@ -11,7 +11,6 @@
                     <div v-html="detailInfo.indiProfile"></div>
                     <button class="partake" @click="answer">立即参与</button>
                 </div>
-                
             </div>
         </div>
         <!-- 抽奖提示弹框 -->
@@ -33,10 +32,10 @@
                     <div class="ipt-content">
                         <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" v-model="user.phone" placeholder="请输入手机号" class="sginup-ipt" id="phone-ipt" name="phone">
                     </div>
-                    <!-- <div class="ipt-content">
+                    <div class="ipt-content">
                         <input type="text" oninput="if(value.length>6)value=value.slice(0,6)" v-model="user.vfCode" placeholder="请输入验证码" class="sginup-ipt" id="vfcode-ipt" name="vfcode">
                         <span @click="sendVfcode" class="send-vfcode">{{vfCodeText}}</span>
-                    </div> -->
+                    </div>
                     <span class="error" v-if="errorTip">{{errorTipText}}</span>
                     <button type="submit" class="sgin-commit">提交</button>
                 </form>
@@ -50,6 +49,7 @@
 import goBack from './goBack';
 import propModel from './propModel';
 import { clearTimeout, setTimeout, setInterval, clearInterval } from 'timers';
+const qs = require('qs')
 //判断登录状态 Vuex
 var vfCount = 60;
 export default {
@@ -115,6 +115,8 @@ export default {
                 this.endTime = this.formatDate(this.detailInfo.endTime)
                 this.tipSataus = !this.tipSataus
             }
+            // this.endTime = this.formatDate(this.detailInfo.endTime)
+            //     this.tipSataus = !this.tipSataus
         },
         goSignUp(e) {
             //根据getPsActivities 返回id用knowledgeCompetition查当前按钮点击情况
@@ -152,9 +154,10 @@ export default {
                     method: 'post',
                     data: {
                         mobile: user.phone,
-                        userName: user.name
-                        // codeStr: user.vfCode
+                        userName: user.name,
+                        codeStr: user.vfCode
                     },
+                    withCredentials:true,
                     transformRequest: [function (data) {//数据发送到服务器之前key,value处理并用‘&’隔开，ps:数组中最后一个函数必须返回一个字符串
                         let ret = ''
                         for (let it in data) {
@@ -184,9 +187,12 @@ export default {
                         }
                     } else if(res.data.code == 1) {
                         _this.prop.status = true;
+                        _this.errorTip = true;
                         _this.signUpStatus = false;
                         _this.prop.text = res.data.msg;
+                        _this.errorTipText = res.data.msg;
                         setTimeout(() => {
+                            _this.errorTip = false;
                             _this.prop.status = false;
                         }, 3000);   
                     }

@@ -83,7 +83,7 @@ const webpackConfig = {
     proxy: [
         {
             context: ['/index', '/psActivities', '/searchType','/searchJd','/topSeach', '/addLuckeyUser', '/getWechatToken', '/getUserAnswerList',
-            '/winners' ,'/notice', '/getBaseSummary', '/navigation', '/banners', '/login', '/codeMobile', '/updateUser', '/signWechatToken',
+            '/winners' ,'/notice', '/getBaseSummary', '/navigation', '/banners', '/login', '/codeMobile', '/updateUser', '/signWechatToken', '/queryAnswerList',
             '/knowledgeCompetition', '/getIndiProfile', '/addAnswer', '/getPsActivities', '/queryUserInfo','/listLuckeyUser'],
             target: 'https://47.96.147.227',
             changeOrigin: true,

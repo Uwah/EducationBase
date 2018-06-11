@@ -127,10 +127,11 @@ export default {
     },
     mounted() {
         console.log('test deploy')
+        // localStorage.setItem('openId','oJXlhwDq3zLUfbt30A29RLwBoTPs')
         if(location.search.length === 0 && localStorage.getItem('openId') === null) {
-            // location.replace('https://jxast.net/getWechatToken')//调取授权
+            location.replace('https://jxast.net/getWechatToken')//调取授权
         } else {
-            // alert(localStorage.getItem('openId'))
+            // alert(localStorage.getItem('openId')) oJXlhwDq3zLUfbt30A29RLwBoTPs
             if(localStorage.getItem('openId') === null) {
                 var info = location.search;
                 if(info.length > 0) {

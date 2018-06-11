@@ -49,6 +49,7 @@ const mutations = {
         state.homeStatus = false;
         state.baseStatus = false;
         state.navStatus = false;
+        state.scienceStatus = false;
         state.userStatus = true;
         state.knowStatus = false;
         state.topType = 4;
