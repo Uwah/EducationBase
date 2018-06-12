@@ -155,7 +155,8 @@ export default {
                     data: {
                         mobile: user.phone,
                         userName: user.name,
-                        codeStr: user.vfCode
+                        codeStr: user.vfCode,
+                        wechatId: localStorage.getItem('openId')
                     },
                     withCredentials:true,
                     transformRequest: [function (data) {//数据发送到服务器之前key,value处理并用‘&’隔开，ps:数组中最后一个函数必须返回一个字符串
