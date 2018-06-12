@@ -310,14 +310,18 @@ export default {
             if(t) {
                 return t < 10 ? '0'+t : t;
             } else {
-                return "";
+                if(t == 0) {
+                    return "00";
+                } else {
+                    return "";
+                }
+                
             }
         },
         
         formatTime(second) {
             if(second) {
                 let date = new Date(second), dateStr = '';
-                
                 return date.getFullYear() +
                         '.'+this.dealWithTime(date.getMonth()+1) +
                         '.'+this.dealWithTime(date.getDate()) + 
